@@ -1,0 +1,669 @@
+{
+  "requests": [
+    {
+      "id": "profile-short",
+      "group": "short",
+      "seq_id": 11,
+      "submitted_at": 0,
+      "enqueued_at": 0.014378855936229229,
+      "prompt_tokens": 128,
+      "token_times": [
+        0.05109310382977128,
+        0.06160504976287484,
+        0.06793608097359538,
+        0.07416974380612373,
+        0.08040803391486406,
+        0.19566953601315618,
+        0.201886341907084,
+        0.20810685493052006,
+        0.2143595227971673,
+        0.33399216970428824,
+        0.34021717589348555,
+        0.34643183182924986,
+        0.3526382530108094,
+        0.4774277010001242,
+        0.48364916909486055,
+        0.4898999910801649,
+        0.4961181781254709,
+        0.6262341109104455,
+        0.6328580547124147,
+        0.6394477160647511,
+        0.6460432237945497,
+        0.652688873000443,
+        0.6592782591469586,
+        0.6658788798376918,
+        0.6721068997867405,
+        0.6783213717862964,
+        0.6845859587192535,
+        0.6907943789847195,
+        0.6970134461298585,
+        0.7032183678820729,
+        0.7094360967166722,
+        0.7157162129878998
+      ],
+      "output_ids": [
+        7956,
+        11,
+        323,
+        279,
+        4226,
+        374,
+        220,
+        16,
+        15,
+        15,
+        13,
+        576,
+        3491,
+        498,
+        3003,
+        10449,
+        374,
+        264,
+        4285,
+        34784,
+        3491,
+        1380,
+        279,
+        1372,
+        220,
+        16,
+        15,
+        15,
+        374,
+        8177,
+        2878,
+        264
+      ],
+      "finished_at": 0.7157162129878998
+    },
+    {
+      "id": "profile-long",
+      "group": "long",
+      "seq_id": 12,
+      "submitted_at": 0.05,
+      "enqueued_at": 0.05530906515195966,
+      "prompt_tokens": 4096,
+      "token_times": [
+        0.6195728010497987,
+        0.6262341109104455,
+        0.6328580547124147,
+        0.6394477160647511,
+        0.6460432237945497,
+        0.652688873000443,
+        0.6592782591469586,
+        0.6658788798376918
+      ],
+      "output_ids": [
+        72,
+        198,
+        220,
+        16,
+        13,
+        3070,
+        28301,
+        1437
+      ],
+      "finished_at": 0.6658788798376918
+    }
+  ],
+  "steps": [
+    {
+      "scheduled_at": 0.014382856898009777,
+      "schedule_s": 2.5845132768154144e-05,
+      "phase": "prefill",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 128,
+      "prefill_chunks": [
+        128
+      ],
+      "waiting": 0,
+      "running": 1,
+      "kv_used_blocks": 1,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.05109310382977128
+    },
+    {
+      "scheduled_at": 0.05531237507238984,
+      "schedule_s": 1.529185101389885e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 1,
+      "running": 1,
+      "kv_used_blocks": 1,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.06160504976287484
+    },
+    {
+      "scheduled_at": 0.06161413108929992,
+      "schedule_s": 1.463666558265686e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 1,
+      "running": 1,
+      "kv_used_blocks": 1,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.06793608097359538
+    },
+    {
+      "scheduled_at": 0.06794509198516607,
+      "schedule_s": 1.558009535074234e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 1,
+      "running": 1,
+      "kv_used_blocks": 1,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.07416974380612373
+    },
+    {
+      "scheduled_at": 0.07417870871722698,
+      "schedule_s": 1.4302320778369904e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 1,
+      "running": 1,
+      "kv_used_blocks": 1,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.08040803391486406
+    },
+    {
+      "scheduled_at": 0.0804174761287868,
+      "schedule_s": 6.079394370317459e-05,
+      "phase": "prefill",
+      "seq_ids": [
+        12
+      ],
+      "tokens": 1024,
+      "prefill_chunks": [
+        1024
+      ],
+      "waiting": 1,
+      "running": 1,
+      "kv_used_blocks": 17,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.18943298002704978
+    },
+    {
+      "scheduled_at": 0.18944349279627204,
+      "schedule_s": 1.42599456012249e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 1,
+      "running": 1,
+      "kv_used_blocks": 17,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.19566953601315618
+    },
+    {
+      "scheduled_at": 0.19567930977791548,
+      "schedule_s": 1.4210119843482971e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 1,
+      "running": 1,
+      "kv_used_blocks": 17,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.201886341907084
+    },
+    {
+      "scheduled_at": 0.20189592195674777,
+      "schedule_s": 1.3630837202072144e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 1,
+      "running": 1,
+      "kv_used_blocks": 17,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.20810685493052006
+    },
+    {
+      "scheduled_at": 0.20811628177762032,
+      "schedule_s": 1.345435157418251e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 1,
+      "running": 1,
+      "kv_used_blocks": 17,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.2143595227971673
+    },
+    {
+      "scheduled_at": 0.21436988608911633,
+      "schedule_s": 1.3984739780426025e-05,
+      "phase": "prefill",
+      "seq_ids": [
+        12
+      ],
+      "tokens": 1024,
+      "prefill_chunks": [
+        1024
+      ],
+      "waiting": 1,
+      "running": 1,
+      "kv_used_blocks": 17,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.3276981608942151
+    },
+    {
+      "scheduled_at": 0.32770894980058074,
+      "schedule_s": 1.5014316886663437e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 1,
+      "running": 1,
+      "kv_used_blocks": 17,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.33399216970428824
+    },
+    {
+      "scheduled_at": 0.3340027700178325,
+      "schedule_s": 1.4380086213350296e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 1,
+      "running": 1,
+      "kv_used_blocks": 17,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.34021717589348555
+    },
+    {
+      "scheduled_at": 0.34023098088800907,
+      "schedule_s": 1.43381766974926e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 1,
+      "running": 1,
+      "kv_used_blocks": 17,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.34643183182924986
+    },
+    {
+      "scheduled_at": 0.3464416107162833,
+      "schedule_s": 1.407042145729065e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 1,
+      "running": 1,
+      "kv_used_blocks": 17,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.3526382530108094
+    },
+    {
+      "scheduled_at": 0.35264738090336323,
+      "schedule_s": 1.423712819814682e-05,
+      "phase": "prefill",
+      "seq_ids": [
+        12
+      ],
+      "tokens": 1024,
+      "prefill_chunks": [
+        1024
+      ],
+      "waiting": 1,
+      "running": 1,
+      "kv_used_blocks": 17,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.47118525579571724
+    },
+    {
+      "scheduled_at": 0.4711956037208438,
+      "schedule_s": 1.4293007552623749e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 1,
+      "running": 1,
+      "kv_used_blocks": 17,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.4774277010001242
+    },
+    {
+      "scheduled_at": 0.4774378417059779,
+      "schedule_s": 1.5499070286750793e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 1,
+      "running": 1,
+      "kv_used_blocks": 17,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.48364916909486055
+    },
+    {
+      "scheduled_at": 0.4836585051380098,
+      "schedule_s": 1.4434568583965302e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 1,
+      "running": 1,
+      "kv_used_blocks": 17,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.4898999910801649
+    },
+    {
+      "scheduled_at": 0.48990916507318616,
+      "schedule_s": 1.3786833733320236e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 1,
+      "running": 1,
+      "kv_used_blocks": 17,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.4961181781254709
+    },
+    {
+      "scheduled_at": 0.4961329409852624,
+      "schedule_s": 1.429487019777298e-05,
+      "phase": "prefill",
+      "seq_ids": [
+        12
+      ],
+      "tokens": 1024,
+      "prefill_chunks": [
+        1024
+      ],
+      "waiting": 0,
+      "running": 2,
+      "kv_used_blocks": 17,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.6195728010497987
+    },
+    {
+      "scheduled_at": 0.6195837059058249,
+      "schedule_s": 1.9282102584838867e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11,
+        12
+      ],
+      "tokens": 2,
+      "prefill_chunks": [],
+      "waiting": 0,
+      "running": 2,
+      "kv_used_blocks": 18,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.6262341109104455
+    },
+    {
+      "scheduled_at": 0.6262451889924705,
+      "schedule_s": 2.2913794964551926e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11,
+        12
+      ],
+      "tokens": 2,
+      "prefill_chunks": [],
+      "waiting": 0,
+      "running": 2,
+      "kv_used_blocks": 18,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.6328580547124147
+    },
+    {
+      "scheduled_at": 0.6328697949647903,
+      "schedule_s": 1.5702098608016968e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11,
+        12
+      ],
+      "tokens": 2,
+      "prefill_chunks": [],
+      "waiting": 0,
+      "running": 2,
+      "kv_used_blocks": 18,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.6394477160647511
+    },
+    {
+      "scheduled_at": 0.6394624947570264,
+      "schedule_s": 1.564621925354004e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11,
+        12
+      ],
+      "tokens": 2,
+      "prefill_chunks": [],
+      "waiting": 0,
+      "running": 2,
+      "kv_used_blocks": 18,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.6460432237945497
+    },
+    {
+      "scheduled_at": 0.646053718868643,
+      "schedule_s": 1.5086960047483444e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11,
+        12
+      ],
+      "tokens": 2,
+      "prefill_chunks": [],
+      "waiting": 0,
+      "running": 2,
+      "kv_used_blocks": 18,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.652688873000443
+    },
+    {
+      "scheduled_at": 0.6526989629492164,
+      "schedule_s": 1.4704186469316483e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11,
+        12
+      ],
+      "tokens": 2,
+      "prefill_chunks": [],
+      "waiting": 0,
+      "running": 2,
+      "kv_used_blocks": 18,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.6592782591469586
+    },
+    {
+      "scheduled_at": 0.659288773778826,
+      "schedule_s": 1.5852972865104675e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11,
+        12
+      ],
+      "tokens": 2,
+      "prefill_chunks": [],
+      "waiting": 0,
+      "running": 2,
+      "kv_used_blocks": 18,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.6658788798376918
+    },
+    {
+      "scheduled_at": 0.6658900547772646,
+      "schedule_s": 1.327507197856903e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 0,
+      "running": 1,
+      "kv_used_blocks": 1,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.6721068997867405
+    },
+    {
+      "scheduled_at": 0.6721175229176879,
+      "schedule_s": 1.4048069715499878e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 0,
+      "running": 1,
+      "kv_used_blocks": 1,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.6783213717862964
+    },
+    {
+      "scheduled_at": 0.678334650117904,
+      "schedule_s": 1.3906974345445633e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 0,
+      "running": 1,
+      "kv_used_blocks": 1,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.6845859587192535
+    },
+    {
+      "scheduled_at": 0.6845952300354838,
+      "schedule_s": 1.3733748346567154e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 0,
+      "running": 1,
+      "kv_used_blocks": 1,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.6907943789847195
+    },
+    {
+      "scheduled_at": 0.6908042561262846,
+      "schedule_s": 1.4262739568948746e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 0,
+      "running": 1,
+      "kv_used_blocks": 1,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.6970134461298585
+    },
+    {
+      "scheduled_at": 0.6970226131379604,
+      "schedule_s": 1.3147946447134018e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 0,
+      "running": 1,
+      "kv_used_blocks": 1,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.7032183678820729
+    },
+    {
+      "scheduled_at": 0.7032272350043058,
+      "schedule_s": 1.298077404499054e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 0,
+      "running": 1,
+      "kv_used_blocks": 1,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.7094360967166722
+    },
+    {
+      "scheduled_at": 0.7094453307799995,
+      "schedule_s": 1.3933051377534866e-05,
+      "phase": "decode",
+      "seq_ids": [
+        11
+      ],
+      "tokens": 1,
+      "prefill_chunks": [],
+      "waiting": 0,
+      "running": 1,
+      "kv_used_blocks": 1,
+      "kv_total_blocks": 2043,
+      "completed_at": 0.7157162129878998
+    }
+  ]
+}

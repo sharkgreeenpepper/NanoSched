@@ -1,0 +1,51 @@
+{
+  "timestamp_utc": "2026-10-22T03:47:43.983064+00:00",
+  "engine_root": "/data1/fangdongqing/git/NanoSched",
+  "commit": "8ef78142cad54803f77168f946b029dcce70cf98",
+  "git_status": "?? reports/",
+  "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "harness_sha256": "f0af0278d21919320f108035e11318845fe703210858cb3e8e30c393e4b4e3f0",
+  "python": "/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/bin/python",
+  "torch": "2.13.0+cu129",
+  "cuda": "12.9",
+  "packages": {
+    "transformers": "5.17.0",
+    "triton": "3.7.1",
+    "safetensors": "0.8.0",
+    "flash-attn": "2.7.4.post1",
+    "xxhash": "4.0.2"
+  },
+  "gpu": "NVIDIA H20",
+  "cuda_visible_devices": "0",
+  "nvidia_smi_before": "Thu Oct 22 11:47:44 2026       \n+---------------------------------------------------------------------------------------+\n| NVIDIA-SMI 535.161.08             Driver Version: 535.161.08   CUDA Version: 12.9     |\n|-----------------------------------------+----------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |\n|                                         |                      |               MIG M. |\n|=========================================+======================+======================|\n|   0  NVIDIA H20                     On  | 00000000:65:02.0 Off |                    0 |\n| N/A   36C    P0              77W / 500W |      3MiB / 97871MiB |      0%      Default |\n|                                         |                      |             Disabled |\n+-----------------------------------------+----------------------+----------------------+\n|   1  NVIDIA H20                     On  | 00000000:65:03.0 Off |                    0 |\n| N/A   35C    P0              73W / 500W |      0MiB / 97871MiB |      0%      Default |\n|                                         |                      |             Disabled |\n+-----------------------------------------+----------------------+----------------------+\n|   2  NVIDIA H20                     On  | 00000000:67:02.0 Off |                    0 |\n| N/A   31C    P0              71W / 500W |      0MiB / 97871MiB |      0%      Default |\n|                                         |                      |             Disabled |\n+-----------------------------------------+----------------------+----------------------+\n|   3  NVIDIA H20                     On  | 00000000:67:03.0 Off |                    0 |\n| N/A   32C    P0              72W / 500W |      0MiB / 97871MiB |      0%      Default |\n|                                         |                      |             Disabled |\n+-----------------------------------------+----------------------+----------------------+\n|   4  NVIDIA H20                     On  | 00000000:69:02.0 Off |                    0 |\n| N/A   29C    P0              71W / 500W |      0MiB / 97871MiB |      0%      Default |\n|                                         |                      |             Disabled |\n+-----------------------------------------+----------------------+----------------------+\n|   5  NVIDIA H20                     On  | 00000000:69:03.0 Off |                    0 |\n| N/A   32C    P0              72W / 500W |      0MiB / 97871MiB |      0%      Default |\n|                                         |                      |             Disabled |\n+-----------------------------------------+----------------------+----------------------+\n|   6  NVIDIA H20                     On  | 00000000:6B:02.0 Off |                    0 |\n| N/A   33C    P0              72W / 500W |      0MiB / 97871MiB |      0%      Default |\n|                                         |                      |             Disabled |\n+-----------------------------------------+----------------------+----------------------+\n|   7  NVIDIA H20                     On  | 00000000:6B:03.0 Off |                    0 |\n| N/A   29C    P0              71W / 500W |      0MiB / 97871MiB |      0%      Default |\n|                                         |                      |             Disabled |\n+-----------------------------------------+----------------------+----------------------+\n                                                                                         \n+---------------------------------------------------------------------------------------+\n| Processes:                                                                            |\n|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |\n|        ID   ID                                                             Usage      |\n|=======================================================================================|\n|  No running processes found                                                           |\n+---------------------------------------------------------------------------------------+\n",
+  "model": "/data1/fangdongqing/infra/models/Qwen/Qwen2.5-7B-Instruct",
+  "model_config_sha256": "7463bb0ea78315365e6c6b74de4e73bbcc8359dfb0c5a737584e077d42c0b03c",
+  "config": {
+    "enforce_eager": true,
+    "max_model_len": 8192,
+    "max_num_batched_tokens": 1024,
+    "max_num_seqs": 32,
+    "gpu_memory_utilization": 0.45,
+    "tensor_parallel_size": 1,
+    "scheduler_policy": "decode_aware",
+    "max_consecutive_decodes": 4,
+    "prefill_max_wait_ms": 100,
+    "decode_prefill_token_budget": 1024
+  },
+  "seed": 20261022,
+  "temperature": 0.0,
+  "profile": false,
+  "ld_library_path": "/data1/fangdongqing/infra/runtime/cuda-compat-12-9/usr/local/cuda-12.9/compat",
+  "omp_num_threads": "4",
+  "warmup_replays": 1,
+  "initialization_s": 3.995713052805513,
+  "gpu_allocated_bytes": 45332704256,
+  "gpu_reserved_bytes": 45378174976,
+  "peak_gpu_allocated_bytes": 45332704256,
+  "kv_blocks": 2043,
+  "weight_load_report": {
+    "loaded_tensors": 339,
+    "expected_tensors": 339,
+    "missing": []
+  }
+}

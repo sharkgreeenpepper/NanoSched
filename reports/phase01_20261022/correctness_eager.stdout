@@ -1,0 +1,11 @@
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 10730.03it/s]
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/data1/fangdongqing/git/NanoSched/benchmarks/correctness.py", line 72, in <module>
+    main()
+  File "/data1/fangdongqing/git/NanoSched/benchmarks/correctness.py", line 40, in main
+    inputs = torch.tensor([prompt], device="cuda")
+RuntimeError: Could not infer dtype of tokenizers.Encoding

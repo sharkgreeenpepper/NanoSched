@@ -18,6 +18,8 @@ class LLMEngine:
         config_fields = {field.name for field in fields(Config)}
         config_kwargs = {k: v for k, v in kwargs.items() if k in config_fields}
         config = Config(model, **config_kwargs)
+        self.config = config
+        self._closed = False
         Sequence.block_size = config.kvcache_block_size
         self.ps = []
         self.events = []
@@ -35,6 +37,10 @@ class LLMEngine:
         atexit.register(self.exit)
 
     def exit(self):
+        if self._closed:
+            return
+        self._closed = True
+        atexit.unregister(self.exit)
         self.model_runner.call("exit")
         del self.model_runner
         for p in self.ps:
@@ -43,8 +49,13 @@ class LLMEngine:
     def add_request(self, prompt: str | list[int], sampling_params: SamplingParams):
         if isinstance(prompt, str):
             prompt = self.tokenizer.encode(prompt)
+        if not prompt or any(not isinstance(t, int) or not 0 <= t < self.config.hf_config.vocab_size for t in prompt):
+            raise ValueError("Prompt must contain valid, nonempty token IDs")
+        if len(prompt) + sampling_params.max_tokens > self.config.max_model_len:
+            raise ValueError("Prompt plus output exceeds max_model_len")
         seq = Sequence(prompt, sampling_params)
         self.scheduler.add(seq)
+        return seq.seq_id
 
     def step(self):
         seqs, is_prefill = self.scheduler.schedule()
@@ -66,6 +77,8 @@ class LLMEngine:
         pbar = tqdm(total=len(prompts), desc="Generating", dynamic_ncols=True, disable=not use_tqdm)
         if not isinstance(sampling_params, list):
             sampling_params = [sampling_params] * len(prompts)
+        if len(sampling_params) != len(prompts):
+            raise ValueError("Each prompt needs one SamplingParams")
         for prompt, sp in zip(prompts, sampling_params):
             self.add_request(prompt, sp)
         outputs = {}

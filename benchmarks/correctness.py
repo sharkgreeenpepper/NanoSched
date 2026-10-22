@@ -5,6 +5,7 @@ import hashlib
 import json
 from pathlib import Path
 import time
+import importlib.metadata
 
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, GenerationConfig
@@ -31,6 +32,8 @@ def main():
               "temperature": 0, "reference": f"Transformers AutoModelForCausalLM, {args.reference_attention}, greedy",
               "prompt_lengths": list(map(len, prompts)), "prompt_ids": prompts, "max_tokens": 24,
               "cuda_graph": not args.eager, "policy": args.policy}
+    report["torch"] = torch.__version__
+    report["transformers"] = importlib.metadata.version("transformers")
     start = time.perf_counter()
     hf = AutoModelForCausalLM.from_pretrained(args.model, dtype=torch.bfloat16, attn_implementation=args.reference_attention).to("cuda").eval()
     report["reference_initialization_s"] = time.perf_counter()-start
@@ -100,6 +103,7 @@ def main():
     report["numerical_tolerance"] = "relative L2 <= 0.02 and reference top-1 in engine top-5 at every identical history"
     report["numerical_checks_passed"] = all(t["within_tolerance"] for checks in teacher_forced for t in checks)
     report["model_config_sha256"] = hashlib.sha256((Path(args.model)/"config.json").read_bytes()).hexdigest()
+    report["scheduler_snapshot"] = engine.scheduler.snapshot()
     args.output.write_text(json.dumps(report, indent=2, ensure_ascii=False)+"\n")
     engine.exit()
     print(json.dumps({"all_exact": report["all_exact"], "numerical_checks_passed": report["numerical_checks_passed"], "weight_load": report["weight_load"], "output": str(args.output)}))

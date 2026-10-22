@@ -92,3 +92,47 @@ def test_residual_norm_rounds_bf16_sum_before_normalization():
     actual, saved = RMSNorm.add_rms_forward.__wrapped__(norm, x, residual)
     assert torch.equal(saved, rounded)
     assert torch.equal(actual, expected)
+
+
+def test_qwen2_adapter_matches_transformers_fp32(tmp_path, monkeypatch):
+    """Check the complete decoder/loader independently of GPU kernel rounding.
+
+    Only the FlashAttention kernel is replaced by PyTorch dense attention, since
+    FlashAttention requires CUDA. This is explicitly a CPU architecture check.
+    """
+    from transformers import Qwen2ForCausalLM as Reference
+    from nanovllm.models.qwen2 import Qwen2ForCausalLM
+    from nanovllm.layers.attention import Attention
+    from nanovllm.layers.activation import SiluAndMul
+    from nanovllm.layers.layernorm import RMSNorm
+    from nanovllm.layers.rotary_embedding import RotaryEmbedding
+    from nanovllm.utils.context import set_context, reset_context
+    import torch.nn.functional as F
+    for cls, name in [(RMSNorm, "rms_forward"), (RMSNorm, "add_rms_forward"),
+                      (RotaryEmbedding, "forward"), (SiluAndMul, "forward")]:
+        monkeypatch.setattr(cls, name, getattr(cls, name).__wrapped__)
+    def dense_attention(self, q, k, v):
+        k = k.repeat_interleave(self.num_heads//self.num_kv_heads, dim=1)
+        v = v.repeat_interleave(self.num_heads//self.num_kv_heads, dim=1)
+        out = F.scaled_dot_product_attention(q.transpose(0, 1)[None], k.transpose(0, 1)[None],
+                                            v.transpose(0, 1)[None], is_causal=True, scale=self.scale)
+        return out[0].transpose(0, 1)
+    monkeypatch.setattr(Attention, "forward", dense_attention)
+    torch.manual_seed(3)
+    config = Qwen2Config(vocab_size=32, hidden_size=16, intermediate_size=32, num_hidden_layers=2,
+                        num_attention_heads=2, num_key_value_heads=1, max_position_embeddings=64)
+    reference = Reference(config).eval()
+    reference.save_pretrained(tmp_path)
+    with patch("torch.distributed.get_world_size", return_value=1), patch("torch.distributed.get_rank", return_value=0):
+        model = Qwen2ForCausalLM(config).eval()
+    load_model(model, str(tmp_path))
+    tokens = torch.randint(0, 32, (1, 17))
+    with torch.inference_mode():
+        expected = reference(tokens).logits[:, -1]
+        cu = torch.tensor([0, tokens.numel()], dtype=torch.int32)
+        set_context(True, cu_seqlens_q=cu, cu_seqlens_k=cu)
+        try:
+            actual = model.compute_logits(model(tokens[0], torch.arange(tokens.numel())))
+        finally:
+            reset_context()
+    torch.testing.assert_close(actual, expected, rtol=1e-5, atol=1e-6)

@@ -79,3 +79,16 @@ def test_qwen_architecture_distinctions(config_cls, bias, norm):
     assert (attn.qkv_proj.bias is not None) == bias
     assert hasattr(attn, "q_norm") == norm
     assert hasattr(attn, "k_norm") == norm
+
+
+def test_residual_norm_rounds_bf16_sum_before_normalization():
+    from nanovllm.layers.layernorm import RMSNorm
+    torch.manual_seed(0)
+    x = torch.randn(2, 32).bfloat16()
+    residual = torch.randn_like(x)
+    norm = RMSNorm(32).bfloat16()
+    rounded = x+residual
+    expected = (rounded.float()*torch.rsqrt(rounded.float().square().mean(-1, keepdim=True)+norm.eps)).bfloat16()*norm.weight
+    actual, saved = RMSNorm.add_rms_forward.__wrapped__(norm, x, residual)
+    assert torch.equal(saved, rounded)
+    assert torch.equal(actual, expected)

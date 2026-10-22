@@ -13,7 +13,7 @@ class RMSNorm(nn.Module):
         self.eps = eps
         self.weight = nn.Parameter(torch.ones(hidden_size))
 
-    @torch.compile
+    @torch.compile(options={"emulate_precision_casts": True})
     def rms_forward(
         self,
         x: torch.Tensor,
@@ -25,15 +25,17 @@ class RMSNorm(nn.Module):
         x = x.to(orig_dtype).mul_(self.weight)
         return x
 
-    @torch.compile
+    @torch.compile(options={"emulate_precision_casts": True})
     def add_rms_forward(
         self,
         x: torch.Tensor,
         residual: torch.Tensor,
     ) -> tuple[torch.Tensor, torch.Tensor]:
         orig_dtype = x.dtype
-        x = x.float().add_(residual.float())
-        residual = x.to(orig_dtype)
+        # Transformers adds the residual in the activation dtype before RMSNorm.
+        # Normalizing an unrounded FP32 sum changes BF16 greedy decisions.
+        residual = x + residual
+        x = residual.float()
         var = x.pow(2).mean(dim=-1, keepdim=True)
         x.mul_(torch.rsqrt(var + self.eps))
         x = x.to(orig_dtype).mul_(self.weight)

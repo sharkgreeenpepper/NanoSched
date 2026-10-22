@@ -48,9 +48,26 @@ def test_wait_age_overrides_decode_priority(config):
     scheduler.add(Sequence([1, 2]))
     finish_step(scheduler, True)
     scheduler.add(Sequence([3]*12))
+    finish_step(scheduler, False)
     now[0] = 0.101
     finish_step(scheduler, True)
     assert scheduler.snapshot()["prefill_age_guards"] == 1
+
+
+def test_aged_waiting_stream_cannot_starve_decode(config):
+    config.scheduler_policy = "decode_aware"
+    now = [0.]
+    scheduler = Scheduler(config, clock=lambda: now[0])
+    incumbent = Sequence([1, 2], SamplingParams(max_tokens=100))
+    scheduler.add(incumbent)
+    finish_step(scheduler, True)
+    for i in range(10):
+        scheduler.add(Sequence([10+i]*4))
+    for _ in range(10):
+        now[0] += 1
+        finish_step(scheduler, False)
+        finish_step(scheduler, True)
+    assert incumbent.num_completion_tokens == 11
 
 
 def test_budget_changes_with_decode_backlog(config):

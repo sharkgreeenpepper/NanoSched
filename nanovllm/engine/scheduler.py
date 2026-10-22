@@ -51,7 +51,9 @@ class Scheduler:
         prefer_decode = False
         if self.policy == "decode_aware" and self.running and self.waiting:
             oldest_age = self.clock()-self.waiting[0].prefill_queued_at
-            age_limit = oldest_age >= self.prefill_max_wait_s
+            # An aged queue must not force an unbounded sequence of prefills.
+            # Give decode at least one turn between forced prefill batches.
+            age_limit = oldest_age >= self.prefill_max_wait_s and self.decode_streak > 0
             streak_limit = self.decode_streak >= self.max_consecutive_decodes
             prefer_decode = not age_limit and not streak_limit
             if age_limit:

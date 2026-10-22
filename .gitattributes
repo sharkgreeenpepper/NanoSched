@@ -1,0 +1,2 @@
+# Keep original profiler tables, CSV output, and failure logs byte-for-byte.
+reports/** -whitespace

@@ -9,4 +9,4 @@ def config(monkeypatch):
     return SimpleNamespace(max_num_seqs=8, max_num_batched_tokens=8, eos=-1,
                            kvcache_block_size=4, num_kvcache_blocks=128,
                            scheduler_policy="prefill_first", max_consecutive_decodes=2,
-                           prefill_max_wait_ms=100, decode_prefill_token_budget=4)
+                           decode_prefill_token_budget=4)

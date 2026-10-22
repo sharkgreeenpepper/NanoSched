@@ -17,8 +17,7 @@ class Config:
     kvcache_block_size: int = 256
     num_kvcache_blocks: int = -1
     scheduler_policy: str = "prefill_first"
-    max_consecutive_decodes: int = 4
-    prefill_max_wait_ms: float = 100.0
+    max_consecutive_decodes: int = 1
     decode_prefill_token_budget: int = 1024
 
     def __post_init__(self):
@@ -41,6 +40,6 @@ class Config:
             raise ValueError("gpu_memory_utilization must be in (0, 1]")
         if self.scheduler_policy not in ("prefill_first", "decode_aware"):
             raise ValueError("scheduler_policy must be prefill_first or decode_aware")
-        if self.max_consecutive_decodes < 1 or self.prefill_max_wait_ms <= 0 or self.decode_prefill_token_budget < 1:
-            raise ValueError("Decode limit, prefill age and token budget must be positive")
+        if self.max_consecutive_decodes < 1 or self.decode_prefill_token_budget < 1:
+            raise ValueError("Decode limit and token budget must be positive")
         self.max_model_len = min(self.max_model_len, self.hf_config.max_position_embeddings)

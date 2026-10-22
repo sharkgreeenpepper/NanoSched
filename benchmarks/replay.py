@@ -3,8 +3,6 @@ import argparse
 from collections import Counter
 from contextlib import nullcontext
 from datetime import datetime, timezone
-import hashlib
-import importlib.metadata
 import json
 import os
 from pathlib import Path
@@ -55,8 +53,7 @@ def main():
     parser.add_argument("--seed", type=int, default=20261022)
     parser.add_argument("--budget", type=int, default=1024)
     parser.add_argument("--max-seqs", type=int, default=32)
-    parser.add_argument("--decode-limit", type=int, default=4)
-    parser.add_argument("--prefill-wait-ms", type=float, default=100)
+    parser.add_argument("--decode-limit", type=int, default=1)
     parser.add_argument("--decode-prefill-budget", type=int, default=1024)
     parser.add_argument("--eager", action="store_true")
     parser.add_argument("--temperature", type=float, default=0)
@@ -79,21 +76,13 @@ def main():
                   max_num_seqs=args.max_seqs, gpu_memory_utilization=args.memory_utilization, tensor_parallel_size=1)
     if "scheduler_policy" in Config.__dataclass_fields__:
         config.update(scheduler_policy=args.policy, max_consecutive_decodes=args.decode_limit,
-                      prefill_max_wait_ms=args.prefill_wait_ms, decode_prefill_token_budget=args.decode_prefill_budget)
+                      decode_prefill_token_budget=args.decode_prefill_budget)
     elif args.policy != "prefill_first":
         parser.error("upstream only supports prefill_first")
     env = {"timestamp_utc": datetime.now(timezone.utc).isoformat(), "engine_root": str(args.engine_root.resolve()),
            "commit": git(args.engine_root, "rev-parse", "HEAD"),
-           "git_status": git(args.engine_root, "status", "--porcelain"),
-           "tracked_diff_sha256": hashlib.sha256(git(args.engine_root, "diff", "HEAD").encode()).hexdigest(),
-           "harness_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-           "python": sys.executable, "torch": torch.__version__, "cuda": torch.version.cuda,
-           "packages": {n: importlib.metadata.version(n) for n in ("transformers", "triton", "safetensors", "flash-attn", "xxhash")},
-           "gpu": torch.cuda.get_device_name(0), "cuda_visible_devices": os.getenv("CUDA_VISIBLE_DEVICES"),
-           "nvidia_smi_before": subprocess.check_output(["nvidia-smi"], text=True),
-           "model": args.model, "model_config_sha256": hashlib.sha256((Path(args.model)/"config.json").read_bytes()).hexdigest(),
-           "config": config, "seed": args.seed, "temperature": args.temperature, "profile": args.profile,
-           "ld_library_path": os.getenv("LD_LIBRARY_PATH"), "omp_num_threads": os.getenv("OMP_NUM_THREADS")}
+           "cuda_visible_devices": os.getenv("CUDA_VISIBLE_DEVICES"), "model": args.model,
+           "config": config, "seed": args.seed, "temperature": args.temperature, "profile": args.profile}
     env["warmup_replays"] = args.warmup_runs
     (args.output/"environment.json").write_text(json.dumps(env, indent=2)+"\n")
     t = time.perf_counter()
@@ -204,7 +193,7 @@ def main():
             continue
         summaries.append(summary)
         (args.output/f"trace-{repeat}.json").write_text(json.dumps({"requests": rows, "steps": steps}, indent=2)+"\n")
-        (args.output/"summary.json").write_text(json.dumps({"workload_sha256": hashlib.sha256(canonical.encode()).hexdigest(), "runs": summaries}, indent=2)+"\n")
+        (args.output/"summary.json").write_text(json.dumps({"runs": summaries}, indent=2)+"\n")
         print(json.dumps({"repeat": repeat, **summary}), flush=True)
     # Upstream exit is not idempotent; unregister before explicitly releasing this engine.
     import atexit

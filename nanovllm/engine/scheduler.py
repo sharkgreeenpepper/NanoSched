@@ -19,7 +19,6 @@ class Scheduler:
         self.running: deque[Sequence] = deque()
         self.policy = config.scheduler_policy
         self.max_consecutive_decodes = config.max_consecutive_decodes
-        self.prefill_max_wait_s = config.prefill_max_wait_ms / 1000
         self.decode_prefill_token_budget = config.decode_prefill_token_budget
         self.clock = clock
         self.reset_stats()
@@ -50,15 +49,10 @@ class Scheduler:
             raise RuntimeError("Cannot schedule an empty engine")
         prefer_decode = False
         if self.policy == "decode_aware" and self.running and self.waiting:
-            oldest_age = self.clock()-self.waiting[0].prefill_queued_at
-            # An aged queue must not force an unbounded sequence of prefills.
-            # Give decode at least one turn between forced prefill batches.
-            age_limit = oldest_age >= self.prefill_max_wait_s and self.decode_streak > 0
-            streak_limit = self.decode_streak >= self.max_consecutive_decodes
-            prefer_decode = not age_limit and not streak_limit
-            if age_limit:
-                self.stats["prefill_age_guards"] += 1
-            elif streak_limit:
+            # Bound decode service by iterations. A waiting prefill gets a turn
+            # after at most N decode batches, independent of wall-clock timing.
+            prefer_decode = self.decode_streak < self.max_consecutive_decodes
+            if not prefer_decode:
                 self.stats["prefill_streak_guards"] += 1
         if prefer_decode:
             seqs = self._schedule_decode()

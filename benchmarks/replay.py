@@ -88,11 +88,12 @@ def main():
            "tracked_diff_sha256": hashlib.sha256(git(args.engine_root, "diff", "HEAD").encode()).hexdigest(),
            "harness_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
            "python": sys.executable, "torch": torch.__version__, "cuda": torch.version.cuda,
-           "packages": {n: importlib.metadata.version(n) for n in ("transformers", "triton", "safetensors")},
+           "packages": {n: importlib.metadata.version(n) for n in ("transformers", "triton", "safetensors", "flash-attn", "xxhash")},
            "gpu": torch.cuda.get_device_name(0), "cuda_visible_devices": os.getenv("CUDA_VISIBLE_DEVICES"),
            "nvidia_smi_before": subprocess.check_output(["nvidia-smi"], text=True),
            "model": args.model, "model_config_sha256": hashlib.sha256((Path(args.model)/"config.json").read_bytes()).hexdigest(),
-           "config": config, "seed": args.seed, "temperature": args.temperature, "profile": args.profile}
+           "config": config, "seed": args.seed, "temperature": args.temperature, "profile": args.profile,
+           "ld_library_path": os.getenv("LD_LIBRARY_PATH"), "omp_num_threads": os.getenv("OMP_NUM_THREADS")}
     env["warmup_replays"] = args.warmup_runs
     (args.output/"environment.json").write_text(json.dumps(env, indent=2)+"\n")
     t = time.perf_counter()
@@ -186,7 +187,7 @@ def main():
         engine.scheduler.preempt = original_preempt
         if args.profile and repeat >= 0:
             prof.export_chrome_trace(str(args.output/f"profile-{repeat}.json"))
-            (args.output/f"profile-{repeat}.txt").write_text(prof.key_averages().table(sort_by="self_cuda_time_total", row_limit=30))
+            (args.output/f"profile-{repeat}.txt").write_text(prof.key_averages().table(sort_by="self_device_time_total", row_limit=30))
         rows = list(records.values())
         assert len(rows) == len(items) and all(len(r["token_times"]) == next(i["max_tokens"] for i in items if i["id"] == r["id"]) for r in rows)
         summary = summarize(rows, elapsed, args.ttft_slo, args.tpot_slo)

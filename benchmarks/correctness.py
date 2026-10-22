@@ -16,6 +16,7 @@ def main():
     p.add_argument("--output", type=Path, required=True)
     p.add_argument("--eager", action="store_true")
     p.add_argument("--policy", default="prefill_first")
+    p.add_argument("--reference-attention", choices=["sdpa", "flash_attention_2"], default="sdpa")
     args = p.parse_args()
     args.output.parent.mkdir(parents=True, exist_ok=True)
     if args.output.exists():
@@ -27,11 +28,11 @@ def main():
              "Context: " + "The red fox lives near the river. " * 150 + "\nWhat animal lives near the river?"]
     prompts = [tokenizer.encode(tokenizer.apply_chat_template([{"role": "user", "content": t}], tokenize=False, add_generation_prompt=True)) for t in texts]
     report = {"model": args.model, "dtype": "bfloat16", "gpu": torch.cuda.get_device_name(0),
-              "temperature": 0, "reference": "Transformers AutoModelForCausalLM, SDPA, greedy",
+              "temperature": 0, "reference": f"Transformers AutoModelForCausalLM, {args.reference_attention}, greedy",
               "prompt_lengths": list(map(len, prompts)), "prompt_ids": prompts, "max_tokens": 24,
               "cuda_graph": not args.eager, "policy": args.policy}
     start = time.perf_counter()
-    hf = AutoModelForCausalLM.from_pretrained(args.model, dtype=torch.bfloat16, attn_implementation="sdpa").to("cuda").eval()
+    hf = AutoModelForCausalLM.from_pretrained(args.model, dtype=torch.bfloat16, attn_implementation=args.reference_attention).to("cuda").eval()
     report["reference_initialization_s"] = time.perf_counter()-start
     gen = GenerationConfig(do_sample=False, max_new_tokens=24, eos_token_id=tokenizer.eos_token_id, pad_token_id=tokenizer.pad_token_id)
     expected, reference_logits = [], []

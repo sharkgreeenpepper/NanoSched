@@ -44,9 +44,9 @@ def main():
                 runs = summary["runs"]
                 assert len(runs) >= 3, path
                 assert not environment["profile"], "Do not aggregate profiler runs"
-                pair.append((summary, environment))
+                pair.append((summary, environment, json.loads((path/"workload.json").read_text())))
                 row = {"workload": load, "policy": policy, "mode": mode, "runs": len(runs),
-                       "commit": environment["commit"], "source": str(path), "workload_sha256": summary["workload_sha256"]}
+                       "commit": environment["commit"], "source": str(path)}
                 for name, (path_key, scale) in METRICS.items():
                     values = [get(r, path_key)*scale for r in runs]
                     row[name+"_mean"] = statistics.mean(values)
@@ -58,8 +58,8 @@ def main():
                         values = [get(r, metric)*1000 for r in runs]
                         row[name+"_mean"], row[name+"_std"] = statistics.mean(values), statistics.stdev(values)
                 rows.append(row)
-            assert pair[0][0]["workload_sha256"] == pair[1][0]["workload_sha256"]
-            for key in ("torch", "cuda", "seed", "temperature", "model_config_sha256", "gpu", "cuda_visible_devices"):
+            assert pair[0][2] == pair[1][2]
+            for key in ("seed", "temperature", "model", "cuda_visible_devices"):
                 assert pair[0][1][key] == pair[1][1][key], key
     columns = list(dict.fromkeys(k for row in rows for k in row))
     with (args.output/"summary.csv").open("w") as stream:

@@ -1,0 +1,25 @@
+{
+  "timestamp_utc": "2026-10-22T07:45:57.526395+00:00",
+  "engine_root": "/data1/fangdongqing/git/NanoSched-baseline-bb823b3",
+  "commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+  "cuda_visible_devices": "0",
+  "model": "/data1/fangdongqing/infra/models/Qwen/Qwen2.5-7B-Instruct",
+  "config": {
+    "enforce_eager": true,
+    "max_model_len": 8192,
+    "max_num_batched_tokens": 1024,
+    "max_num_seqs": 32,
+    "gpu_memory_utilization": 0.45,
+    "tensor_parallel_size": 1
+  },
+  "seed": 20261022,
+  "temperature": 1.0,
+  "profile": false,
+  "warmup_replays": 1,
+  "initialization_s": 4.096594132948667,
+  "gpu_allocated_bytes": 45332704256,
+  "gpu_reserved_bytes": 45378174976,
+  "peak_gpu_allocated_bytes": 45332704256,
+  "kv_blocks": 2043,
+  "weight_load_report": null
+}

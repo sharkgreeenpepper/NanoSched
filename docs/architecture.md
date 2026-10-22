@@ -19,12 +19,12 @@ NanoSched 在 Xingkai Yu 的 [nano-vLLM](https://github.com/GeeeekExplorer/nano-
 `scheduler_policy="decode_aware"` 按以下顺序选择阶段：
 
 1. 同时存在 Running Decode 与 Waiting Prefill 时，优先 Decode。
-2. 已连续服务 `max_consecutive_decodes` 次 Decode，或队首 Prefill 距上次服务超过 `prefill_max_wait_ms` 时，安排一个 Prefill 批次。
-3. 过期保护在至少一次 Decode 后触发，避免整条过期 Prefill 队列再次饿死 Decode。Decode 按轮转次序服务受 Batch 上限限制的请求。
+2. 已连续服务 `max_consecutive_decodes` 次 Decode 时，安排一个 Prefill 批次并重置计数。默认 N=1；有等待且资源可用时，两阶段交替推进。
+3. Decode 按轮转次序服务受 Batch 上限限制的请求。Prefill 饥饿保护只依赖调度次数，不使用时间老化分支。
 4. 有 Decode 时 Prefill Token Budget 为 `min(max_num_batched_tokens, decode_prefill_token_budget)`；没有 Decode 时用完整 Budget。这是 Phase 1 的两档 Budget，并非 Phase 2 的自适应 Chunk 策略。
 5. 某阶段因 KV 容量不能推进时，尝试另一阶段；必要时保留原有抢占/重算路径，没有任务可推进时给出明确错误。
 
-等待时间是队首请求距上次 Prefill 服务的时间，未完成 Chunk 每次服务后重置。100 ms 是软调度阈值，不是墙钟延迟保证；引擎不能中断正在执行的 GPU Kernel，队尾请求也可能因 FCFS 队列积压超过阈值。正式对照两种策略均用 1024 Token Budget，排除 Chunk 大小变化的影响。
+资源可用时，队首请求在最多 N 个 Decode 批次后得到一个 Prefill 批次；新请求只追加到等待队尾，因此不会无限推迟已有 Prefill。该界限按调度步计数，引擎不能中断正在执行的 GPU Kernel，也不承诺墙钟延迟。正式对照两种策略均用 1024 Token Budget，排除 Chunk 大小变化的影响。
 
 ## KV 生命周期与监控
 

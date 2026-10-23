@@ -28,7 +28,33 @@ def test_allocation_release_and_block_boundary(config):
     assert len(bm.free_block_ids) == 3
 
 
-def test_full_prompt_reservation_is_still_eager(config):
+def test_full_prompt_reservation_requires_entire_prompt(config):
     bm = BlockManager(2, 4)
     seq = Sequence(list(range(12)))
-    assert bm.can_allocate(seq) == -1  # Incremental reservation is deliberately Phase 3.
+    assert bm.can_allocate(seq) == -1
+
+
+@pytest.mark.parametrize("chunk", [3, 4, 5])
+def test_incremental_reservation_tracks_chunk_and_block_boundaries(config, chunk):
+    bm = BlockManager(3, 4)
+    seq = Sequence(list(range(12)))
+    assert bm.can_allocate(seq, chunk) == 0
+    bm.allocate(seq, 0, chunk)
+    assert len(seq.block_table) == (chunk + 3) // 4
+    assert seq.num_cached_tokens == 0
+    assert_consistent(bm, [seq])
+
+    seq.num_scheduled_tokens = chunk
+    bm.hash_blocks(seq)
+    seq.num_cached_tokens = chunk
+    remaining = len(seq) - chunk
+    assert bm.blocks_needed(seq, remaining) == 3 - len(seq.block_table)
+    bm.reserve(seq, remaining)
+    assert len(seq.block_table) == 3
+    assert seq.num_cached_tokens == chunk
+    seq.num_scheduled_tokens = remaining
+    bm.hash_blocks(seq)
+    seq.num_cached_tokens += remaining
+    assert all(bm.blocks[bid].token_ids == seq.block(i) for i, bid in enumerate(seq.block_table))
+    bm.deallocate(seq)
+    assert_consistent(bm, [])

@@ -16,6 +16,8 @@ class Config:
     eos: int = -1
     kvcache_block_size: int = 256
     num_kvcache_blocks: int = -1
+    kv_allocation: str = "full"
+    kv_admission: bool = False
     scheduler_policy: str = "prefill_first"
     max_consecutive_decodes: int = 1
     decode_prefill_token_budget: int = 1024
@@ -41,6 +43,10 @@ class Config:
             raise ValueError("Token, sequence and context limits must be positive")
         if not 0 < self.gpu_memory_utilization <= 1:
             raise ValueError("gpu_memory_utilization must be in (0, 1]")
+        if self.num_kvcache_blocks != -1 and self.num_kvcache_blocks < 1:
+            raise ValueError("KV block cap must be positive or -1 for automatic capacity")
+        if self.kv_allocation not in ("full", "incremental"):
+            raise ValueError("kv_allocation must be full or incremental")
         if self.scheduler_policy not in ("prefill_first", "decode_aware", "adaptive", "adaptive_v2"):
             raise ValueError("scheduler_policy must be prefill_first, decode_aware, adaptive or adaptive_v2")
         if self.max_consecutive_decodes < 1 or self.decode_prefill_token_budget < 1:

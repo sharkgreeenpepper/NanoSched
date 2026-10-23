@@ -15,6 +15,8 @@ class Scheduler:
         self.eos = config.eos
         self.block_size = config.kvcache_block_size
         self.block_manager = BlockManager(config.num_kvcache_blocks, config.kvcache_block_size)
+        self.incremental_kv = config.kv_allocation == "incremental"
+        self.kv_admission = config.kv_admission
         self.waiting: deque[Sequence] = deque()
         self.running: deque[Sequence] = deque()
         self.policy = config.scheduler_policy
@@ -180,20 +182,40 @@ class Scheduler:
             remaining = budget - num_batched_tokens
             if remaining == 0:
                 break
-            if not seq.block_table:
-                num_cached_blocks = self.block_manager.can_allocate(seq)
-                if num_cached_blocks == -1:
-                    break
+            new_allocation = not seq.block_table
+            if new_allocation:
+                num_cached_blocks, needed = self.block_manager.allocation_requirement(
+                    seq, remaining if self.incremental_kv else None)
                 num_tokens = seq.num_tokens - num_cached_blocks * self.block_size
             else:
                 num_tokens = seq.num_tokens - seq.num_cached_tokens
+                needed = self.block_manager.blocks_needed(seq, min(num_tokens, remaining))
             if remaining < num_tokens and scheduled_seqs:  # only allow chunked prefill for the first seq
                 break
-            if not seq.block_table:
-                self.block_manager.allocate(seq, num_cached_blocks)
+            scheduled_tokens = min(num_tokens, remaining)
+            free = len(self.block_manager.free_block_ids)
+            if free < needed:
+                self.stats["kv_capacity_blocks"] += 1
+                break
+            if self.kv_admission:
+                # A one-block lookahead per decoder, capped by its remaining
+                # output. Include a prefill about to emit its first/next token.
+                reserve = sum(self._decode_growth(s) for s in self.running)
+                if scheduled_tokens == num_tokens:
+                    remaining_output = seq.max_tokens - seq.num_completion_tokens - 1
+                    end = len(seq) + min(self.block_size, remaining_output)
+                    reserve += (end + self.block_size - 1) // self.block_size - seq.num_blocks
+                if free - needed < reserve:
+                    self.stats["kv_admission_blocks"] += 1
+                    break
+            if new_allocation:
+                self.block_manager.allocate(seq, num_cached_blocks,
+                                            scheduled_tokens if self.incremental_kv else None)
                 self.stats["prefix_cached_tokens"] += seq.num_cached_tokens
                 self.stats["prefix_lookup_tokens"] += max(0, seq.num_blocks-1) * self.block_size
-            seq.num_scheduled_tokens = min(num_tokens, remaining)
+            elif self.incremental_kv:
+                self.block_manager.reserve(seq, scheduled_tokens)
+            seq.num_scheduled_tokens = scheduled_tokens
             num_batched_tokens += seq.num_scheduled_tokens
             if seq.num_cached_tokens + seq.num_scheduled_tokens == seq.num_tokens:
                 seq.status = SequenceStatus.RUNNING
@@ -203,12 +225,24 @@ class Scheduler:
 
         return scheduled_seqs
 
+    def _decode_growth(self, seq):
+        steps = min(self.block_size, seq.max_tokens - seq.num_completion_tokens)
+        end = len(seq) + steps - 1
+        return max(0, (end + self.block_size - 1) // self.block_size - len(seq.block_table))
+
     def _schedule_decode(self):
         scheduled_seqs = []
         while self.running and len(scheduled_seqs) < min(self.max_num_seqs, self.max_num_batched_tokens):
             seq = self.running.popleft()
             while not self.block_manager.can_append(seq):
-                if self.running:
+                # A resident partial prefill can otherwise strand the only
+                # decoder: evicting that decoder puts its resume ahead of the
+                # partial, with neither able to allocate. Reclaim the partial
+                # first, using the same recovery for all allocation policies.
+                partial = next((s for s in reversed(self.waiting) if s.block_table), None)
+                if partial is not None:
+                    self.preempt(partial)
+                elif self.running:
                     self.preempt(self.running.pop())
                 else:
                     self.preempt(seq)
@@ -226,6 +260,9 @@ class Scheduler:
 
     def preempt(self, seq: Sequence):
         self.stats["preemptions"] += 1
+        if seq.status == SequenceStatus.WAITING:
+            self.stats["partial_prefill_preemptions"] += 1
+            self.waiting.remove(seq)
         seq.status = SequenceStatus.WAITING
         seq.is_prefill = True
         seq.prefill_queued_at = self.clock()

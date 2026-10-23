@@ -101,6 +101,26 @@ def summarize_timings(requests, steps):
     return summary
 
 
+def kv_snapshot(scheduler, pending_prefills=()):
+    """Count unique owned/written blocks; free cached prefixes remain reclaimable.
+
+    A partly written block counts as written. Reserved-unwritten therefore counts
+    whole owned blocks beyond actual compute progress, not unused token slots.
+    """
+    bm = scheduler.block_manager
+    seqs = {s.seq_id: s for s in (*scheduler.waiting, *scheduler.running)}
+    owned, written = set(), set()
+    for seq in seqs.values():
+        owned.update(seq.block_table)
+        written.update(seq.block_table[:(seq.num_cached_tokens + bm.block_size - 1) // bm.block_size])
+    prefills = {s.seq_id for s in scheduler.waiting if s.block_table}
+    prefills.update(s.seq_id for s in pending_prefills)
+    return {"free_blocks": len(bm.free_block_ids), "used_blocks": len(owned),
+            "written_blocks": len(written), "reserved_unwritten_blocks": len(owned - written),
+            "active_prefills": len(prefills),
+            "active_decodes": sum(s.seq_id not in prefills for s in scheduler.running)}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--engine-root", type=Path, default=Path(__file__).resolve().parents[1])
@@ -127,12 +147,17 @@ def main():
     parser.add_argument("--eager", action="store_true")
     parser.add_argument("--temperature", type=float, default=0)
     parser.add_argument("--memory-utilization", type=float, default=0.45)
+    parser.add_argument("--kv-blocks", type=int, default=-1, help="Artificial exact KV pool size; -1 uses the GPU memory budget")
+    parser.add_argument("--kv-allocation", choices=["full", "incremental"], default="full")
+    parser.add_argument("--kv-admission", action="store_true", help="Keep a simple KV reserve for active decodes when admitting prefill")
     parser.add_argument("--ttft-slo", type=float, default=0.5)
     parser.add_argument("--tpot-slo", "--target-tpot", dest="tpot_slo", type=float, default=0.1, help="Seconds; configured objective, not a guaranteed latency")
     parser.add_argument("--profile", action="store_true", help="Separate diagnostic run; excludes profiler runs from comparisons")
     args = parser.parse_args()
     if args.repeats < 1 or args.warmup_runs < 0:
         parser.error("repeats must be positive and warmup-runs nonnegative")
+    if args.kv_blocks != -1 and args.kv_blocks < 1:
+        parser.error("kv-blocks must be -1 or positive")
     if min(args.input_length, args.output_length, args.num_requests, args.concurrency) < 1 or (args.arrival_rate is not None and args.arrival_rate <= 0):
         parser.error("Lengths, request count, concurrency and arrival rate must be positive")
     if args.workload in ("mixed", "pressure") and not args.arrival_rate and not args.workload_file:
@@ -155,11 +180,25 @@ def main():
                       adaptive_chunk_sizes=tuple(args.chunk_sizes))
     elif policy != "prefill_first":
         parser.error("upstream only supports prefill_first")
+    if "kv_allocation" in Config.__dataclass_fields__:
+        config.update(kv_allocation=args.kv_allocation, kv_admission=args.kv_admission)
+    elif args.kv_allocation != "full" or args.kv_admission:
+        parser.error("engine does not support KV allocation/admission options")
+    if args.kv_blocks > 0:
+        config["num_kvcache_blocks"] = args.kv_blocks
+    gpu_free_before, gpu_total = torch.cuda.mem_get_info()
     env = {"timestamp_utc": datetime.now(timezone.utc).isoformat(), "engine_root": str(args.engine_root.resolve()),
            "commit": git(args.engine_root, "rev-parse", "HEAD"),
            "dirty": bool(git(args.engine_root, "status", "--porcelain", "--untracked-files=no")),
            "cuda_visible_devices": os.getenv("CUDA_VISIBLE_DEVICES"), "model": args.model,
            "config": config, "seed": args.seed, "temperature": args.temperature, "profile": args.profile,
+           "gpu_total_bytes": gpu_total, "gpu_free_bytes_before_init": gpu_free_before,
+           "kv_capacity_mode": "artificial_block_cap" if args.kv_blocks > 0 else "gpu_memory_budget",
+           "metric_definitions": {"request_mean_tpot_s": "Percentiles across each request's mean inter-token interval",
+                                  "token_itl_s": "Percentiles across all token intervals, excluding first tokens",
+                                  "slo_goodput_requests_per_s": "Requests meeting both TTFT and request-mean TPOT SLO, divided by replay duration",
+                                  "engine_queue_s": "Engine enqueue to first prefill; includes all scheduler and KV admission delay, not KV-only delay",
+                                  "kv_reserved_unwritten_blocks": "Unique owned blocks with zero computed tokens; excludes reclaimable free prefix blocks"},
            "benchmark": {k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()}}
     env["warmup_replays"] = args.warmup_runs
     (args.output/"environment.json").write_text(json.dumps(env, indent=2)+"\n")
@@ -168,7 +207,11 @@ def main():
     torch.cuda.synchronize()
     env.update(initialization_s=time.perf_counter()-t, gpu_allocated_bytes=torch.cuda.memory_allocated(),
                gpu_reserved_bytes=torch.cuda.memory_reserved(), peak_gpu_allocated_bytes=torch.cuda.max_memory_allocated(),
-               kv_blocks=engine.scheduler.block_manager.blocks.__len__())
+               kv_blocks=len(engine.scheduler.block_manager.blocks),
+               kv_allocated_bytes=engine.model_runner.kv_cache.numel() * engine.model_runner.kv_cache.element_size(),
+               gpu_free_bytes_after_init=torch.cuda.mem_get_info()[0])
+    if args.kv_blocks > 0 and env["kv_blocks"] != args.kv_blocks:
+        raise RuntimeError(f"Requested {args.kv_blocks} KV blocks, but engine allocated {env['kv_blocks']}")
     env["weight_load_report"] = getattr(engine.model_runner, "weight_load_report", None)
     (args.output/"environment.json").write_text(json.dumps(env, indent=2)+"\n")
     # Explicit warmup exercises prefill, decode, sampler and graph replay before timing.
@@ -209,7 +252,8 @@ def main():
                 "prefill_chunks": [s.num_scheduled_tokens for s in seqs] if is_prefill else [],
                 "budget": getattr(engine.scheduler, "selected_budget", args.budget),
                 "waiting": len(engine.scheduler.waiting), "running": len(engine.scheduler.running),
-                "kv_used_blocks": len(bm.used_block_ids), "kv_total_blocks": len(bm.blocks)}
+                "kv_used_blocks": len(bm.used_block_ids), "kv_total_blocks": len(bm.blocks),
+                "kv_before_execution": kv_snapshot(engine.scheduler, seqs if is_prefill else ())}
             for seq in seqs:
                 end = seq.num_cached_tokens + seq.num_scheduled_tokens
                 if is_prefill:
@@ -224,6 +268,7 @@ def main():
             original_postprocess(seqs, token_ids, is_prefill)
             trace["step"]["postprocess_s"] = time.perf_counter() - start
             now = time.perf_counter()-origin  # .tolist() in ModelRunner has already synchronized GPU results.
+            trace["step"]["kv_after_execution"] = kv_snapshot(engine.scheduler)
             for seq, count in zip(seqs, before):
                 r = records[seq.seq_id]
                 if seq.num_completion_tokens > count:
@@ -270,6 +315,8 @@ def main():
         rows = list(records.values())
         assert len(rows) == len(items) and all(len(r["token_times"]) == next(i["max_tokens"] for i in items if i["id"] == r["id"]) for r in rows)
         summary = summarize(rows, elapsed, args.ttft_slo, args.tpot_slo)
+        summary["request_mean_tpot_s"] = summary["tpot_s"]
+        summary["token_itl_s"] = summary["inter_token_gap_s"]
         summary.update(summarize_timings(rows, steps))
         summary["groups"] = {g: summarize([r for r in rows if r["group"] == g], elapsed, args.ttft_slo, args.tpot_slo) for g in sorted({r["group"] for r in rows})}
         summary["max_inter_token_gap_s"] = max((max(np.diff(r["token_times"]), default=0) for r in rows), default=0)
@@ -281,6 +328,15 @@ def main():
         summary["arrival_lag_p95_s"] = float(np.percentile([r["arrived_at"]-r["submitted_at"] for r in rows], 95))
         summary["admission_wait_p95_s"] = float(np.percentile([r["enqueued_at"]-r["arrived_at"] for r in rows], 95))
         summary["kv_peak_utilization"] = max(s["kv_used_blocks"]/s["kv_total_blocks"] for s in steps)
+        kv_states = [s["kv_after_execution"] for s in steps]
+        for field in ("free_blocks", "used_blocks", "written_blocks", "reserved_unwritten_blocks", "active_prefills", "active_decodes"):
+            values = [s[field] for s in kv_states]
+            summary[f"kv_{field}_peak"] = max(values)
+            summary[f"kv_{field}_step_mean"] = sum(values) / len(values)
+        summary["kv_free_blocks_min"] = min(s["free_blocks"] for s in kv_states)
+        summary["kv_pre_execution_reserved_unwritten_blocks_peak"] = max(s["kv_before_execution"]["reserved_unwritten_blocks"] for s in steps)
+        summary["kv_written_utilization_step_mean"] = summary["kv_written_blocks_step_mean"] / len(engine.scheduler.block_manager.blocks)
+        summary["kv_active_requests_peak"] = max(s["active_prefills"] + s["active_decodes"] for s in kv_states)
         summary["prefill_chunk_tokens"] = dict(Counter(str(n) for s in steps for n in s["prefill_chunks"]))
         summary.update(counters)
         summary["scheduler_stats"] = engine.scheduler.snapshot() if hasattr(engine.scheduler, "snapshot") else None

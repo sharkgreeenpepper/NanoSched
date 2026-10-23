@@ -10,4 +10,5 @@ def config(monkeypatch):
                            kvcache_block_size=4, num_kvcache_blocks=128,
                            scheduler_policy="prefill_first", max_consecutive_decodes=2,
                            decode_prefill_token_budget=4, target_tpot_s=0.1,
-                           prefill_max_wait_s=0.5, adaptive_chunk_sizes=(2, 4, 8))
+                           prefill_max_wait_s=0.5, adaptive_chunk_sizes=(2, 4, 8),
+                           kv_allocation="full", kv_admission=False)

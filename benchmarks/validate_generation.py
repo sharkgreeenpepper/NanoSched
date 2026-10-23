@@ -14,9 +14,13 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--policies", nargs="+", choices=["original", "decode_aware", "adaptive", "adaptive_v2"],
                         default=["original", "decode_aware", "adaptive"])
+    parser.add_argument("--kv-modes", nargs="+", choices=["full", "full_admission", "incremental", "incremental_admission"],
+                        default=["full"])
+    parser.add_argument("--kv-blocks", type=int, default=-1)
     args = parser.parse_args()
     engine = LLM(args.model, max_model_len=32768, max_num_batched_tokens=2048,
-                 max_num_seqs=8, gpu_memory_utilization=0.45, tensor_parallel_size=1)
+                 max_num_seqs=8, gpu_memory_utilization=0.45, tensor_parallel_size=1,
+                 num_kvcache_blocks=args.kv_blocks)
     tokenizer = engine.tokenizer
     cases = [(1024, "What is 17 + 25? Answer with only the number.", "42"),
              (4096, "What is the capital of France? Answer with only the city name.", "Paris"),
@@ -35,20 +39,26 @@ def main():
     # Include all candidate chunk sizes. These are correctness runs, not timing comparisons.
     policy_budgets = {"original": [2048], "decode_aware": [1024], "adaptive": [256, 512, 2048],
                       "adaptive_v2": [256, 512, 2048]}
-    for selected, budget in [(p, b) for p in args.policies for b in policy_budgets[p]]:
+    for selected, budget, kv_mode in [(p, b, k) for p in args.policies for b in policy_budgets[p] for k in args.kv_modes]:
         policy = "prefill_first" if selected == "original" else selected
         config = copy(engine.config)
         config.scheduler_policy = policy
         config.max_num_batched_tokens = budget
+        config.kv_allocation = "incremental" if kv_mode.startswith("incremental") else "full"
+        config.kv_admission = kv_mode.endswith("_admission")
         engine.scheduler = Scheduler(config)
         outputs = []
         for tokens in requests:
             outputs.extend(engine.generate([tokens], SamplingParams(temperature=0, max_tokens=16), use_tqdm=False))
+        assert not engine.scheduler.block_manager.used_block_ids, "Serial generation leaked owned KV blocks"
+        assert all(block.ref_count == 0 for block in engine.scheduler.block_manager.blocks), "Serial generation leaked KV references"
+        prefix_cached_tokens = engine.scheduler.stats["prefix_cached_tokens"]
         if reference is None:
             reference = [o["token_ids"] for o in outputs]
         for (length, question, expected), output, ref in zip(cases, outputs, reference):
             answer = tokenizer.decode(output["token_ids"], skip_special_tokens=True).strip()
-            row = {"policy": policy, "budget": budget, "mode": "serial", "input_length": length, "question": question,
+            row = {"policy": policy, "budget": budget, "kv_mode": kv_mode, "mode": "serial",
+                   "group_prefix_cached_tokens": prefix_cached_tokens, "input_length": length, "question": question,
                    "expected": expected, **output, "answer": answer, "semantic_match": answer == expected,
                    "token_match": output["token_ids"] == ref}
             rows.append(row)
@@ -56,9 +66,13 @@ def main():
         # Concurrent real prompts exercise phase interleaving as well as chunk boundaries.
         engine.scheduler = Scheduler(config)
         outputs = engine.generate(requests, SamplingParams(temperature=0, max_tokens=16), use_tqdm=False)
+        assert not engine.scheduler.block_manager.used_block_ids, "Concurrent generation leaked owned KV blocks"
+        assert all(block.ref_count == 0 for block in engine.scheduler.block_manager.blocks), "Concurrent generation leaked KV references"
+        prefix_cached_tokens = engine.scheduler.stats["prefix_cached_tokens"]
         for (length, question, expected), output, ref in zip(cases, outputs, reference):
             answer = tokenizer.decode(output["token_ids"], skip_special_tokens=True).strip()
-            row = {"policy": policy, "budget": budget, "mode": "concurrent", "input_length": length,
+            row = {"policy": policy, "budget": budget, "kv_mode": kv_mode, "mode": "concurrent",
+                   "group_prefix_cached_tokens": prefix_cached_tokens, "input_length": length,
                    "question": question, "expected": expected, **output, "answer": answer,
                    "semantic_match": answer == expected, "token_match": output["token_ids"] == ref}
             rows.append(row)

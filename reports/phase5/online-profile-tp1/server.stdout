@@ -1,0 +1,46 @@
+INFO:     Started server process [237692]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:59402 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59406 - "GET /health HTTP/1.1" 200 OK
+ERROR: External init callback must run in same thread as registerClient (-1033062848 != 435451008)
+USDT:2026-10-23 16:52:47 237692:238084 SyncActivityProfilerHandler.cpp:52] profiler_start
+INFO:     127.0.0.1:59406 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59412 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59418 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59426 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59440 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59450 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59460 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59470 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59480 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59486 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59502 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59510 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59518 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59522 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59524 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59532 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59538 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59548 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59562 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59566 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59574 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59582 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59596 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59608 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59614 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59620 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59632 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59636 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59650 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59664 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59666 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59668 - "POST /generate HTTP/1.1" 200 OK
+USDT:2026-10-23 16:52:52 237692:238084 SyncActivityProfilerHandler.cpp:59] profiler_stop
+INFO:     127.0.0.1:59412 - "GET /health HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [237692]

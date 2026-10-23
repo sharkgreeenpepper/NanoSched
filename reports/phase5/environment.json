@@ -1,0 +1,33 @@
+{
+  "gpu": "NVIDIA H20 96GB",
+  "used_gpu_indices": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "pre_test_idle_all_8": true,
+  "topology": "NV18 between all GPU pairs; GPUs0-3 NUMA0 CPU0-89",
+  "nccl_transport": "P2P/CUMEM; actual rank/GPU bus IDs in validate-tp2/4 server.stdout",
+  "model": "Qwen2.5-7B-Instruct",
+  "dtype": "BF16",
+  "model_dimensions": {
+    "hidden_size": 3584,
+    "intermediate_size": 18944,
+    "num_hidden_layers": 28,
+    "num_attention_heads": 28,
+    "num_key_value_heads": 4,
+    "vocab_size": 152064
+  },
+  "kv_capacity_note": "Automatic per-instance capacity at 0.45 memory utilization per GPU; TP ranks use minimum local capacity. Different TP sizes have different total KV capacities. Traces fit even the TP1 pool.",
+  "performance_protocol": "Nine representative cases, fresh process per policy/TP/case, one distinct-prefix warmup and one measured replay; no profiler in performance matrix. Not a full Cartesian product or confidence-interval experiment.",
+  "slo": {
+    "ttft_s": 5,
+    "request_mean_tpot_s": 0.1
+  },
+  "statistical_definitions": {
+    "itl_p95": "P95 over individual token gaps, excluding first tokens",
+    "tpot_p95": "P95 over per-request mean token gaps",
+    "goodput": "Requests meeting both TTFT and request-mean TPOT SLO per elapsed second"
+  }
+}

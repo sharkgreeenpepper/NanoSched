@@ -1,0 +1,52 @@
+[
+  {
+    "case": "1k-256-c32-burst",
+    "tp": 4,
+    "policy": "decode_aware",
+    "path": "reports/phase5/head-baseline/1k-256-c32-burst-decode_aware-tp4",
+    "gpus": "0,1,2,3",
+    "server": [
+      "/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/bin/python",
+      "-m",
+      "nanovllm.serving",
+      "--model",
+      "/data1/fangdongqing/infra/models/Qwen/Qwen2.5-7B-Instruct",
+      "--port",
+      "8000",
+      "--policy",
+      "decode_aware",
+      "--tp",
+      "4",
+      "--max-seqs",
+      "32",
+      "--budget",
+      "2048",
+      "--decode-limit",
+      "3",
+      "--decode-prefill-budget",
+      "2048",
+      "--memory-utilization",
+      "0.45",
+      "--max-model-len",
+      "32768"
+    ],
+    "client": [
+      "/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/bin/python",
+      "-m",
+      "benchmarks.online",
+      "--url",
+      "http://127.0.0.1:8000",
+      "--workload-file",
+      "reports/phase5/head-baseline/1k-256-c32-burst-workload.json",
+      "--output",
+      "reports/phase5/head-baseline/1k-256-c32-burst-decode_aware-tp4",
+      "--concurrency",
+      "32",
+      "--repeats",
+      "1",
+      "--warmup-runs",
+      "1"
+    ],
+    "status": "completed"
+  }
+]

@@ -11,6 +11,7 @@ class Config:
     max_model_len: int = 4096
     gpu_memory_utilization: float = 0.9
     tensor_parallel_size: int = 1
+    init_method: str | None = None
     enforce_eager: bool = False
     hf_config: AutoConfig | None = None
     eos: int = -1
@@ -34,6 +35,9 @@ class Config:
         hf = self.hf_config
         if hf.model_type not in architectures or hf.architectures != [architectures[hf.model_type]]:
             raise ValueError(f"Unsupported architecture: {hf.architectures}")
+        for name in ("num_attention_heads", "num_key_value_heads", "vocab_size", "intermediate_size"):
+            if getattr(hf, name) % self.tensor_parallel_size:
+                raise ValueError(f"{name} must be divisible by tensor_parallel_size={self.tensor_parallel_size}")
         if getattr(hf, "use_sliding_window", False) or any(t != "full_attention" for t in getattr(hf, "layer_types", []) or []):
             raise ValueError("Sliding/hybrid attention is not implemented")
         rope = getattr(hf, "rope_parameters", None) or getattr(hf, "rope_scaling", None) or {}

@@ -1,0 +1,100 @@
+INFO:     Started server process [226087]
+INFO:     Waiting for application startup.
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:36366 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36380 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36380 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36380 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36380 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36380 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36380 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36380 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36380 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36380 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36380 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36380 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54800 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54806 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54814 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54822 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54830 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54844 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54850 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54800 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36380 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54814 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54822 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54850 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54806 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54844 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54830 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54800 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54854 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54870 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54874 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54878 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54888 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54904 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54908 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54924 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36380 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54854 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54814 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54874 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54908 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54870 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54888 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54822 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54850 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54800 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54904 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54878 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54806 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54844 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54924 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54830 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36380 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54926 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54932 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54936 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54940 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54944 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54950 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54958 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54974 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54986 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54996 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55010 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55026 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55028 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55038 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55050 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55062 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54854 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54986 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54850 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54800 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54806 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54958 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54940 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54830 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54944 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54814 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54874 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54908 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55050 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54888 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54932 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55026 - "DELETE /requests/validate-1792745404136799242-64 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54936 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54926 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55038 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55010 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37376 - "GET /health HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [226087]

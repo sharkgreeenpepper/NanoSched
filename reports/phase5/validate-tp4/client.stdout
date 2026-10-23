@@ -1,0 +1,13 @@
+{"check": "streaming_and_chinese_utf8", "passed": true, "tokens": 64, "first_received_at": 2841597.083813809, "server_finished_at": 2841597.346911157, "nonzero_stream_gaps": 63}
+{"check": "stream_nonstream_equality", "passed": true, "tokens": 64}
+{"check": "offline_online_token_equality", "passed": true, "case": "semantic-1024", "tokens": 3}
+{"check": "offline_online_token_equality", "passed": true, "case": "semantic-4096", "tokens": 2}
+{"check": "offline_online_token_equality", "passed": true, "case": "semantic-8192", "tokens": 3}
+{"check": "offline_online_token_equality", "passed": true, "case": "semantic-16384", "tokens": 2}
+{"check": "offline_online_token_equality", "passed": true, "case": "chinese", "tokens": 64}
+{"check": "concurrent_completion", "passed": true, "requests": 8, "kv_used_after": 0}
+{"check": "concurrent_completion", "passed": true, "requests": 16, "kv_used_after": 0}
+{"check": "concurrent_completion", "passed": true, "requests": 32, "kv_used_after": 0}
+{"check": "dynamic_join_long_short", "passed": true, "requests": 12, "elapsed_s": 1.3886347939260304}
+{"check": "explicit_cancellation", "passed": true, "emitted_tokens": 2, "kv_used_after": 0}
+{"check": "disconnect_releases_request", "passed": true, "kv_used_after": 0}

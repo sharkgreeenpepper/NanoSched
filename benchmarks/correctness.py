@@ -76,7 +76,8 @@ def main():
             captured.append(logits[0].float().cpu())
             return torch.tensor([token], dtype=torch.long, device=logits.device)
         engine.model_runner.sampler.forward = force
-        engine.generate([prompt], SamplingParams(temperature=0, max_tokens=len(ref)), use_tqdm=False)
+        # Route through the forced sampler instead of the all-greedy fast path.
+        engine.generate([prompt], SamplingParams(temperature=1, max_tokens=len(ref)), use_tqdm=False)
         checks = []
         for t in range(len(ref)):
             actual, reference = captured[t], ref_logits[t]

@@ -1,0 +1,48 @@
+INFO:     Started server process [281380]
+INFO:     Waiting for application startup.
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:41352 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41368 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41368 - "POST /generate HTTP/1.1" 200 OK
+ERROR: External init callback must run in same thread as registerClient (1858909760 != -967560064)
+USDT:2026-10-23 17:03:55 281380:281664 SyncActivityProfilerHandler.cpp:52] profiler_start
+INFO:     127.0.0.1:41380 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41392 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41396 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41404 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41406 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41410 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41426 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41436 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41452 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41456 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41464 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41480 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41490 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41504 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41506 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41510 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41516 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41524 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41532 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41536 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41540 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41544 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41558 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41564 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41566 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41582 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41584 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41590 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41602 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41604 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41616 - "POST /generate HTTP/1.1" 200 OK
+USDT:2026-10-23 17:03:57 281380:281664 SyncActivityProfilerHandler.cpp:59] profiler_stop
+INFO:     127.0.0.1:41368 - "GET /health HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [281380]

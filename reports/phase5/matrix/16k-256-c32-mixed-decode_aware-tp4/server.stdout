@@ -1,0 +1,80 @@
+INFO:     Started server process [341209]
+INFO:     Waiting for application startup.
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:55458 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55468 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55468 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55472 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55484 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55486 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55494 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55500 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55504 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55512 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55514 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55518 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55534 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55540 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55548 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55554 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55570 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55582 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55594 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55608 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55620 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55630 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55644 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55650 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55664 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55666 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55676 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55692 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55694 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55700 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55706 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55716 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55728 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55732 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55468 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55472 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55484 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55486 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55494 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55504 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55500 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55512 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55514 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55534 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55518 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55540 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55548 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55570 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55554 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55582 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55594 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55608 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55620 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55630 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55644 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55664 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55650 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55666 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55676 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55694 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55692 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55700 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55706 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55728 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55716 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55732 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55468 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55472 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55484 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33736 - "GET /health HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [341209]

@@ -1,3 +1,4 @@
+import pytest
 from nanovllm import SamplingParams
 from nanovllm.engine.scheduler import Scheduler
 from nanovllm.engine.sequence import Sequence
@@ -5,7 +6,9 @@ from tests.test_block_manager import assert_consistent
 from tests.test_scheduler import finish_step
 
 
-def test_preemption_resume_preserves_history_and_frees_all_blocks(config):
+@pytest.mark.parametrize("policy", ["prefill_first", "decode_aware", "adaptive"])
+def test_preemption_resume_preserves_history_and_frees_all_blocks(config, policy):
+    config.scheduler_policy = policy
     config.num_kvcache_blocks = 3
     scheduler = Scheduler(config)
     first = Sequence([1, 2, 3, 4], SamplingParams(max_tokens=3))

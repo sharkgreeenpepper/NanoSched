@@ -43,9 +43,19 @@ def main():
             reference = [o["token_ids"] for o in outputs]
         for (length, question, expected), output, ref in zip(cases, outputs, reference):
             answer = tokenizer.decode(output["token_ids"], skip_special_tokens=True).strip()
-            row = {"policy": policy, "budget": budget, "input_length": length, "question": question,
+            row = {"policy": policy, "budget": budget, "mode": "serial", "input_length": length, "question": question,
                    "expected": expected, **output, "answer": answer, "semantic_match": answer == expected,
                    "token_match": output["token_ids"] == ref}
+            rows.append(row)
+            print(json.dumps(row), flush=True)
+        # Concurrent real prompts exercise phase interleaving as well as chunk boundaries.
+        engine.scheduler = Scheduler(config)
+        outputs = engine.generate(requests, SamplingParams(temperature=0, max_tokens=16), use_tqdm=False)
+        for (length, question, expected), output, ref in zip(cases, outputs, reference):
+            answer = tokenizer.decode(output["token_ids"], skip_special_tokens=True).strip()
+            row = {"policy": policy, "budget": budget, "mode": "concurrent", "input_length": length,
+                   "question": question, "expected": expected, **output, "answer": answer,
+                   "semantic_match": answer == expected, "token_match": output["token_ids"] == ref}
             rows.append(row)
             print(json.dumps(row), flush=True)
     args.output.write_text(json.dumps(rows, indent=2) + "\n")

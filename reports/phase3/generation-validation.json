@@ -1,0 +1,594 @@
+[
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "full",
+    "mode": "serial",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 1024,
+    "question": "What is 17 + 25? Answer with only the number.",
+    "expected": "42",
+    "text": "42<|im_end|>",
+    "token_ids": [
+      19,
+      17,
+      151645
+    ],
+    "answer": "42",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "full",
+    "mode": "serial",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 4096,
+    "question": "What is the capital of France? Answer with only the city name.",
+    "expected": "Paris",
+    "text": "Paris<|im_end|>",
+    "token_ids": [
+      59604,
+      151645
+    ],
+    "answer": "Paris",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "full",
+    "mode": "serial",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 8192,
+    "question": "What is 8 times 7? Answer with only the number.",
+    "expected": "56",
+    "text": "56<|im_end|>",
+    "token_ids": [
+      20,
+      21,
+      151645
+    ],
+    "answer": "56",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "full",
+    "mode": "serial",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 16384,
+    "question": "Write the word apple and nothing else.",
+    "expected": "apple",
+    "text": "apple<|im_end|>",
+    "token_ids": [
+      22377,
+      151645
+    ],
+    "answer": "apple",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "full",
+    "mode": "concurrent",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 1024,
+    "question": "What is 17 + 25? Answer with only the number.",
+    "expected": "42",
+    "text": "42<|im_end|>",
+    "token_ids": [
+      19,
+      17,
+      151645
+    ],
+    "answer": "42",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "full",
+    "mode": "concurrent",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 4096,
+    "question": "What is the capital of France? Answer with only the city name.",
+    "expected": "Paris",
+    "text": "Paris<|im_end|>",
+    "token_ids": [
+      59604,
+      151645
+    ],
+    "answer": "Paris",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "full",
+    "mode": "concurrent",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 8192,
+    "question": "What is 8 times 7? Answer with only the number.",
+    "expected": "56",
+    "text": "56<|im_end|>",
+    "token_ids": [
+      20,
+      21,
+      151645
+    ],
+    "answer": "56",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "full",
+    "mode": "concurrent",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 16384,
+    "question": "Write the word apple and nothing else.",
+    "expected": "apple",
+    "text": "apple<|im_end|>",
+    "token_ids": [
+      22377,
+      151645
+    ],
+    "answer": "apple",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "full_admission",
+    "mode": "serial",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 1024,
+    "question": "What is 17 + 25? Answer with only the number.",
+    "expected": "42",
+    "text": "42<|im_end|>",
+    "token_ids": [
+      19,
+      17,
+      151645
+    ],
+    "answer": "42",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "full_admission",
+    "mode": "serial",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 4096,
+    "question": "What is the capital of France? Answer with only the city name.",
+    "expected": "Paris",
+    "text": "Paris<|im_end|>",
+    "token_ids": [
+      59604,
+      151645
+    ],
+    "answer": "Paris",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "full_admission",
+    "mode": "serial",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 8192,
+    "question": "What is 8 times 7? Answer with only the number.",
+    "expected": "56",
+    "text": "56<|im_end|>",
+    "token_ids": [
+      20,
+      21,
+      151645
+    ],
+    "answer": "56",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "full_admission",
+    "mode": "serial",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 16384,
+    "question": "Write the word apple and nothing else.",
+    "expected": "apple",
+    "text": "apple<|im_end|>",
+    "token_ids": [
+      22377,
+      151645
+    ],
+    "answer": "apple",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "full_admission",
+    "mode": "concurrent",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 1024,
+    "question": "What is 17 + 25? Answer with only the number.",
+    "expected": "42",
+    "text": "42<|im_end|>",
+    "token_ids": [
+      19,
+      17,
+      151645
+    ],
+    "answer": "42",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "full_admission",
+    "mode": "concurrent",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 4096,
+    "question": "What is the capital of France? Answer with only the city name.",
+    "expected": "Paris",
+    "text": "Paris<|im_end|>",
+    "token_ids": [
+      59604,
+      151645
+    ],
+    "answer": "Paris",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "full_admission",
+    "mode": "concurrent",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 8192,
+    "question": "What is 8 times 7? Answer with only the number.",
+    "expected": "56",
+    "text": "56<|im_end|>",
+    "token_ids": [
+      20,
+      21,
+      151645
+    ],
+    "answer": "56",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "full_admission",
+    "mode": "concurrent",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 16384,
+    "question": "Write the word apple and nothing else.",
+    "expected": "apple",
+    "text": "apple<|im_end|>",
+    "token_ids": [
+      22377,
+      151645
+    ],
+    "answer": "apple",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "incremental",
+    "mode": "serial",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 1024,
+    "question": "What is 17 + 25? Answer with only the number.",
+    "expected": "42",
+    "text": "42<|im_end|>",
+    "token_ids": [
+      19,
+      17,
+      151645
+    ],
+    "answer": "42",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "incremental",
+    "mode": "serial",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 4096,
+    "question": "What is the capital of France? Answer with only the city name.",
+    "expected": "Paris",
+    "text": "Paris<|im_end|>",
+    "token_ids": [
+      59604,
+      151645
+    ],
+    "answer": "Paris",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "incremental",
+    "mode": "serial",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 8192,
+    "question": "What is 8 times 7? Answer with only the number.",
+    "expected": "56",
+    "text": "56<|im_end|>",
+    "token_ids": [
+      20,
+      21,
+      151645
+    ],
+    "answer": "56",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "incremental",
+    "mode": "serial",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 16384,
+    "question": "Write the word apple and nothing else.",
+    "expected": "apple",
+    "text": "apple<|im_end|>",
+    "token_ids": [
+      22377,
+      151645
+    ],
+    "answer": "apple",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "incremental",
+    "mode": "concurrent",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 1024,
+    "question": "What is 17 + 25? Answer with only the number.",
+    "expected": "42",
+    "text": "42<|im_end|>",
+    "token_ids": [
+      19,
+      17,
+      151645
+    ],
+    "answer": "42",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "incremental",
+    "mode": "concurrent",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 4096,
+    "question": "What is the capital of France? Answer with only the city name.",
+    "expected": "Paris",
+    "text": "Paris<|im_end|>",
+    "token_ids": [
+      59604,
+      151645
+    ],
+    "answer": "Paris",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "incremental",
+    "mode": "concurrent",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 8192,
+    "question": "What is 8 times 7? Answer with only the number.",
+    "expected": "56",
+    "text": "56<|im_end|>",
+    "token_ids": [
+      20,
+      21,
+      151645
+    ],
+    "answer": "56",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "incremental",
+    "mode": "concurrent",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 16384,
+    "question": "Write the word apple and nothing else.",
+    "expected": "apple",
+    "text": "apple<|im_end|>",
+    "token_ids": [
+      22377,
+      151645
+    ],
+    "answer": "apple",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "incremental_admission",
+    "mode": "serial",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 1024,
+    "question": "What is 17 + 25? Answer with only the number.",
+    "expected": "42",
+    "text": "42<|im_end|>",
+    "token_ids": [
+      19,
+      17,
+      151645
+    ],
+    "answer": "42",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "incremental_admission",
+    "mode": "serial",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 4096,
+    "question": "What is the capital of France? Answer with only the city name.",
+    "expected": "Paris",
+    "text": "Paris<|im_end|>",
+    "token_ids": [
+      59604,
+      151645
+    ],
+    "answer": "Paris",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "incremental_admission",
+    "mode": "serial",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 8192,
+    "question": "What is 8 times 7? Answer with only the number.",
+    "expected": "56",
+    "text": "56<|im_end|>",
+    "token_ids": [
+      20,
+      21,
+      151645
+    ],
+    "answer": "56",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "incremental_admission",
+    "mode": "serial",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 16384,
+    "question": "Write the word apple and nothing else.",
+    "expected": "apple",
+    "text": "apple<|im_end|>",
+    "token_ids": [
+      22377,
+      151645
+    ],
+    "answer": "apple",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "incremental_admission",
+    "mode": "concurrent",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 1024,
+    "question": "What is 17 + 25? Answer with only the number.",
+    "expected": "42",
+    "text": "42<|im_end|>",
+    "token_ids": [
+      19,
+      17,
+      151645
+    ],
+    "answer": "42",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "incremental_admission",
+    "mode": "concurrent",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 4096,
+    "question": "What is the capital of France? Answer with only the city name.",
+    "expected": "Paris",
+    "text": "Paris<|im_end|>",
+    "token_ids": [
+      59604,
+      151645
+    ],
+    "answer": "Paris",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "incremental_admission",
+    "mode": "concurrent",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 8192,
+    "question": "What is 8 times 7? Answer with only the number.",
+    "expected": "56",
+    "text": "56<|im_end|>",
+    "token_ids": [
+      20,
+      21,
+      151645
+    ],
+    "answer": "56",
+    "semantic_match": true,
+    "token_match": true
+  },
+  {
+    "policy": "decode_aware",
+    "budget": 1024,
+    "kv_mode": "incremental_admission",
+    "mode": "concurrent",
+    "group_prefix_cached_tokens": 12544,
+    "input_length": 16384,
+    "question": "Write the word apple and nothing else.",
+    "expected": "apple",
+    "text": "apple<|im_end|>",
+    "token_ids": [
+      22377,
+      151645
+    ],
+    "answer": "apple",
+    "semantic_match": true,
+    "token_match": true
+  }
+]

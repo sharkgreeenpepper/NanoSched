@@ -20,6 +20,9 @@ class Scheduler:
         self.policy = config.scheduler_policy
         self.max_consecutive_decodes = config.max_consecutive_decodes
         self.decode_prefill_token_budget = config.decode_prefill_token_budget
+        self.target_tpot_s = config.target_tpot_s
+        self.prefill_max_wait_s = config.prefill_max_wait_s
+        self.chunk_sizes = sorted({min(n, self.max_num_batched_tokens) for n in config.adaptive_chunk_sizes})
         self.clock = clock
         self.reset_stats()
 
@@ -27,11 +30,20 @@ class Scheduler:
         self.decode_streak = 0
         self.stats = Counter()
         self.phase = "idle"
+        self.decode_gap_s = 0.0
+        self.decode_step_s = 0.0
+        self.decode_batch_size = 1
+        self.prefill_token_s = 0.0
+        self.chunk_index = 0
+        self.last_token_at = {}
+        self.selected_budget = self.max_num_batched_tokens
 
     def snapshot(self):
         bm = self.block_manager
         return {**self.stats, "policy": self.policy, "phase": self.phase,
                 "decode_streak": self.decode_streak, "waiting": len(self.waiting), "running": len(self.running),
+                "selected_budget": self.selected_budget, "decode_gap_ewma_s": self.decode_gap_s,
+                "prefill_token_ewma_s": self.prefill_token_s,
                 "oldest_prefill_wait_s": max((self.clock()-s.prefill_queued_at for s in self.waiting), default=0),
                 "kv_used_blocks": len(bm.used_block_ids), "kv_total_blocks": len(bm.blocks)}
 
@@ -45,6 +57,7 @@ class Scheduler:
         self.waiting.append(seq)
 
     def schedule(self) -> tuple[list[Sequence], bool]:
+        self.step_started_at = self.clock()
         if self.is_finished():
             raise RuntimeError("Cannot schedule an empty engine")
         prefer_decode = False
@@ -54,6 +67,15 @@ class Scheduler:
             prefer_decode = self.decode_streak < self.max_consecutive_decodes
             if not prefer_decode:
                 self.stats["prefill_streak_guards"] += 1
+        if self.policy == "adaptive" and self.running and self.waiting:
+            wait = self.step_started_at - self.waiting[0].prefill_queued_at
+            # At least one decode between prefill chunks. Under SLO pressure,
+            # allow one extra decode, unless the head prefill is due for service.
+            limit = 2 if self.decode_gap_s >= self.target_tpot_s else 1
+            if wait >= self.prefill_max_wait_s:
+                limit = 1
+                self.stats["prefill_wait_guards"] += 1
+            prefer_decode = self.decode_streak < limit
         if prefer_decode:
             seqs = self._schedule_decode()
             if seqs:
@@ -61,6 +83,9 @@ class Scheduler:
         budget = self.max_num_batched_tokens
         if self.policy == "decode_aware" and self.running:
             budget = min(budget, self.decode_prefill_token_budget)
+        elif self.policy == "adaptive":
+            budget = self._adaptive_budget()
+        self.selected_budget = budget
         seqs = self._schedule_prefill(budget)
         if seqs:
             return self._record_schedule(seqs, True)
@@ -73,6 +98,37 @@ class Scheduler:
         if seqs:
             return self._record_schedule(seqs, True)
         raise RuntimeError("No request can make progress with the current KV capacity")
+
+    def _adaptive_budget(self):
+        if not self.running:
+            return self.chunk_sizes[-1]
+        budget = self.chunk_sizes[self.chunk_index]
+        if self.prefill_token_s:
+            # Estimate the cost of serving all active decodes at the last
+            # measured batch cost; admission can change their number.
+            decode_cost = self.decode_step_s * max(1, len(self.running) / self.decode_batch_size)
+            headroom = max(0, 0.9 * self.target_tpot_s - decode_cost)
+            affordable = [n for n in self.chunk_sizes if n * self.prefill_token_s <= headroom]
+            budget = min(budget, affordable[-1] if affordable else self.chunk_sizes[0])
+        return budget
+
+    def _observe_step(self, seqs, is_prefill, now):
+        elapsed = now - self.step_started_at
+        def ewma(old, value):
+            return 0.8 * old + 0.2 * value if old else value
+        if is_prefill:
+            tokens = sum(s.num_scheduled_tokens for s in seqs)
+            self.prefill_token_s = ewma(self.prefill_token_s, elapsed / tokens)
+        else:
+            gaps = [now - self.last_token_at[s.seq_id] for s in seqs if s.seq_id in self.last_token_at]
+            if gaps:
+                self.decode_gap_s = ewma(self.decode_gap_s, max(gaps))
+                if self.decode_gap_s >= 0.9 * self.target_tpot_s:
+                    self.chunk_index = max(0, self.chunk_index - 1)
+                elif self.decode_gap_s < 0.7 * self.target_tpot_s:
+                    self.chunk_index = min(len(self.chunk_sizes) - 1, self.chunk_index + 1)
+            self.decode_step_s = ewma(self.decode_step_s, elapsed)
+            self.decode_batch_size = len(seqs)
 
     def _record_schedule(self, seqs, is_prefill):
         phase = "prefill" if is_prefill else "decode"
@@ -148,6 +204,9 @@ class Scheduler:
     def postprocess(self, seqs: list[Sequence], token_ids: list[int], is_prefill: bool):
         if len(seqs) != len(token_ids):
             raise ValueError("Model returned a different number of samples than scheduled requests")
+        now = self.clock()
+        if self.policy == "adaptive":
+            self._observe_step(seqs, is_prefill, now)
         for seq, token_id in zip(seqs, token_ids):
             end = seq.num_cached_tokens + seq.num_scheduled_tokens
             if is_prefill:
@@ -160,7 +219,10 @@ class Scheduler:
                 seq.prefill_queued_at = self.clock()
                 continue
             seq.append_token(token_id)
+            if self.policy == "adaptive":
+                self.last_token_at[seq.seq_id] = now
             if (not seq.ignore_eos and token_id == self.eos) or seq.num_completion_tokens == seq.max_tokens:
                 seq.status = SequenceStatus.FINISHED
                 self.block_manager.deallocate(seq)
                 self.running.remove(seq)
+                self.last_token_at.pop(seq.seq_id, None)

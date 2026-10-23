@@ -8,7 +8,7 @@ def percentiles(values):
 
 def summarize(requests, elapsed, ttft_slo, tpot_slo):
     ttft, tpot, e2e, gaps = [], [], [], []
-    good = tokens = 0
+    good = tokens = tpot_met = 0
     for r in requests:
         events = r["token_times"]
         if not events:
@@ -23,6 +23,7 @@ def summarize(requests, elapsed, ttft_slo, tpot_slo):
         if per_token is not None:
             tpot.append(per_token)
         good += first <= ttft_slo and (per_token is None or per_token <= tpot_slo)
+        tpot_met += per_token is None or per_token <= tpot_slo
         tokens += len(events)
     return {
         "requests": len(requests), "output_tokens": tokens, "elapsed_s": elapsed,
@@ -32,4 +33,6 @@ def summarize(requests, elapsed, ttft_slo, tpot_slo):
         "requests_per_s": len(requests) / elapsed,
         "slo_goodput_requests_per_s": good / elapsed,
         "slo_met_requests": int(good), "slo_ttft_s": ttft_slo, "slo_tpot_s": tpot_slo,
+        "tpot_slo_met_fraction": tpot_met / len(requests) if requests else 0,
+        "itl_slo_met_fraction": sum(g <= tpot_slo for g in gaps) / len(gaps) if gaps else 1,
     }

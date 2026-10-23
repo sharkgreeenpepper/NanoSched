@@ -1,5 +1,6 @@
 """Single-process open-loop replay. Works against an untouched upstream worktree."""
 import argparse
+import csv
 from collections import Counter
 from contextlib import nullcontext
 from datetime import datetime, timezone
@@ -7,9 +8,11 @@ import json
 import os
 from pathlib import Path
 import random
+from queue import Queue
 import subprocess
 import sys
 import time
+from threading import Thread
 
 import numpy as np
 import torch
@@ -40,12 +43,35 @@ def workload(name, seed):
     return sorted(items, key=lambda r: r["arrival_s"])
 
 
+def arrival_workload(name, seed, input_length, output_length, rate, count):
+    """Fixed request set shared by all policies; no completion-driven arrivals."""
+    rng = random.Random(seed)
+    items = []
+    for i in range(count):
+        length = input_length
+        group = name
+        output = output_length
+        if name == "mixed" and i % 4 != 0:
+            length, group = min(1024, input_length), "short"
+        if name == "competition" and i == 0:
+            length, output, group = 128, max(256, output_length), "incumbent"
+        items.append({"id": f"request-{i}", "arrival_s": i / rate,
+                      "prompt": [rng.randrange(100, 20000) for _ in range(length)],
+                      "max_tokens": output, "group": group})
+    return items
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--engine-root", type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument("--model", default="/data1/fangdongqing/infra/models/Qwen/Qwen2.5-7B-Instruct")
-    parser.add_argument("--policy", choices=["prefill_first", "decode_aware"], default="prefill_first")
-    parser.add_argument("--workload", choices=["competition", "short", "long"], default="competition")
+    parser.add_argument("--policy", choices=["original", "prefill_first", "decode_aware", "adaptive"], default="original")
+    parser.add_argument("--workload", choices=["competition", "short", "long", "mixed", "pressure"], default="competition")
+    parser.add_argument("--input-length", type=int, default=1024)
+    parser.add_argument("--output-length", type=int, default=64)
+    parser.add_argument("--arrival-rate", type=float, help="Requests/second; omit to replay the historical workload")
+    parser.add_argument("--num-requests", type=int, default=12)
+    parser.add_argument("--concurrency", type=int, default=32, help="Maximum engine-inflight requests; excess arrivals wait externally")
     parser.add_argument("--workload-file", type=Path)
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--repeats", type=int, default=3)
@@ -53,17 +79,24 @@ def main():
     parser.add_argument("--seed", type=int, default=20261022)
     parser.add_argument("--budget", type=int, default=1024)
     parser.add_argument("--max-seqs", type=int, default=32)
+    parser.add_argument("--max-model-len", type=int, default=32768)
     parser.add_argument("--decode-limit", type=int, default=1)
     parser.add_argument("--decode-prefill-budget", type=int, default=1024)
+    parser.add_argument("--chunk-sizes", type=int, nargs="+", default=[256, 512, 1024, 2048])
+    parser.add_argument("--prefill-max-wait", type=float, default=0.5, help="Seconds since the head prefill last received service")
     parser.add_argument("--eager", action="store_true")
     parser.add_argument("--temperature", type=float, default=0)
     parser.add_argument("--memory-utilization", type=float, default=0.45)
     parser.add_argument("--ttft-slo", type=float, default=0.5)
-    parser.add_argument("--tpot-slo", type=float, default=0.02)
+    parser.add_argument("--tpot-slo", "--target-tpot", dest="tpot_slo", type=float, default=0.1, help="Seconds; configured objective, not a guaranteed latency")
     parser.add_argument("--profile", action="store_true", help="Separate diagnostic run; excludes profiler runs from comparisons")
     args = parser.parse_args()
     if args.repeats < 1 or args.warmup_runs < 0:
         parser.error("repeats must be positive and warmup-runs nonnegative")
+    if min(args.input_length, args.output_length, args.num_requests, args.concurrency) < 1 or (args.arrival_rate is not None and args.arrival_rate <= 0):
+        parser.error("Lengths, request count, concurrency and arrival rate must be positive")
+    if args.workload in ("mixed", "pressure") and not args.arrival_rate and not args.workload_file:
+        parser.error("mixed/pressure require --arrival-rate or --workload-file")
     args.output.mkdir(parents=True, exist_ok=False)
     sys.path.insert(0, str(args.engine_root.resolve()))
     from nanovllm import LLM, SamplingParams
@@ -72,17 +105,22 @@ def main():
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
     torch.cuda.manual_seed_all(args.seed)
-    config = dict(enforce_eager=args.eager, max_model_len=8192, max_num_batched_tokens=args.budget,
+    policy = "prefill_first" if args.policy == "original" else args.policy
+    config = dict(enforce_eager=args.eager, max_model_len=args.max_model_len, max_num_batched_tokens=args.budget,
                   max_num_seqs=args.max_seqs, gpu_memory_utilization=args.memory_utilization, tensor_parallel_size=1)
     if "scheduler_policy" in Config.__dataclass_fields__:
-        config.update(scheduler_policy=args.policy, max_consecutive_decodes=args.decode_limit,
-                      decode_prefill_token_budget=args.decode_prefill_budget)
-    elif args.policy != "prefill_first":
+        config.update(scheduler_policy=policy, max_consecutive_decodes=args.decode_limit,
+                      decode_prefill_token_budget=args.decode_prefill_budget,
+                      target_tpot_s=args.tpot_slo, prefill_max_wait_s=args.prefill_max_wait,
+                      adaptive_chunk_sizes=tuple(args.chunk_sizes))
+    elif policy != "prefill_first":
         parser.error("upstream only supports prefill_first")
     env = {"timestamp_utc": datetime.now(timezone.utc).isoformat(), "engine_root": str(args.engine_root.resolve()),
            "commit": git(args.engine_root, "rev-parse", "HEAD"),
+           "dirty": bool(git(args.engine_root, "status", "--porcelain", "--untracked-files=no")),
            "cuda_visible_devices": os.getenv("CUDA_VISIBLE_DEVICES"), "model": args.model,
-           "config": config, "seed": args.seed, "temperature": args.temperature, "profile": args.profile}
+           "config": config, "seed": args.seed, "temperature": args.temperature, "profile": args.profile,
+           "benchmark": {k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()}}
     env["warmup_replays"] = args.warmup_runs
     (args.output/"environment.json").write_text(json.dumps(env, indent=2)+"\n")
     t = time.perf_counter()
@@ -95,7 +133,9 @@ def main():
     (args.output/"environment.json").write_text(json.dumps(env, indent=2)+"\n")
     # Explicit warmup exercises prefill, decode, sampler and graph replay before timing.
     engine.generate([[42+i]*128 for i in range(8)], SamplingParams(temperature=args.temperature, max_tokens=8, ignore_eos=True), use_tqdm=False)
-    items = json.loads(args.workload_file.read_text()) if args.workload_file else workload(args.workload, args.seed)
+    items = (json.loads(args.workload_file.read_text()) if args.workload_file else
+             arrival_workload(args.workload, args.seed, args.input_length, args.output_length, args.arrival_rate, args.num_requests)
+             if args.arrival_rate else workload(args.workload, args.seed))
     canonical = json.dumps(items, sort_keys=True, separators=(",", ":"))
     (args.output/"workload.json").write_text(canonical+"\n")
     summaries = []
@@ -118,8 +158,8 @@ def main():
             counters["preemptions"] += 1
             return original_preempt(seq)
         def schedule():
-            start = time.perf_counter()
             uncached = {s.seq_id for s in engine.scheduler.waiting if not s.block_table}
+            start = time.perf_counter()
             seqs, is_prefill = original_schedule()
             now = time.perf_counter()
             bm = engine.scheduler.block_manager
@@ -127,6 +167,7 @@ def main():
                 "phase": "prefill" if is_prefill else "decode", "seq_ids": [s.seq_id for s in seqs],
                 "tokens": sum(s.num_scheduled_tokens for s in seqs),
                 "prefill_chunks": [s.num_scheduled_tokens for s in seqs] if is_prefill else [],
+                "budget": getattr(engine.scheduler, "selected_budget", args.budget),
                 "waiting": len(engine.scheduler.waiting), "running": len(engine.scheduler.running),
                 "kv_used_blocks": len(bm.used_block_ids), "kv_total_blocks": len(bm.blocks)}
             for seq in seqs:
@@ -139,7 +180,9 @@ def main():
             return seqs, is_prefill
         def postprocess(seqs, token_ids, is_prefill):
             before = [s.num_completion_tokens for s in seqs]
+            start = time.perf_counter()
             original_postprocess(seqs, token_ids, is_prefill)
+            trace["step"]["postprocess_s"] = time.perf_counter() - start
             now = time.perf_counter()-origin  # .tolist() in ModelRunner has already synchronized GPU results.
             for seq, count in zip(seqs, before):
                 r = records[seq.seq_id]
@@ -153,24 +196,31 @@ def main():
         engine.scheduler.schedule, engine.scheduler.postprocess = schedule, postprocess
         engine.scheduler.preempt = preempt
         origin = time.perf_counter()
+        arrivals = Queue()
+        def produce():
+            for item in items:
+                time.sleep(max(0, origin + item["arrival_s"] - time.perf_counter()))
+                arrivals.put((item, time.perf_counter() - origin))
+        producer = Thread(target=produce, daemon=True)
+        producer.start()
         profiler = torch.profiler.profile(activities=[torch.profiler.ProfilerActivity.CPU, torch.profiler.ProfilerActivity.CUDA]) if args.profile and repeat >= 0 else nullcontext()
         with profiler as prof:
             pending = 0
             while pending < len(items) or not engine.is_finished():
-                now = time.perf_counter()-origin
-                while pending < len(items) and items[pending]["arrival_s"] <= now:
-                    item = items[pending]
+                while not arrivals.empty() and len(engine.scheduler.waiting) + len(engine.scheduler.running) < args.concurrency:
+                    item, arrived = arrivals.get_nowait()
                     submitted = item["arrival_s"]
                     engine.add_request(item["prompt"], SamplingParams(temperature=args.temperature, max_tokens=item["max_tokens"], ignore_eos=True))
                     seq = engine.scheduler.waiting[-1]
                     records[seq.seq_id] = {"id": item["id"], "group": item["group"], "seq_id": seq.seq_id,
-                        "submitted_at": submitted, "enqueued_at": time.perf_counter()-origin,
+                        "submitted_at": submitted, "arrived_at": arrived, "enqueued_at": time.perf_counter()-origin,
                         "prompt_tokens": len(item["prompt"]), "token_times": [], "output_ids": []}
                     pending += 1
                 if not engine.is_finished():
                     engine.step()
                 elif pending < len(items):
-                    time.sleep(min(0.001, max(0, items[pending]["arrival_s"]-(time.perf_counter()-origin))))
+                    time.sleep(0.001)
+        producer.join()
         elapsed = time.perf_counter()-origin
         engine.scheduler.schedule, engine.scheduler.postprocess = original_schedule, original_postprocess
         engine.scheduler.preempt = original_preempt
@@ -183,6 +233,12 @@ def main():
         summary["groups"] = {g: summarize([r for r in rows if r["group"] == g], elapsed, args.ttft_slo, args.tpot_slo) for g in sorted({r["group"] for r in rows})}
         summary["max_inter_token_gap_s"] = max((max(np.diff(r["token_times"]), default=0) for r in rows), default=0)
         summary["scheduler_total_s"] = sum(s["schedule_s"] for s in steps)
+        summary["scheduler_mean_us"] = summary["scheduler_total_s"] / len(steps) * 1e6
+        summary["scheduler_p95_us"] = float(np.percentile([s["schedule_s"] for s in steps], 95)) * 1e6
+        summary["postprocess_total_s"] = sum(s["postprocess_s"] for s in steps)
+        summary["scheduler_cpu_pct"] = 100 * (summary["scheduler_total_s"] + summary["postprocess_total_s"]) / elapsed
+        summary["arrival_lag_p95_s"] = float(np.percentile([r["arrived_at"]-r["submitted_at"] for r in rows], 95))
+        summary["admission_wait_p95_s"] = float(np.percentile([r["enqueued_at"]-r["arrived_at"] for r in rows], 95))
         summary["kv_peak_utilization"] = max(s["kv_used_blocks"]/s["kv_total_blocks"] for s in steps)
         summary["prefill_chunk_tokens"] = dict(Counter(str(n) for s in steps for n in s["prefill_chunks"]))
         summary.update(counters)
@@ -194,6 +250,14 @@ def main():
         summaries.append(summary)
         (args.output/f"trace-{repeat}.json").write_text(json.dumps({"requests": rows, "steps": steps}, indent=2)+"\n")
         (args.output/"summary.json").write_text(json.dumps({"runs": summaries}, indent=2)+"\n")
+        with (args.output/f"requests-{repeat}.csv").open("w") as stream:
+            writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
+            writer.writeheader()
+            writer.writerows(rows)
+        with (args.output/f"tokens-{repeat}.csv").open("w") as stream:
+            writer = csv.writer(stream)
+            writer.writerow(["request_id", "token_index", "token_id", "produced_at_s"])
+            writer.writerows((r["id"], i, token, at) for r in rows for i, (token, at) in enumerate(zip(r["output_ids"], r["token_times"])))
         print(json.dumps({"repeat": repeat, **summary}), flush=True)
     # Upstream exit is not idempotent; unregister before explicitly releasing this engine.
     import atexit

@@ -1,0 +1,58 @@
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:532: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:532: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:532: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:532: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+{"policy": "prefill_first", "budget": 2048, "input_length": 1024, "question": "What is 17 + 25? Answer with only the number.", "expected": "42", "text": "42<|im_end|>", "token_ids": [19, 17, 151645], "semantic_match": false, "token_match": true}
+{"policy": "prefill_first", "budget": 2048, "input_length": 4096, "question": "What is the capital of France? Answer with only the city name.", "expected": "Paris", "text": "Paris<|im_end|>", "token_ids": [59604, 151645], "semantic_match": false, "token_match": true}
+{"policy": "prefill_first", "budget": 2048, "input_length": 8192, "question": "What is 8 times 7? Answer with only the number.", "expected": "56", "text": "56<|im_end|>", "token_ids": [20, 21, 151645], "semantic_match": false, "token_match": true}
+{"policy": "prefill_first", "budget": 2048, "input_length": 16384, "question": "Write the word apple and nothing else.", "expected": "apple", "text": "apple<|im_end|>", "token_ids": [22377, 151645], "semantic_match": false, "token_match": true}
+{"policy": "decode_aware", "budget": 1024, "input_length": 1024, "question": "What is 17 + 25? Answer with only the number.", "expected": "42", "text": "42<|im_end|>", "token_ids": [19, 17, 151645], "semantic_match": false, "token_match": true}
+{"policy": "decode_aware", "budget": 1024, "input_length": 4096, "question": "What is the capital of France? Answer with only the city name.", "expected": "Paris", "text": "Paris<|im_end|>", "token_ids": [59604, 151645], "semantic_match": false, "token_match": true}
+{"policy": "decode_aware", "budget": 1024, "input_length": 8192, "question": "What is 8 times 7? Answer with only the number.", "expected": "56", "text": "56<|im_end|>", "token_ids": [20, 21, 151645], "semantic_match": false, "token_match": true}
+{"policy": "decode_aware", "budget": 1024, "input_length": 16384, "question": "Write the word apple and nothing else.", "expected": "apple", "text": "apple<|im_end|>", "token_ids": [22377, 151645], "semantic_match": false, "token_match": true}
+{"policy": "adaptive", "budget": 256, "input_length": 1024, "question": "What is 17 + 25? Answer with only the number.", "expected": "42", "text": "42<|im_end|>", "token_ids": [19, 17, 151645], "semantic_match": false, "token_match": true}
+{"policy": "adaptive", "budget": 256, "input_length": 4096, "question": "What is the capital of France? Answer with only the city name.", "expected": "Paris", "text": "Paris<|im_end|>", "token_ids": [59604, 151645], "semantic_match": false, "token_match": true}
+{"policy": "adaptive", "budget": 256, "input_length": 8192, "question": "What is 8 times 7? Answer with only the number.", "expected": "56", "text": "56<|im_end|>", "token_ids": [20, 21, 151645], "semantic_match": false, "token_match": true}
+{"policy": "adaptive", "budget": 256, "input_length": 16384, "question": "Write the word apple and nothing else.", "expected": "apple", "text": "apple<|im_end|>", "token_ids": [22377, 151645], "semantic_match": false, "token_match": true}
+{"policy": "adaptive", "budget": 512, "input_length": 1024, "question": "What is 17 + 25? Answer with only the number.", "expected": "42", "text": "42<|im_end|>", "token_ids": [19, 17, 151645], "semantic_match": false, "token_match": true}
+{"policy": "adaptive", "budget": 512, "input_length": 4096, "question": "What is the capital of France? Answer with only the city name.", "expected": "Paris", "text": "Paris<|im_end|>", "token_ids": [59604, 151645], "semantic_match": false, "token_match": true}
+{"policy": "adaptive", "budget": 512, "input_length": 8192, "question": "What is 8 times 7? Answer with only the number.", "expected": "56", "text": "56<|im_end|>", "token_ids": [20, 21, 151645], "semantic_match": false, "token_match": true}
+{"policy": "adaptive", "budget": 512, "input_length": 16384, "question": "Write the word apple and nothing else.", "expected": "apple", "text": "apple<|im_end|>", "token_ids": [22377, 151645], "semantic_match": false, "token_match": true}
+{"policy": "adaptive", "budget": 2048, "input_length": 1024, "question": "What is 17 + 25? Answer with only the number.", "expected": "42", "text": "42<|im_end|>", "token_ids": [19, 17, 151645], "semantic_match": false, "token_match": true}
+{"policy": "adaptive", "budget": 2048, "input_length": 4096, "question": "What is the capital of France? Answer with only the city name.", "expected": "Paris", "text": "Paris<|im_end|>", "token_ids": [59604, 151645], "semantic_match": false, "token_match": true}
+{"policy": "adaptive", "budget": 2048, "input_length": 8192, "question": "What is 8 times 7? Answer with only the number.", "expected": "56", "text": "56<|im_end|>", "token_ids": [20, 21, 151645], "semantic_match": false, "token_match": true}
+{"policy": "adaptive", "budget": 2048, "input_length": 16384, "question": "Write the word apple and nothing else.", "expected": "apple", "text": "apple<|im_end|>", "token_ids": [22377, 151645], "semantic_match": false, "token_match": true}
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/usr/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+[rank0]:     return _run_code(code, main_globals, None,
+[rank0]:   File "/usr/lib/python3.10/runpy.py", line 86, in _run_code
+[rank0]:     exec(code, run_globals)
+[rank0]:   File "/data1/fangdongqing/git/NanoSched/benchmarks/validate_generation.py", line 57, in <module>
+[rank0]:     main()
+[rank0]:   File "/data1/fangdongqing/git/NanoSched/benchmarks/validate_generation.py", line 52, in main
+[rank0]:     assert all(row["semantic_match"] for row in rows), "A generated answer is incorrect; see saved outputs"
+[rank0]: AssertionError: A generated answer is incorrect; see saved outputs

@@ -1,0 +1,16 @@
+{
+  "model": "/data1/fangdongqing/infra/models/Qwen/Qwen2.5-7B-Instruct",
+  "policy": "adaptive",
+  "engine_root": "None",
+  "prompt": "What is 17 + 25? Answer with only the number.",
+  "outputs": [
+    {
+      "text": "42<|im_end|>",
+      "token_ids": [
+        19,
+        17,
+        151645
+      ]
+    }
+  ]
+}

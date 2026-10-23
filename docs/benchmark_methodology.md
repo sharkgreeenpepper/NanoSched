@@ -1,43 +1,50 @@
-# Phase 0 / Phase 1 基准方法
+# H20 Benchmark 测量方法
 
-## 版本与控制变量
+## 对照配置
 
-- 逐字节上游：`bb823b3`，独立只读 detached worktree `NanoSched-baseline-bb823b3`。
-- 适配基线：`2e1e4e6`，独立 detached worktree `NanoSched-baseline-phase0`；保留原版 Scheduler，包含 Greedy、严格权重校验和 BF16 数值路径调整。
-- 正式比较记录各个 `environment.json` 的引擎 Commit、tracked diff Hash、Harness Hash、模型 Config Hash、依赖版本、GPU 和运行参数。修改模型数学路径后必须重新测量，不能将它的收益归于调度。
-- Qwen2.5-7B-Instruct、BF16、TP=1、单 H20。Token Budget=1024、序列 Batch 上限=32、最大上下文=8192、GPU Memory Utilization=0.45。
-- 随机种子 20261022；请求列表保存为 `workload.json`，对照必须具有相同 SHA256。
-- 每配置执行一次算子/Decode 预热、一次完整负载回放预热，随后测量三次。每次重置 Prefix Cache 元数据及随机种子。保留初次不完整预热的探索结果，不纳入正式对照。
-- GPU 独占检查在运行前执行；工具只启动到指定的单张空闲 GPU，不终止其他用户进程。`gpu_telemetry.csv` 每 500 ms 记录 GPU 利用率、功耗和显存。
+本轮复用 Python 3.10、PyTorch 2.13.0+cu129、Transformers 5.17.0、Triton 3.7.1、FlashAttention 2.7.4.post1。Qwen2.5-7B-Instruct、BF16、TP=1、单张 NVIDIA H20，CUDA Graph 开启。总 Token Budget=2048、模型批次上限=32、上下文上限=32768。普通场景 GPU memory utilization=0.45，KV 压力场景为 0.22；同一场景的所有策略完全一致。
 
-## 工作负载
+`original`、`decode_aware`、`adaptive` 使用相同模型实现，仅切换调度参数。`original` 表示上游 Prefill-First 顺序，不代表字节级相同的上游源码。独立 checkout `bb823b3` 的正常生成另行保存。
 
-| 名称 | 请求与到达 |
-| --- | --- |
-| short | 8 请求同时到达，128 输入 / 128 输出 |
-| long | 4 请求同时到达，4096 输入 / 128 输出 |
-| competition | 1 个 128 输入 / 128 输出的已有请求；50 ms 后开始每 25 ms 到达一个 4096 输入 / 16 输出请求，共 12 个；另有 8 个 128 输入 / 64 输出短请求，每 40 ms 到达 |
+每个配置执行算子预热和一次完整负载预热，再独立测量三次。每次清空 Prefix Cache 元数据、重置控制器和随机种子。保存完整请求集，汇总时直接比较内容及公共配置。没有文件 Hash 或 Checkpoint 指纹框架。
 
-Prompt 为固定随机 Token ID，不包含视觉或特殊长上下文模型能力。忽略 EOS，固定输出长度。重复 Prefix 命中通过模型正确性对照和 CPU 回归验证，不在本轮吞吐比较里人为制造缓存收益。long 为静态批次对照，competition 为持续到达的回放。
+## 持续到达与并发
 
-## 时间戳与指标
+固定种子生成 Prompt Token ID，按配置到达率等间隔到达。独立线程按计划产生请求，与模型执行线程解耦。`concurrency` 限制引擎内未完成请求，超额请求在外部排队，不能因为引擎忙而暂停负载源。
 
-`trace-*.json` 保留请求、每个 Token 事件和调度步骤：
+- `short`：输入长度统一为 1K。
+- `mixed`：每四个请求中一个使用指定长 Prompt，其余最多 1K；包含 1K 同质负载作为对照。
+- `competition`：首个请求 128 输入、至少 256 输出；后续为指定长度 Prompt、64 输出，观察持续 Prefill 到达对已开始生成的请求的影响。
+- `pressure`：16 个 16K 输入请求，在较小 KV Pool 下测试；不是硬件默认显存配置，结果单列。
 
-- 回放的 `submitted_at` 是相对负载起点的**计划到达/逻辑提交时间**，不是网络发送时间。引擎在每次 GPU Step 返回后实际将到期请求加入队列，记为 `enqueued_at`。两者差值是同步 Step 粒度产生的注入延迟，计入 TTFT，避免只从入队开始计时而隐藏到达等待。没有声称运行了独立 HTTP 客户端。
-- `token_times[0]` 是首个 CPU 可见输出 Token 的时间，最后一个也是请求 `finished_at`。ModelRunner 的 `.tolist()` 已完成 GPU 同步；Prefill 中间 Chunk 的样本不算输出。
-- `TTFT = first_token - submitted_at`。
-- 每请求 `TPOT = (last_token - first_token)/(output_tokens-1)`，只有一个输出 Token 的请求没有 TPOT。先计算每请求 TPOT，再在请求之间取 P50/P95/P99。
-- `inter_token_gap` 对所有实际相邻输出 Token 间隔取分位数，另报最坏间隔。它与每请求平均 TPOT 不同，二者同时保留。
-- `E2E = finished_at - submitted_at`。
-- Output Throughput = 完成的输出 Token / 整段回放耗时；Request Throughput = 完成请求数 / 耗时；SLO Goodput = 同时满足 TTFT 和平均 TPOT SLO 的请求数 / 耗时。不能互相替代。
-- 本轮预设 SLO：TTFT <= 0.5 s 且平均 TPOT <= 0.02 s；不把所有配置 Goodput=0 改写成优化收益。
-- KV 利用率是调度时刻已被引用的 Block / 已分配 Pool 的 Block；不等同于 CUDA 总显存利用率。Prefill Chunk 分布逐请求记录，不是批次总 Token 数。
+完整长度、到达率、并发和数量见 `benchmarks/suite.py:CASES`，每次运行的实际命令保存在 `commands.json`。低负载、不同并发以及短请求对照与竞争场景一起保留，不能只报告有收益的场景。
 
-正式报告给出三次运行的均值和样本标准差（ddof=1），不是把三次的请求混在一起计算一个分位数。只有三次重复，不能据此断言统计显著性。Profiler 的诊断运行单独保存，绝不混入计时结果。
+## 时间与指标
+
+全部时间相对该次回放起点，使用 `perf_counter()`：
+
+- `submitted_at`：计划到达时间。
+- `arrived_at`：独立线程实际产生请求时间。
+- `enqueued_at`：进入引擎等待队列的时间。
+- `token_times`：每个输出 Token 在 CPU 可见的时刻；ModelRunner 的 `.tolist()` 已同步 GPU。中间 Prefill Chunk 不计作输出。
+- `finished_at`：最后一个输出 Token 的时刻。
+
+TTFT 与 E2E 从计划到达开始计时，包含发生器迟到和外部准入等待；两部分另报 `arrival_lag_p95_s`、`admission_wait_p95_s`，不隐藏排队。
+
+每请求 TPOT 为首 Token 到末 Token 的平均间隔，再在请求之间计算 P50/P95/P99。ITL 对实际相邻 Token 间隔计算分位数，并报告最大间隔。两者不同，SLO 控制器使用最近最大间隔的 EWMA，结果同时给出每请求平均 TPOT 和逐 Token ITL 达标率。
+
+吞吐为总输出 Token 除以从负载开始到全部完成的时间。主矩阵 TPOT 目标为 100 ms、TTFT 目标为 5 s；目标是用户配置，不是性能结论。Goodput 要求两个目标同时满足，TPOT 达标率单独计算。
+
+`Scheduler.schedule()` 通过 CPU 单调时钟计时，排除 Trace 构造；单独记录 `postprocess()`（包含自适应观测、Block Hash 和状态更新）。报告每次 Schedule 均值/P95，以及两者总时间占回放时间比例。它是调度/状态管理整体耗时，不能将策略间差值全部解释为反馈控制器自身耗时。
+
+KV 使用率是被引用 Blocks / Pool Blocks，不等于 GPU 总显存使用率。记录抢占次数、重算 Token 和实际 Chunk 分布。
+
+汇总为三次运行指标的均值及样本标准差，保留每次原始数据。三次重复不支持广泛统计显著性或所有生产负载结论。
 
 ## 正确性与限制
 
-`benchmarks.correctness` 实际加载 Transformers 与 NanoSched，比较自然 EOS、Greedy Serial、Batch、重复 Prefix 命中和跨 Chunk 生成；并强制使用同一 Token 历史比较缓存 Decode logits。独立保留逐 Token 精确匹配与固定的数值门槛（相对 L2 <= 0.02 且参考 Top-1 位于引擎 Top-5），门槛未通过时程序返回非零。
+自然语言生成验证覆盖 1K/4K/8K/16K Prompt、多种 Chunk、三策略，比较明确答案及完整 Token ID。EOS 在语义答案解码时去除，完整 Token 比较仍包含 EOS。性能负载使用随机 Token 并忽略 EOS，用来控制计算量，不代表模型任务质量。
 
-不同 Batch/Attention Kernel 的 BF16 输出可能在近似并列 Token 处出现分歧；这必须报告，不能通过忽略参数、删除失败样本或放宽原门槛宣称通过。完整 Phase 4 的 1K–32K、多并发、KV 高压、Prefix 命中与 SLO 曲线矩阵均不属于本轮交付。
+动态 Batch 可能改变 BF16 舍入，历史数据存在输出分歧；不得将小规模语义验证泛化为所有 Batch 严格一致。旧 Transformers 诊断中的 2% logits 阈值不是本项目新增验收门槛，历史失败保留。
+
+没有网络服务测量，也未测试 32K 输入、多卡或新的模型架构。低显存压力结果不代表所有显存配置。

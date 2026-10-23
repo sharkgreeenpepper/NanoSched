@@ -51,9 +51,9 @@ def main():
         writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
         writer.writeheader()
         writer.writerows(rows)
-    keys = ["ttft_p95_ms", "tpot_p95_ms", "itl_p95_ms", "output_tok_s", "tpot_met_pct", "scheduler_mean_us", "kv_peak_pct", "preemptions"]
-    lines = ["|Case|Policy|TTFT P95 ms|TPOT P95 ms|ITL P95 ms|Output tok/s|TPOT met %|Schedule μs|KV peak %|Preemptions|",
-             "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|"]
+    keys = ["ttft_p95_ms", "tpot_p95_ms", "e2e_p95_ms", "itl_p95_ms", "output_tok_s", "tpot_met_pct", "scheduler_mean_us", "kv_peak_pct", "preemptions"]
+    lines = ["|Case|Policy|TTFT P95 ms|TPOT P95 ms|E2E P95 ms|ITL P95 ms|Output tok/s|TPOT met %|Schedule μs|KV peak %|Preemptions|",
+             "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|"]
     for row in rows:
         lines.append("|" + "|".join([row["case"], row["policy"], *[f"{row[k]:.2f} ± {row[k+'_std']:.2f}" for k in keys]]) + "|")
     (args.suite / "table.md").write_text("\n".join(lines) + "\n")

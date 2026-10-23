@@ -1,0 +1,67 @@
+[
+  {
+    "policy": "fixed-256",
+    "source": "reports/adaptive/calibration-fixed-256",
+    "runs": 3,
+    "ttft_p95_ms": 4605.022737515779,
+    "ttft_p95_ms_std": 15.700306991640419,
+    "tpot_p95_ms": 41.96138515496853,
+    "tpot_p95_ms_std": 0.11287159289969664,
+    "max_gap_ms": 49.9653552348415,
+    "max_gap_ms_std": 0.1654178869058848,
+    "output_tok_s": 117.57107391382813,
+    "output_tok_s_std": 0.2566378990785883
+  },
+  {
+    "policy": "fixed-512",
+    "source": "reports/adaptive/calibration-fixed-512",
+    "runs": 3,
+    "ttft_p95_ms": 3490.69106420502,
+    "ttft_p95_ms_std": 0.7077590725030466,
+    "tpot_p95_ms": 69.75829149091311,
+    "tpot_p95_ms_std": 0.00440077259785399,
+    "max_gap_ms": 76.93052183215816,
+    "max_gap_ms_std": 0.03601256940229629,
+    "output_tok_s": 128.87035939988823,
+    "output_tok_s_std": 0.031344605752194075
+  },
+  {
+    "policy": "fixed-1024",
+    "source": "reports/adaptive/calibration-fixed-1024",
+    "runs": 3,
+    "ttft_p95_ms": 2939.441070542671,
+    "ttft_p95_ms_std": 1.353317212835239,
+    "tpot_p95_ms": 81.51920170574965,
+    "tpot_p95_ms_std": 0.01932623405417494,
+    "max_gap_ms": 137.81942365070185,
+    "max_gap_ms_std": 0.058312648431551505,
+    "output_tok_s": 133.54582590237032,
+    "output_tok_s_std": 0.0007414996226735611
+  },
+  {
+    "policy": "fixed-2048",
+    "source": "reports/adaptive/calibration-fixed-2048",
+    "runs": 3,
+    "ttft_p95_ms": 2592.7678602359565,
+    "ttft_p95_ms_std": 4.849854455389754,
+    "tpot_p95_ms": 80.19927406508633,
+    "tpot_p95_ms_std": 0.04648892074703725,
+    "max_gap_ms": 249.82301145792007,
+    "max_gap_ms_std": 0.054544058882095986,
+    "output_tok_s": 137.43518345965768,
+    "output_tok_s_std": 0.061685381600480295
+  },
+  {
+    "policy": "adaptive",
+    "source": "reports/adaptive/calibration-adaptive",
+    "runs": 3,
+    "ttft_p95_ms": 3465.880003858668,
+    "ttft_p95_ms_std": 3.4267842991283133,
+    "tpot_p95_ms": 69.38449456541252,
+    "tpot_p95_ms_std": 0.025532996641095294,
+    "max_gap_ms": 76.48683401445548,
+    "max_gap_ms_std": 0.044552791270376584,
+    "output_tok_s": 129.35344010667035,
+    "output_tok_s_std": 0.07514371910355026
+  }
+]

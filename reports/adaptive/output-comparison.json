@@ -1,0 +1,222 @@
+[
+  {
+    "case": "short-1k",
+    "policy": "decode_aware",
+    "exact_requests_per_run": [
+      11,
+      11,
+      11
+    ],
+    "requests_per_run": 12
+  },
+  {
+    "case": "short-1k",
+    "policy": "adaptive",
+    "exact_requests_per_run": [
+      10,
+      9,
+      10
+    ],
+    "requests_per_run": 12
+  },
+  {
+    "case": "mixed-1k",
+    "policy": "decode_aware",
+    "exact_requests_per_run": [
+      11,
+      12,
+      12
+    ],
+    "requests_per_run": 12
+  },
+  {
+    "case": "mixed-1k",
+    "policy": "adaptive",
+    "exact_requests_per_run": [
+      9,
+      10,
+      9
+    ],
+    "requests_per_run": 12
+  },
+  {
+    "case": "mixed-4k",
+    "policy": "decode_aware",
+    "exact_requests_per_run": [
+      12,
+      12,
+      12
+    ],
+    "requests_per_run": 12
+  },
+  {
+    "case": "mixed-4k",
+    "policy": "adaptive",
+    "exact_requests_per_run": [
+      11,
+      11,
+      11
+    ],
+    "requests_per_run": 12
+  },
+  {
+    "case": "mixed-8k",
+    "policy": "decode_aware",
+    "exact_requests_per_run": [
+      12,
+      12,
+      12
+    ],
+    "requests_per_run": 12
+  },
+  {
+    "case": "mixed-8k",
+    "policy": "adaptive",
+    "exact_requests_per_run": [
+      11,
+      11,
+      11
+    ],
+    "requests_per_run": 12
+  },
+  {
+    "case": "mixed-16k",
+    "policy": "decode_aware",
+    "exact_requests_per_run": [
+      12,
+      12,
+      12
+    ],
+    "requests_per_run": 12
+  },
+  {
+    "case": "mixed-16k",
+    "policy": "adaptive",
+    "exact_requests_per_run": [
+      11,
+      11,
+      11
+    ],
+    "requests_per_run": 12
+  },
+  {
+    "case": "competition-4k-low",
+    "policy": "decode_aware",
+    "exact_requests_per_run": [
+      8,
+      8,
+      8
+    ],
+    "requests_per_run": 8
+  },
+  {
+    "case": "competition-4k-low",
+    "policy": "adaptive",
+    "exact_requests_per_run": [
+      8,
+      8,
+      8
+    ],
+    "requests_per_run": 8
+  },
+  {
+    "case": "competition-4k",
+    "policy": "decode_aware",
+    "exact_requests_per_run": [
+      10,
+      10,
+      10
+    ],
+    "requests_per_run": 12
+  },
+  {
+    "case": "competition-4k",
+    "policy": "adaptive",
+    "exact_requests_per_run": [
+      10,
+      10,
+      10
+    ],
+    "requests_per_run": 12
+  },
+  {
+    "case": "competition-4k-c4",
+    "policy": "decode_aware",
+    "exact_requests_per_run": [
+      10,
+      10,
+      10
+    ],
+    "requests_per_run": 12
+  },
+  {
+    "case": "competition-4k-c4",
+    "policy": "adaptive",
+    "exact_requests_per_run": [
+      11,
+      11,
+      11
+    ],
+    "requests_per_run": 12
+  },
+  {
+    "case": "competition-8k",
+    "policy": "decode_aware",
+    "exact_requests_per_run": [
+      11,
+      11,
+      11
+    ],
+    "requests_per_run": 12
+  },
+  {
+    "case": "competition-8k",
+    "policy": "adaptive",
+    "exact_requests_per_run": [
+      11,
+      11,
+      11
+    ],
+    "requests_per_run": 12
+  },
+  {
+    "case": "competition-16k",
+    "policy": "decode_aware",
+    "exact_requests_per_run": [
+      12,
+      12,
+      12
+    ],
+    "requests_per_run": 12
+  },
+  {
+    "case": "competition-16k",
+    "policy": "adaptive",
+    "exact_requests_per_run": [
+      12,
+      12,
+      12
+    ],
+    "requests_per_run": 12
+  },
+  {
+    "case": "pressure-16k",
+    "policy": "decode_aware",
+    "exact_requests_per_run": [
+      13,
+      13,
+      13
+    ],
+    "requests_per_run": 16
+  },
+  {
+    "case": "pressure-16k",
+    "policy": "adaptive",
+    "exact_requests_per_run": [
+      14,
+      14,
+      14
+    ],
+    "requests_per_run": 16
+  }
+]

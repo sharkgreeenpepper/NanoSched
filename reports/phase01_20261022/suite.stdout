@@ -1,0 +1,12 @@
+Running competition_prefill_first_eager
+Running competition_decode_aware_eager
+Running short_prefill_first_eager
+Running short_decode_aware_eager
+Running long_prefill_first_eager
+Running long_decode_aware_eager
+Running competition_prefill_first_graph
+Running competition_decode_aware_graph
+Running short_prefill_first_graph
+Running short_decode_aware_graph
+Running long_prefill_first_graph
+Running long_decode_aware_graph

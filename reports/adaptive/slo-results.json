@@ -1,0 +1,52 @@
+[
+  {
+    "target_ms": 50.0,
+    "chunks": {
+      "128": 3,
+      "256": 528
+    },
+    "source": "reports/adaptive/target-50ms",
+    "tpot_p95_ms": 42.00991198762995,
+    "tpot_p95_ms_std": 0.07013066633811689,
+    "ttft_p95_ms": 4613.743973779492,
+    "ttft_p95_ms_std": 14.911486162772247,
+    "max_gap_ms": 50.08540271470944,
+    "max_gap_ms_std": 0.1439032810459523,
+    "output_tok_s": 117.40413543230227,
+    "output_tok_s_std": 0.253934121949836
+  },
+  {
+    "target_ms": 100.0,
+    "chunks": {
+      "128": 3,
+      "256": 6,
+      "512": 261
+    },
+    "source": "reports/adaptive/matrix/competition-4k-adaptive",
+    "tpot_p95_ms": 69.77051714898417,
+    "tpot_p95_ms_std": 0.07115811236183298,
+    "ttft_p95_ms": 3502.3814417266594,
+    "ttft_p95_ms_std": 6.668003980467537,
+    "max_gap_ms": 76.9289848394692,
+    "max_gap_ms_std": 0.04530856866480511,
+    "output_tok_s": 128.76633721829273,
+    "output_tok_s_std": 0.11989659237457904
+  },
+  {
+    "target_ms": 200.0,
+    "chunks": {
+      "128": 3,
+      "1024": 131,
+      "512": 2
+    },
+    "source": "reports/adaptive/target-200ms",
+    "tpot_p95_ms": 81.54913184895776,
+    "tpot_p95_ms_std": 0.08762935187131363,
+    "ttft_p95_ms": 2944.3446637519323,
+    "ttft_p95_ms_std": 9.664681703612375,
+    "max_gap_ms": 138.20015375191966,
+    "max_gap_ms_std": 0.6126767462533556,
+    "output_tok_s": 133.46407227838853,
+    "output_tok_s_std": 0.13105925262359205
+  }
+]

@@ -8,7 +8,8 @@ def apply_rotary_emb(
     cos: torch.Tensor,
     sin: torch.Tensor,
 ) -> torch.Tensor:
-    x1, x2 = torch.chunk(x.float(), 2, dim=-1)
+    x1, x2 = torch.chunk(x, 2, dim=-1)
+    cos, sin = cos.to(x.dtype), sin.to(x.dtype)
     y1 = x1 * cos - x2 * sin
     y2 = x2 * cos + x1 * sin
     return torch.cat((y1, y2), dim=-1).to(x.dtype)
@@ -34,7 +35,7 @@ class RotaryEmbedding(nn.Module):
         cache = torch.cat((cos, sin), dim=-1).unsqueeze_(1)
         self.register_buffer("cos_sin_cache", cache, persistent=False)
 
-    @torch.compile
+    @torch.compile(options={"emulate_precision_casts": True})
     def forward(
         self,
         positions: torch.Tensor,

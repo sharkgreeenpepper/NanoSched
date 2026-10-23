@@ -55,10 +55,11 @@ class BlockManager:
         self.used_block_ids.remove(block_id)
         self.free_block_ids.append(block_id)
 
-    def can_allocate(self, seq: Sequence) -> int:
+    def allocation_requirement(self, seq: Sequence, num_tokens: int | None = None) -> tuple[int, int]:
+        """Return prefix hits and free blocks needed for the planned prefill."""
         h = -1
         num_cached_blocks = 0
-        num_new_blocks = seq.num_blocks
+        num_shared_blocks = 0
         for i in range(seq.num_blocks - 1):
             token_ids = seq.block(i)
             h = self.compute_hash(token_ids, h)
@@ -67,12 +68,20 @@ class BlockManager:
                 break
             num_cached_blocks += 1
             if block_id in self.used_block_ids:
-                num_new_blocks -= 1
+                num_shared_blocks += 1
+        num_reserved_tokens = len(seq)
+        if num_tokens is not None:
+            num_reserved_tokens = min(len(seq), num_cached_blocks * self.block_size + num_tokens)
+        num_blocks = (num_reserved_tokens + self.block_size - 1) // self.block_size
+        return num_cached_blocks, num_blocks - num_shared_blocks
+
+    def can_allocate(self, seq: Sequence, num_tokens: int | None = None) -> int:
+        num_cached_blocks, num_new_blocks = self.allocation_requirement(seq, num_tokens)
         if len(self.free_block_ids) < num_new_blocks:
             return -1
         return num_cached_blocks
 
-    def allocate(self, seq: Sequence, num_cached_blocks: int):
+    def allocate(self, seq: Sequence, num_cached_blocks: int, num_tokens: int | None = None):
         assert not seq.block_table
         h = -1
         for i in range(num_cached_blocks):
@@ -87,9 +96,19 @@ class BlockManager:
                 self.free_block_ids.remove(block_id)
                 self.used_block_ids.add(block_id)
             seq.block_table.append(block_id)
-        for i in range(num_cached_blocks, seq.num_blocks):
-            seq.block_table.append(self._allocate_block())
         seq.num_cached_tokens = num_cached_blocks * self.block_size
+        remaining_tokens = len(seq) - seq.num_cached_tokens
+        self.reserve(seq, remaining_tokens if num_tokens is None else min(num_tokens, remaining_tokens))
+
+    def blocks_needed(self, seq: Sequence, num_tokens: int) -> int:
+        num_tokens += seq.num_cached_tokens
+        num_blocks = (num_tokens + self.block_size - 1) // self.block_size
+        return max(0, num_blocks - len(seq.block_table))
+
+    def reserve(self, seq: Sequence, num_tokens: int):
+        """Reserve a chunk's writable blocks without advancing cached progress."""
+        for _ in range(self.blocks_needed(seq, num_tokens)):
+            seq.block_table.append(self._allocate_block())
 
     def deallocate(self, seq: Sequence):
         for block_id in reversed(seq.block_table):

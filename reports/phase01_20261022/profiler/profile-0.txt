@@ -1,0 +1,36 @@
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                               aten::mm         1.78%      11.308ms         2.43%      15.458ms      33.900us     391.890ms        60.94%     391.890ms     859.407us           456  
+              nvjet_tst_128x256_64x4_2x1_v_bz_coopA_TNN         0.00%       0.000us         0.00%       0.000us       0.000us     230.959ms        35.91%     230.959ms       2.062ms           112  
+              nvjet_tst_192x128_64x5_1x2_h_bz_coopB_TNT         0.00%       0.000us         0.00%       0.000us       0.000us     137.625ms        21.40%     137.625ms     614.399us           224  
+                      nvjet_tst_512x8_64x3_2x1_v_bz_TNT         0.00%       0.000us         0.00%       0.000us       0.000us      80.428ms        12.51%      80.428ms      88.969us           904  
+                 flash_attn::_flash_attn_varlen_forward         0.93%       5.941ms         1.52%       9.685ms      69.180us      46.903ms         7.29%      46.903ms     335.021us           140  
+void flash::flash_fwd_splitkv_kernel<Flash_fwd_kerne...         0.00%       0.000us         0.00%       0.000us       0.000us      41.966ms         6.53%      41.966ms     499.590us            84  
+               nvjet_tst_512x8_64x3_1x1_h_bz_splitK_TNT         0.00%       0.000us         0.00%       0.000us       0.000us      35.651ms         5.54%      35.651ms      41.073us           868  
+                                            aten::addmm         0.51%       3.238ms         0.64%       4.096ms      29.256us      30.548ms         4.75%      30.548ms     218.203us           140  
+         nvjet_tst_128x256_64x4_2x1_v_bz_coopA_bias_TNN         0.00%       0.000us         0.00%       0.000us       0.000us      29.532ms         4.59%      29.532ms     263.683us           112  
+void flash::flash_fwd_splitkv_kernel<Flash_fwd_kerne...         0.00%       0.000us         0.00%       0.000us       0.000us      13.270ms         2.06%      13.270ms      15.288us           868  
+                 nvjet_tst_64x8_64x16_2x1_v_bz_bias_TNT         0.00%       0.000us         0.00%       0.000us       0.000us      10.577ms         1.64%      10.577ms      12.186us           868  
+                      nvjet_tst_64x8_64x16_4x1_v_bz_TNT         0.00%       0.000us         0.00%       0.000us       0.000us       8.830ms         1.37%       8.830ms      10.172us           868  
+                      triton_poi_fused_mul_silu_split_0         0.00%       0.000us         0.00%       0.000us       0.000us       8.458ms         1.32%       8.458ms       8.391us          1008  
+              nvjet_tst_256x128_64x4_2x1_v_bz_coopA_TNT         0.00%       0.000us         0.00%       0.000us       0.000us       7.365ms         1.15%       7.365ms     263.041us            28  
+     triton_red_fused__to_copy_add_mean_mul_pow_rsqrt_0         0.00%       0.000us         0.00%       0.000us       0.000us       7.319ms         1.14%       7.319ms       3.567us          2052  
+                      triton_poi_fused_mul_silu_split_0         0.30%       1.936ms         0.44%       2.779ms      19.853us       7.244ms         1.13%       7.244ms      51.745us           140  
+void flash::flash_fwd_splitkv_combine_kernel<Flash_f...         0.00%       0.000us         0.00%       0.000us       0.000us       5.884ms         0.91%       5.884ms       8.756us           672  
+void flash::flash_fwd_kernel<Flash_fwd_kernel_traits...         0.00%       0.000us         0.00%       0.000us       0.000us       4.937ms         0.77%       4.937ms      88.168us            56  
+             nvjet_tst_144x128_64x6_2x1_v_bz_splitK_TNN         0.00%       0.000us         0.00%       0.000us       0.000us       3.741ms         0.58%       3.741ms     133.620us            28  
+triton_red_fused__softmax_argmax_clamp_min_div_eq_ex...         0.07%     473.177us         0.10%     631.884us      17.552us       3.546ms         0.55%       3.546ms      98.510us            36  
+triton_red_fused__softmax_argmax_clamp_min_div_eq_ex...         0.00%       0.000us         0.00%       0.000us       0.000us       3.546ms         0.55%       3.546ms      98.510us            36  
+     triton_red_fused__to_copy_add_mean_mul_pow_rsqrt_0         0.93%       5.913ms         1.18%       7.533ms      26.432us       2.517ms         0.39%       2.517ms       8.831us           285  
+                                  cudaStreamIsCapturing         0.03%     195.317us         0.03%     195.317us       0.412us       2.437ms         0.38%       2.437ms       5.142us           474  
+    triton_poi_fused__to_copy_add_index_mul_split_sub_0         0.00%       0.000us         0.00%       0.000us       0.000us       2.240ms         0.35%       2.240ms       2.222us          1008  
+void cublasLt::splitKreduce_kernel<32, 16, int, floa...         0.00%       0.000us         0.00%       0.000us       0.000us       2.041ms         0.32%       2.041ms       2.278us           896  
+                               cudaEventRecordWithFlags         0.03%     198.908us         0.03%     198.908us       0.908us       1.554ms         0.24%       1.554ms       7.096us           219  
+                                   store_kvcache_kernel         0.00%       0.000us         0.00%       0.000us       0.000us       1.533ms         0.24%       1.533ms       1.521us          1008  
+triton_red_fused__softmax__to_copy_all_argmax_div_eq...         0.09%     599.494us         0.12%     772.457us      21.457us       1.497ms         0.23%       1.497ms      41.575us            36  
+triton_red_fused__softmax__to_copy_all_argmax_div_eq...         0.00%       0.000us         0.00%       0.000us       0.000us       1.497ms         0.23%       1.497ms      41.575us            36  
+    triton_poi_fused__to_copy_add_index_mul_split_sub_1         0.00%       0.000us         0.00%       0.000us       0.000us       1.373ms         0.21%       1.373ms       1.362us          1008  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 635.938ms
+Self CUDA time total: 643.096ms

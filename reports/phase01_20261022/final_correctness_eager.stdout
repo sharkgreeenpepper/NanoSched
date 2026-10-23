@@ -1,0 +1,5 @@
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 10644.41it/s]
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[transformers] Passing `generation_config` together with generation-related arguments=({'output_logits', 'return_dict_in_generate'}) is deprecated and will be removed in future versions. Please pass either a `generation_config` object OR all generation parameters explicitly, but not both.
+Numerical or reproducibility checks failed: inspect saved evidence
+{"all_exact": false, "numerical_checks_passed": false, "weight_load": {"loaded_tensors": 339, "expected_tensors": 339, "missing": []}, "output": "reports/phase01_20261022/final_correctness_eager.json"}

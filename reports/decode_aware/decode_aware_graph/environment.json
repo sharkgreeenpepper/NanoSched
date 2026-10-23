@@ -1,0 +1,32 @@
+{
+  "timestamp_utc": "2026-10-22T07:45:19.673221+00:00",
+  "engine_root": "/data1/fangdongqing/git/NanoSched",
+  "commit": "ca15b43dcf43077af75afbed9801c5f6f9bbe2b2",
+  "cuda_visible_devices": "0",
+  "model": "/data1/fangdongqing/infra/models/Qwen/Qwen2.5-7B-Instruct",
+  "config": {
+    "enforce_eager": false,
+    "max_model_len": 8192,
+    "max_num_batched_tokens": 1024,
+    "max_num_seqs": 32,
+    "gpu_memory_utilization": 0.45,
+    "tensor_parallel_size": 1,
+    "scheduler_policy": "decode_aware",
+    "max_consecutive_decodes": 1,
+    "decode_prefill_token_budget": 1024
+  },
+  "seed": 20261022,
+  "temperature": 0,
+  "profile": false,
+  "warmup_replays": 1,
+  "initialization_s": 5.5604074988514185,
+  "gpu_allocated_bytes": 45366500352,
+  "gpu_reserved_bytes": 45434798080,
+  "peak_gpu_allocated_bytes": 45371279360,
+  "kv_blocks": 2043,
+  "weight_load_report": {
+    "loaded_tensors": 339,
+    "expected_tensors": 339,
+    "missing": []
+  }
+}

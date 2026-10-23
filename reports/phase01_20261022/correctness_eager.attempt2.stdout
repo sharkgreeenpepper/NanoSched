@@ -1,0 +1,4 @@
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 10524.80it/s]
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Greedy outputs diverged: inspect saved token IDs
+{"all_exact": false, "weight_load": {"loaded_tensors": 339, "expected_tensors": 339, "missing": []}, "output": "reports/phase01_20261022/correctness_eager.json"}

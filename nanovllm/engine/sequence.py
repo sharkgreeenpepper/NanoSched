@@ -29,6 +29,8 @@ class Sequence:
         self.temperature = sampling_params.temperature
         self.max_tokens = sampling_params.max_tokens
         self.ignore_eos = sampling_params.ignore_eos
+        self.prefill_queued_at = 0.0
+        self.computed_high_watermark = 0
 
     def __len__(self):
         return self.num_tokens

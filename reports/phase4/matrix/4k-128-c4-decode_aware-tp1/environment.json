@@ -1,0 +1,29 @@
+{
+  "urls": [
+    "http://127.0.0.1:8000"
+  ],
+  "workload_file": "reports/phase4/matrix/4k-128-c4-workload.json",
+  "output": "reports/phase4/matrix/4k-128-c4-decode_aware-tp1",
+  "concurrency": 4,
+  "repeats": 1,
+  "warmup_runs": 1,
+  "workload": "uniform",
+  "input_length": 8192,
+  "output_length": 128,
+  "arrival_rate": 2,
+  "num_requests": 16,
+  "burst_size": 1,
+  "seed": 20261023,
+  "ttft_slo": 5,
+  "tpot_slo": 0.1,
+  "timeout": 600,
+  "timestamp_clock": "absolute perf_counter; client/server attribution requires the same host",
+  "prefix_cache": "retained between repeats; warmup uses a different first token/prefix",
+  "metric_definitions": {
+    "client": "CPU-visible HTTP token receipt; TTFT starts at planned arrival",
+    "model": "server model-produced token timestamps; same planned arrivals and replay duration",
+    "request_mean_tpot_s": "Percentiles across request-mean token intervals",
+    "token_itl_s": "Percentiles across all token intervals excluding first tokens",
+    "goodput": "Requests meeting TTFT and request-mean TPOT SLO per second"
+  }
+}

@@ -53,17 +53,47 @@ class LLMEngine:
             raise ValueError("Prompt must contain valid, nonempty token IDs")
         if len(prompt) + sampling_params.max_tokens > self.config.max_model_len:
             raise ValueError("Prompt plus output exceeds max_model_len")
+        # The last sampled token does not need a KV slot; all preceding tokens do.
+        if len(prompt) + sampling_params.max_tokens - 1 > self.config.num_kvcache_blocks * self.config.kvcache_block_size:
+            raise ValueError("Prompt plus output cannot fit in the KV pool")
         seq = Sequence(prompt, sampling_params)
         self.scheduler.add(seq)
         return seq.seq_id
 
+    def cancel_request(self, seq_id: int) -> bool:
+        return self.scheduler.cancel(seq_id)
+
     def step(self):
+        result = self.step_with_events()
+        return result["outputs"], result["num_tokens"]
+
+    def step_with_events(self):
+        """Run one batch and expose only tokens actually appended by postprocess."""
+        started_at = perf_counter()
         seqs, is_prefill = self.scheduler.schedule()
+        scheduled_at = perf_counter()
+        before = [seq.num_completion_tokens for seq in seqs]
         num_tokens = sum(seq.num_scheduled_tokens for seq in seqs) if is_prefill else -len(seqs)
         token_ids = self.model_runner.call("run", seqs, is_prefill)
+        produced_at = perf_counter()
         self.scheduler.postprocess(seqs, token_ids, is_prefill)
+        processed_at = perf_counter()
         outputs = [(seq.seq_id, seq.completion_token_ids) for seq in seqs if seq.is_finished]
-        return outputs, num_tokens
+        events = []
+        for seq, previous in zip(seqs, before):
+            if seq.num_completion_tokens == previous:
+                continue
+            reason = None
+            if seq.is_finished:
+                reason = "stop" if not seq.ignore_eos and seq.last_token == self.config.eos else "length"
+            events.append({"seq_id": seq.seq_id, "token_id": seq.last_token,
+                           "index": seq.num_completion_tokens - 1, "produced_at": produced_at,
+                           "finish_reason": reason})
+        return {"outputs": outputs, "num_tokens": num_tokens, "tokens": events,
+                "scheduled": [seq.seq_id for seq in seqs], "scheduled_at": scheduled_at,
+                "timings": {"scheduler_s": scheduled_at - started_at,
+                            "model_runner_s": produced_at - scheduled_at,
+                            "postprocess_s": processed_at - produced_at}}
 
     def is_finished(self):
         return self.scheduler.is_finished()

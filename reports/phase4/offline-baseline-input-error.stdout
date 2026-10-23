@@ -1,0 +1,7 @@
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "<stdin>", line 18, in <module>
+[rank0]:   File "/data1/fangdongqing/git/NanoSched/nanovllm/engine/llm_engine.py", line 113, in generate
+[rank0]:     self.add_request(prompt, sp)
+[rank0]:   File "/data1/fangdongqing/git/NanoSched/nanovllm/engine/llm_engine.py", line 53, in add_request
+[rank0]:     raise ValueError("Prompt must contain valid, nonempty token IDs")
+[rank0]: ValueError: Prompt must contain valid, nonempty token IDs

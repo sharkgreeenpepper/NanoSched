@@ -1,0 +1,19 @@
+{
+  "status": "ok",
+  "active": 0,
+  "waiting": 0,
+  "running": 0,
+  "kv_used": 0,
+  "kv_free": 2033,
+  "kv_total": 2033,
+  "steps": 789,
+  "generated_tokens": 8192,
+  "timings": {
+    "scheduler_s": 0.027068973518908024,
+    "model_runner_s": 23.995188370347023,
+    "postprocess_s": 0.03659130958840251,
+    "text_s": 0.04310732847079635,
+    "event_s": 0.013929078821092844
+  },
+  "timing_scope": "Cumulative worker CPU wall time; model_runner includes GPU synchronization; event is enqueue time"
+}

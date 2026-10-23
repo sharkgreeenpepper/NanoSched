@@ -27,8 +27,9 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--model", required=True)
     parser.add_argument("--cases", nargs="+", choices=list(CASES), default=list(CASES))
-    parser.add_argument("--policies", nargs="+", choices=["original", "decode_aware", "adaptive"], default=["original", "decode_aware", "adaptive"])
+    parser.add_argument("--policies", nargs="+", choices=["original", "decode_aware", "adaptive", "adaptive_v2"], default=["original", "decode_aware", "adaptive", "adaptive_v2"])
     parser.add_argument("--fixed-chunk", type=int, default=1024)
+    parser.add_argument("--fixed-decode-limit", type=int, default=1)
     parser.add_argument("--target-tpot", type=float, default=0.1)
     parser.add_argument("--seed", type=int, default=20261023)
     parser.add_argument("--repeats", type=int, default=3)
@@ -47,13 +48,18 @@ def main():
                        "--decode-prefill-budget", str(args.fixed_chunk), "--memory-utilization", str(memory),
                        "--target-tpot", str(args.target_tpot), "--ttft-slo", "5", "--seed", str(args.seed),
                        "--repeats", str(args.repeats), "--output", str(path)]
+            if policy == "decode_aware":
+                command += ["--decode-limit", str(args.fixed_decode_limit)]
             jobs.append({"case": name, "policy": policy, "path": str(path), "command": command})
     (args.output / "commands.json").write_text(json.dumps(jobs, indent=2) + "\n")
     for job in jobs:
         print(f"Running {job['case']} / {job['policy']}", flush=True)
         with Path(job["path"] + ".stdout").open("w") as stream:
             subprocess.run(job["command"], stdout=stream, stderr=subprocess.STDOUT, check=True)
-    subprocess.run([sys.executable, "-m", "benchmarks.report", "--suite", str(args.output)], check=True)
+    if args.repeats >= 3:
+        subprocess.run([sys.executable, "-m", "benchmarks.report", "--suite", str(args.output)], check=True)
+    else:
+        print("Quick run complete; per-policy summaries saved. Aggregate report requires at least 3 repeats.")
 
 
 if __name__ == "__main__":

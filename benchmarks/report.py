@@ -10,6 +10,7 @@ METRICS = {
     "ttft_p95_ms": ("ttft_s.p95", 1000), "tpot_p95_ms": ("tpot_s.p95", 1000),
     "itl_p95_ms": ("inter_token_gap_s.p95", 1000), "max_gap_ms": ("max_inter_token_gap_s", 1000),
     "e2e_p95_ms": ("e2e_s.p95", 1000), "output_tok_s": ("output_tokens_per_s", 1),
+    "slo_goodput_req_s": ("slo_goodput_requests_per_s", 1),
     "tpot_met_pct": ("tpot_slo_met_fraction", 100), "itl_met_pct": ("itl_slo_met_fraction", 100),
     "scheduler_mean_us": ("scheduler_mean_us", 1), "scheduler_p95_us": ("scheduler_p95_us", 1),
     "scheduler_cpu_pct": ("scheduler_cpu_pct", 1), "kv_peak_pct": ("kv_peak_utilization", 100),
@@ -51,9 +52,9 @@ def main():
         writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
         writer.writeheader()
         writer.writerows(rows)
-    keys = ["ttft_p95_ms", "tpot_p95_ms", "e2e_p95_ms", "itl_p95_ms", "output_tok_s", "tpot_met_pct", "scheduler_mean_us", "kv_peak_pct", "preemptions"]
-    lines = ["|Case|Policy|TTFT P95 ms|TPOT P95 ms|E2E P95 ms|ITL P95 ms|Output tok/s|TPOT met %|Schedule μs|KV peak %|Preemptions|",
-             "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|"]
+    keys = ["ttft_p95_ms", "tpot_p95_ms", "e2e_p95_ms", "itl_p95_ms", "output_tok_s", "slo_goodput_req_s", "tpot_met_pct", "scheduler_mean_us", "kv_peak_pct", "preemptions"]
+    lines = ["|Case|Policy|TTFT P95 ms|TPOT P95 ms|E2E P95 ms|ITL P95 ms|Output tok/s|TTFT+TPOT goodput req/s|TPOT met %|Schedule μs|KV peak %|Preemptions|",
+             "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|"]
     for row in rows:
         lines.append("|" + "|".join([row["case"], row["policy"], *[f"{row[k]:.2f} ± {row[k+'_std']:.2f}" for k in keys]]) + "|")
     (args.suite / "table.md").write_text("\n".join(lines) + "\n")

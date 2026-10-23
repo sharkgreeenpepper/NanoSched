@@ -1,3 +1,5 @@
+import pytest
+
 from nanovllm.engine.scheduler import Scheduler
 from nanovllm.engine.sequence import Sequence, SequenceStatus
 from nanovllm import SamplingParams
@@ -88,7 +90,9 @@ def test_budget_changes_with_decode_backlog(config):
     assert second.num_cached_tokens == 4  # active decode: protected budget
 
 
-def test_chunk_does_not_emit_early_tokens(config):
+@pytest.mark.parametrize("policy", ["prefill_first", "decode_aware", "adaptive", "adaptive_v2"])
+def test_chunk_does_not_emit_early_tokens(config, policy):
+    config.scheduler_policy = policy
     scheduler = Scheduler(config)
     seq = Sequence(list(range(12)), SamplingParams(max_tokens=2))
     scheduler.add(seq)
@@ -101,8 +105,9 @@ def test_chunk_does_not_emit_early_tokens(config):
     assert not scheduler.block_manager.used_block_ids
 
 
-def test_decode_round_robin_when_batch_is_capped(config):
-    config.scheduler_policy = "decode_aware"
+@pytest.mark.parametrize("policy", ["decode_aware", "adaptive", "adaptive_v2"])
+def test_decode_round_robin_when_batch_is_capped(config, policy):
+    config.scheduler_policy = policy
     scheduler = Scheduler(config)
     seqs = [Sequence([i, i+1]) for i in (1, 5, 9)]
     for seq in seqs:

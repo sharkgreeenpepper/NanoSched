@@ -12,6 +12,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model", required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--policies", nargs="+", choices=["original", "decode_aware", "adaptive", "adaptive_v2"],
+                        default=["original", "decode_aware", "adaptive"])
     args = parser.parse_args()
     engine = LLM(args.model, max_model_len=32768, max_num_batched_tokens=2048,
                  max_num_seqs=8, gpu_memory_utilization=0.45, tensor_parallel_size=1)
@@ -31,7 +33,10 @@ def main():
     rows = []
     reference = None
     # Include all candidate chunk sizes. These are correctness runs, not timing comparisons.
-    for policy, budget in [("prefill_first", 2048), ("decode_aware", 1024), ("adaptive", 256), ("adaptive", 512), ("adaptive", 2048)]:
+    policy_budgets = {"original": [2048], "decode_aware": [1024], "adaptive": [256, 512, 2048],
+                      "adaptive_v2": [256, 512, 2048]}
+    for selected, budget in [(p, b) for p in args.policies for b in policy_budgets[p]]:
+        policy = "prefill_first" if selected == "original" else selected
         config = copy(engine.config)
         config.scheduler_policy = policy
         config.max_num_batched_tokens = budget

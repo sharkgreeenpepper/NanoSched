@@ -41,8 +41,8 @@ class Config:
             raise ValueError("Token, sequence and context limits must be positive")
         if not 0 < self.gpu_memory_utilization <= 1:
             raise ValueError("gpu_memory_utilization must be in (0, 1]")
-        if self.scheduler_policy not in ("prefill_first", "decode_aware", "adaptive"):
-            raise ValueError("scheduler_policy must be prefill_first, decode_aware or adaptive")
+        if self.scheduler_policy not in ("prefill_first", "decode_aware", "adaptive", "adaptive_v2"):
+            raise ValueError("scheduler_policy must be prefill_first, decode_aware, adaptive or adaptive_v2")
         if self.max_consecutive_decodes < 1 or self.decode_prefill_token_budget < 1:
             raise ValueError("Decode limit and token budget must be positive")
         if self.target_tpot_s <= 0 or self.prefill_max_wait_s <= 0:

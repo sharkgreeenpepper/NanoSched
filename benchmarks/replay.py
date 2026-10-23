@@ -17,7 +17,7 @@ from threading import Thread
 import numpy as np
 import torch
 
-from benchmarks.metrics import summarize
+from benchmarks.metrics import percentiles, summarize
 
 
 def git(root, *args):
@@ -61,11 +61,51 @@ def arrival_workload(name, seed, input_length, output_length, rate, count):
     return items
 
 
+def summarize_timings(requests, steps):
+    """Attribute existing batch wall times to requests; these are not GPU kernel times.
+
+    Service includes schedule/postprocess time and is shared by every request in
+    a batch. Phase totals count each batch once. Execution excludes the measured
+    scheduler/postprocess time, but still includes model host work.
+    """
+    request_steps = {r["seq_id"]: [] for r in requests}
+    phase_steps = {phase: [] for phase in ("prefill", "decode")}
+    for step in steps:
+        phase_steps[step["phase"]].append(step)
+        for seq_id in step["seq_ids"]:
+            request_steps[seq_id].append(step)
+    fields = ("external_admission_s", "engine_queue_s", "prefill_service_s",
+              "prefill_wait_s", "decode_service_s")
+    for request in requests:
+        scheduled = request_steps[request["seq_id"]]
+        first_token = request["token_times"][0]
+        prefill = [s for s in scheduled if s["phase"] == "prefill" and s["completed_at"] <= first_token]
+        first_start = prefill[0]["scheduled_at"]
+        service = sum(s["completed_at"] - s["scheduled_at"] for s in prefill)
+        request.update(
+            external_admission_s=request["enqueued_at"] - request["arrived_at"],
+            engine_queue_s=first_start - request["enqueued_at"],
+            prefill_service_s=service,
+            prefill_wait_s=max(0, first_token - first_start - service),
+            decode_service_s=sum(s["completed_at"] - s["scheduled_at"] for s in scheduled if s["phase"] == "decode"),
+        )
+    summary = {field: percentiles([r[field] for r in requests]) for field in fields}
+    for phase, batches in phase_steps.items():
+        summary[f"{phase}_total_step_s"] = sum(s["completed_at"] - s["scheduled_at"] for s in batches)
+        summary[f"{phase}_execution_s"] = sum(s["completed_at"] - s["scheduled_at"] - s["schedule_s"] - s["postprocess_s"] for s in batches)
+    budgets = [s["budget"] for s in phase_steps["prefill"]]
+    summary["prefill_budget_steps"] = dict(Counter(map(str, budgets)))
+    summary["prefill_budget_changes"] = sum(a != b for a, b in zip(budgets, budgets[1:]))
+    summary["prefill_step_tokens"] = percentiles([s["tokens"] for s in phase_steps["prefill"]])
+    summary["decode_batch_size"] = percentiles([len(s["seq_ids"]) for s in phase_steps["decode"]])
+    return summary
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--engine-root", type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument("--model", default="/data1/fangdongqing/infra/models/Qwen/Qwen2.5-7B-Instruct")
-    parser.add_argument("--policy", choices=["original", "prefill_first", "decode_aware", "adaptive"], default="original")
+    parser.add_argument("--policy", choices=["original", "prefill_first", "decode_aware", "adaptive", "adaptive_v2"], default="original")
     parser.add_argument("--workload", choices=["competition", "short", "long", "mixed", "pressure"], default="competition")
     parser.add_argument("--input-length", type=int, default=1024)
     parser.add_argument("--output-length", type=int, default=64)
@@ -230,6 +270,7 @@ def main():
         rows = list(records.values())
         assert len(rows) == len(items) and all(len(r["token_times"]) == next(i["max_tokens"] for i in items if i["id"] == r["id"]) for r in rows)
         summary = summarize(rows, elapsed, args.ttft_slo, args.tpot_slo)
+        summary.update(summarize_timings(rows, steps))
         summary["groups"] = {g: summarize([r for r in rows if r["group"] == g], elapsed, args.ttft_slo, args.tpot_slo) for g in sorted({r["group"] for r in rows})}
         summary["max_inter_token_gap_s"] = max((max(np.diff(r["token_times"]), default=0) for r in rows), default=0)
         summary["scheduler_total_s"] = sum(s["schedule_s"] for s in steps)

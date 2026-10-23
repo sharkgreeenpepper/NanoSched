@@ -36,6 +36,7 @@ class Scheduler:
         self.prefill_token_s = 0.0
         self.chunk_index = 0
         self.last_token_at = {}
+        self.first_token_at = {}
         self.selected_budget = self.max_num_batched_tokens
 
     def snapshot(self):
@@ -76,6 +77,15 @@ class Scheduler:
                 limit = 1
                 self.stats["prefill_wait_guards"] += 1
             prefer_decode = self.decode_streak < limit
+        if self.policy == "adaptive_v2" and self.running and self.waiting:
+            wait = self.step_started_at - self.waiting[0].prefill_queued_at
+            # Accumulate TPOT slack with short decode steps, then spend it on
+            # an efficient chunk. A newly admitted decoder has its own account;
+            # it cannot inherit the slack of an older request.
+            enough_slack = self._tpot_slack() >= self.chunk_sizes[-1] * self.prefill_token_s
+            prefer_decode = self.decode_streak < 1 or (not enough_slack and wait < self.prefill_max_wait_s)
+            if not prefer_decode and wait >= self.prefill_max_wait_s:
+                self.stats["prefill_wait_guards"] += 1
         if prefer_decode:
             seqs = self._schedule_decode()
             if seqs:
@@ -85,6 +95,8 @@ class Scheduler:
             budget = min(budget, self.decode_prefill_token_budget)
         elif self.policy == "adaptive":
             budget = self._adaptive_budget()
+        elif self.policy == "adaptive_v2":
+            budget = self._slack_budget()
         self.selected_budget = budget
         seqs = self._schedule_prefill(budget)
         if seqs:
@@ -94,6 +106,7 @@ class Scheduler:
             return self._record_schedule(seqs, False)
         # Decode may have evicted its last sequence. Re-enter prefill instead of
         # asserting on an empty batch as upstream does under tight KV capacity.
+        self.selected_budget = self.max_num_batched_tokens
         seqs = self._schedule_prefill(self.max_num_batched_tokens)
         if seqs:
             return self._record_schedule(seqs, True)
@@ -112,6 +125,24 @@ class Scheduler:
             budget = min(budget, affordable[-1] if affordable else self.chunk_sizes[0])
         return budget
 
+    def _tpot_slack(self):
+        # For the next token, target * interval_count - elapsed is the time
+        # allowance left by the observed per-request mean TPOT. Reserve a full
+        # decode sweep after prefill, including capped/round-robin batches.
+        batch_limit = min(self.max_num_seqs, self.max_num_batched_tokens)
+        decode_batches = (len(self.running) + batch_limit - 1) // batch_limit
+        decode_cost = self.decode_step_s * max(decode_batches, len(self.running) / self.decode_batch_size)
+        return min(self.target_tpot_s * s.num_completion_tokens
+                   - (self.step_started_at - self.first_token_at[s.seq_id])
+                   for s in self.running) - decode_cost
+
+    def _slack_budget(self):
+        if not self.running or not self.prefill_token_s:
+            return self.chunk_sizes[-1]
+        slack = self._tpot_slack()
+        affordable = [n for n in self.chunk_sizes if n * self.prefill_token_s <= slack]
+        return affordable[-1] if affordable else self.chunk_sizes[0]
+
     def _observe_step(self, seqs, is_prefill, now):
         elapsed = now - self.step_started_at
         def ewma(old, value):
@@ -123,9 +154,9 @@ class Scheduler:
             gaps = [now - self.last_token_at[s.seq_id] for s in seqs if s.seq_id in self.last_token_at]
             if gaps:
                 self.decode_gap_s = ewma(self.decode_gap_s, max(gaps))
-                if self.decode_gap_s >= 0.9 * self.target_tpot_s:
+                if self.policy == "adaptive" and self.decode_gap_s >= 0.9 * self.target_tpot_s:
                     self.chunk_index = max(0, self.chunk_index - 1)
-                elif self.decode_gap_s < 0.7 * self.target_tpot_s:
+                elif self.policy == "adaptive" and self.decode_gap_s < 0.7 * self.target_tpot_s:
                     self.chunk_index = min(len(self.chunk_sizes) - 1, self.chunk_index + 1)
             self.decode_step_s = ewma(self.decode_step_s, elapsed)
             self.decode_batch_size = len(seqs)
@@ -205,7 +236,7 @@ class Scheduler:
         if len(seqs) != len(token_ids):
             raise ValueError("Model returned a different number of samples than scheduled requests")
         now = self.clock()
-        if self.policy == "adaptive":
+        if self.policy in ("adaptive", "adaptive_v2"):
             self._observe_step(seqs, is_prefill, now)
         for seq, token_id in zip(seqs, token_ids):
             end = seq.num_cached_tokens + seq.num_scheduled_tokens
@@ -219,10 +250,13 @@ class Scheduler:
                 seq.prefill_queued_at = self.clock()
                 continue
             seq.append_token(token_id)
-            if self.policy == "adaptive":
+            if self.policy in ("adaptive", "adaptive_v2"):
                 self.last_token_at[seq.seq_id] = now
+                if self.policy == "adaptive_v2":
+                    self.first_token_at.setdefault(seq.seq_id, now)
             if (not seq.ignore_eos and token_id == self.eos) or seq.num_completion_tokens == seq.max_tokens:
                 seq.status = SequenceStatus.FINISHED
                 self.block_manager.deallocate(seq)
                 self.running.remove(seq)
                 self.last_token_at.pop(seq.seq_id, None)
+                self.first_token_at.pop(seq.seq_id, None)

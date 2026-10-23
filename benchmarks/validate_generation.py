@@ -42,8 +42,9 @@ def main():
         if reference is None:
             reference = [o["token_ids"] for o in outputs]
         for (length, question, expected), output, ref in zip(cases, outputs, reference):
+            answer = tokenizer.decode(output["token_ids"], skip_special_tokens=True).strip()
             row = {"policy": policy, "budget": budget, "input_length": length, "question": question,
-                   "expected": expected, **output, "semantic_match": output["text"].strip() == expected,
+                   "expected": expected, **output, "answer": answer, "semantic_match": answer == expected,
                    "token_match": output["token_ids"] == ref}
             rows.append(row)
             print(json.dumps(row), flush=True)

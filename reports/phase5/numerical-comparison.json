@@ -1,0 +1,32 @@
+{
+  "context": "Same Chinese prompt and forced TP1 token history; model BF16 logits stored as FP32, zero-based position 39 only.",
+  "rows": [
+    {
+      "tp": 1,
+      "token_index": 39,
+      "max_abs_logit_difference": 0.0,
+      "rms_logit_difference": 0.0,
+      "argmax_token": 103524,
+      "tp1_argmax_logit": 19.5,
+      "top1_top2_margin": 0.0
+    },
+    {
+      "tp": 2,
+      "token_index": 39,
+      "max_abs_logit_difference": 0.1484375,
+      "rms_logit_difference": 0.025331459939479828,
+      "argmax_token": 112839,
+      "tp1_argmax_logit": 19.5,
+      "top1_top2_margin": 0.125
+    },
+    {
+      "tp": 4,
+      "token_index": 39,
+      "max_abs_logit_difference": 0.140625,
+      "rms_logit_difference": 0.0270979180932045,
+      "argmax_token": 112839,
+      "tp1_argmax_logit": 19.5,
+      "top1_top2_margin": 0.125
+    }
+  ]
+}

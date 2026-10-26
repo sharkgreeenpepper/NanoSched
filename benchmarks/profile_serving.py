@@ -14,6 +14,7 @@ from pathlib import Path
 import shutil
 from time import perf_counter
 
+import numpy as np
 import torch
 import torch.distributed as dist
 
@@ -148,14 +149,19 @@ class EngineProfile:
             phase = "prefill" if is_prefill else "decode"
             with self._span(phase + ".metadata", cuda=True):
                 inputs, positions = runner.prepare_prefill(seqs) if is_prefill else runner.prepare_decode(seqs)
-            with self._span(phase + ".sampling_metadata", cuda=True):
-                temperatures = runner.prepare_sample(seqs)
+            greedy = runner.rank == 0 and all(seq.temperature == 0 for seq in seqs)
+            temperatures = None
+            if runner.rank == 0 and not greedy:
+                with self._span(phase + ".sampling_metadata", cuda=True):
+                    temperatures = runner.prepare_sample(seqs)
             with self._span(phase + ".model", cuda=True):
                 logits = runner.run_model(inputs, positions, is_prefill)
-            with self._span(phase + ".sample", cuda=True):
-                sampled = runner.sampler(logits, temperatures)
-            with self._span(phase + ".token_sync"):
-                tokens = sampled.tolist()
+            tokens = None
+            if runner.rank == 0:
+                with self._span(phase + ".sample", cuda=True):
+                    sampled = logits.argmax(dim=-1) if greedy else runner.sampler(logits, temperatures)
+                with self._span(phase + ".token_sync"):
+                    tokens = sampled.tolist()
             reset_context()
             return tokens
 
@@ -260,11 +266,71 @@ def serving_profile(engine, output, steps=64):
     return EngineProfile(engine, output, steps)
 
 
+def probe_chinese_logits(engine, reference_path, indices, output):
+    """Compare selected positions at the exact TP=1 history, outside profiling."""
+    reference = json.loads(reference_path.read_text())
+    case = next(case for case in reference["cases"] if case["id"] == "chinese")
+    prompt, forced_tokens = case["prompt"], case["token_ids"]
+    assert reference["tp"] == 1, "Probe reference must come from TP=1"
+    assert engine.is_finished(), "Probe requires an idle engine"
+    assert len(prompt) <= engine.config.max_num_batched_tokens, "Probe prompt must fit one prefill chunk"
+    assert len(forced_tokens) == case["max_tokens"], "Probe requires the complete reference output prefix"
+    assert indices and all(0 <= index < len(forced_tokens) for index in indices), "Probe index is outside the reference"
+    from nanovllm import SamplingParams
+    sampler = engine.model_runner.sampler
+    original = sampler.forward
+    position = 0
+    captured = {}
+    rows = []
+
+    def force(logits, temperatures):
+        nonlocal position
+        assert logits.shape[0] == 1, "Teacher-forced probe must contain exactly one request"
+        if position in indices:
+            values = logits[0].detach().float().cpu()
+            captured[f"token_{position}"] = values.numpy()
+            top_values, top_ids = values.topk(10)
+            expected = forced_tokens[position]
+            rows.append({"index": position, "source_dtype": str(logits.dtype),
+                         "reference_token_id": expected, "greedy_token_id": int(values.argmax()),
+                         "reference_token_logit": float(values[expected]),
+                         "top1_top2_margin": float(top_values[0] - top_values[1]),
+                         "top1_minus_reference_margin": float(top_values[0] - values[expected]),
+                         "top10": [{"token_id": token_id, "logit": value}
+                                   for token_id, value in zip(top_ids.tolist(), top_values.tolist())]})
+        token = forced_tokens[position]
+        position += 1
+        return torch.tensor([token], dtype=torch.long, device=logits.device)
+
+    sampler.forward = force
+    try:
+        # Nonzero temperature routes through the overridden sampler; logits are
+        # unscaled and the override always returns the reference token.
+        generated = engine.generate([prompt], SamplingParams(
+            temperature=1, max_tokens=case["max_tokens"], ignore_eos=case.get("ignore_eos", False)), use_tqdm=False)[0]
+    finally:
+        sampler.forward = original
+    assert generated["token_ids"] == forced_tokens, "Probe did not follow the complete TP=1 token history"
+    assert {row["index"] for row in rows} == set(indices), "Probe did not capture every requested position"
+    bm = engine.scheduler.block_manager
+    assert engine.is_finished() and not bm.used_block_ids and all(block.ref_count == 0 for block in bm.blocks)
+    np.savez_compressed(output / "probe-logits.npz", **captured)
+    result = {"model": engine.config.model, "tp": engine.config.tensor_parallel_size,
+              "cuda_graph": not engine.config.enforce_eager, "reference": str(reference_path.resolve()),
+              "prompt_ids": prompt, "forced_token_ids": forced_tokens, "positions": rows,
+              "logits_file": "probe-logits.npz", "kv_released": True,
+              "measurement_note": "Model logits converted to FP32 for storage; this is not FP32 inference. "
+                                  "Temperature 1 selects an overridden sampler that forces reference tokens, without scaling logits. "
+                                  "Only requested positions at the shared TP=1 history are compared; outside the profiler window."}
+    (output / "probe.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model", required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--tp", type=int, choices=[1, 2, 4], default=1)
+    parser.add_argument("--init-method", help="Distributed rendezvous URL; defaults to a unique local file store")
     parser.add_argument("--profile-steps", type=int, default=64)
     parser.add_argument("--input-length", type=int, default=1024)
     parser.add_argument("--output-length", type=int, default=16)
@@ -274,13 +340,15 @@ def main():
     parser.add_argument("--kv-blocks", type=int, default=-1)
     parser.add_argument("--eager", action="store_true")
     parser.add_argument("--reference", type=Path, help="generation.json from the same inputs at TP=1")
+    parser.add_argument("--probe-reference", type=Path, help="Saved TP=1 offline baseline containing the Chinese prompt")
+    parser.add_argument("--probe-indices", type=int, nargs="+", default=[39], help="Zero-based output positions to capture")
     args = parser.parse_args()
     import nanovllm.engine.llm_engine as engine_module
     from nanovllm import LLM, SamplingParams
     engine_module.ModelRunner = ProfileModelRunner
     args.output.mkdir(parents=True, exist_ok=True)
     engine = LLM(args.model, tensor_parallel_size=args.tp, max_model_len=args.input_length + args.output_length,
-                 max_num_batched_tokens=args.budget, max_num_seqs=args.max_seqs,
+                 max_num_batched_tokens=args.budget, max_num_seqs=args.max_seqs, init_method=args.init_method,
                  gpu_memory_utilization=args.memory_utilization, num_kvcache_blocks=args.kv_blocks,
                  scheduler_policy="decode_aware", max_consecutive_decodes=3,
                  decode_prefill_token_budget=args.budget, enforce_eager=args.eager)
@@ -320,6 +388,8 @@ def main():
         if args.reference:
             assert result["reference_inputs_match"], "Reference prompt IDs differ"
             assert result["reference_tokens_match"], "TP changed greedy outputs; inspect generation.json"
+        if args.probe_reference:
+            probe_chinese_logits(engine, args.probe_reference, args.probe_indices, args.output)
     finally:
         engine.exit()
 

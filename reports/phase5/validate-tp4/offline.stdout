@@ -1,0 +1,466 @@
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Bootstrap: Using eth0:172.31.3.226<0>
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO cudaDriverVersion 12090
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO NCCL version 2.29.7+cuda12.9
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO NCCL git version stable b81d6a5a3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Comm config Blocking set to 1
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO NET/Plugin: Could not find: libnccl-net.so
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO NET/IB : Using [0]mlx5_0:1/RoCE [1]mlx5_1:1/RoCE [2]mlx5_2:1/RoCE [3]mlx5_3:1/RoCE [4]mlx5_4:1/RoCE [RO]; OOB eth0:172.31.3.226<0>
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Initialized NET plugin IB
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Assigned NET plugin IB to comm
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO GIN/Plugin: Could not find: libnccl-gin.so
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Assigned GIN plugin GIN_IB_GDAKI to comm
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Assigned RMA plugin GIN_IB_PROXY to comm
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Using network IB
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO [Rank 0] ncclCommInitRankConfig comm 0x5583f81fe5f0 rank 0 nranks 4 cudaDev 0 nvmlDev 0 busId 65020 commId 0x54f54d29cb12af00 - Init START
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO RAS client listening socket at 127.0.0.1<28028>
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Bootstrap timings total 4.009716 (create 0.000029, send 0.000100, recv 3.869581, ring 0.000069, delay 0.000001)
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 0 is 0-89. (GPU affinity = 0-89 ; CPU affinity = 0-179).
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO NVLS multicast support is available on dev 0 (NVLS_NCHANNELS 16)
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO comm 0x5583f81fe5f0 rank 0 nRanks 4 nNodes 1 localRanks 4 localRank 0 MNNVL 0
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 00/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 01/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 02/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 03/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 04/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 05/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 06/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 07/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 08/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 09/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 10/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 11/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 12/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 13/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 14/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 15/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 16/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 17/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 18/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 19/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 20/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 21/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 22/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 23/24 : 0 1 2 3
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1 [1] 1/-1/-1->0->-1 [2] 1/-1/-1->0->-1 [3] 1/-1/-1->0->-1 [4] 1/-1/-1->0->-1 [5] 1/-1/-1->0->-1 [6] 1/-1/-1->0->-1 [7] 1/-1/-1->0->-1 [8] 1/-1/-1->0->-1 [9] 1/-1/-1->0->-1 [10] 1/-1/-1->0->-1 [11] 1/-1/-1->0->-1 [12] 1/-1/-1->0->-1 [13] 1/-1/-1->0->-1 [14] 1/-1/-1->0->-1 [15] 1/-1/-1->0->-1 [16] 1/-1/-1->0->-1 [17] 1/-1/-1->0->-1 [18] 1/-1/-1->0->-1 [19] 1/-1/-1->0->-1 [20] 1/-1/-1->0->-1 [21] 1/-1/-1-AIC-C01-H20-n05:210470:210470 [3] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO cudaDriverVersion 12090
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Bootstrap: Using eth0:172.31.3.226<0>
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO NCCL version 2.29.7+cuda12.9
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO NCCL git version stable b81d6a5a3
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Comm config Blocking set to 1
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO NET/Plugin: Could not find: libnccl-net.so
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO NET/IB : Using [0]mlx5_0:1/RoCE [1]mlx5_1:1/RoCE [2]mlx5_2:1/RoCE [3]mlx5_3:1/RoCE [4]mlx5_4:1/RoCE [RO]; OOB eth0:172.31.3.226<0>
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Initialized NET plugin IB
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Assigned NET plugin IB to comm
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO GIN/Plugin: Could not find: libnccl-gin.so
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Assigned GIN plugin GIN_IB_GDAKI to comm
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Assigned RMA plugin GIN_IB_PROXY to comm
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Using network IB
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO [Rank 3] ncclCommInitRankConfig comm 0x55cf8b37c200 rank 3 nranks 4 cudaDev 3 nvmlDev 3 busId 67030 commId 0x54f54d29cb12af00 - Init START
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO RAS client listening socket at 127.0.0.1<28028>
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Bootstrap timings total 0.001596 (create 0.000021, send 0.000085, recv 0.000072, ring 0.000061, delay 0.000000)
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 3 is 0-89. (GPU affinity = 0-89 ; CPU affinity = 0-179).
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO NVLS multicast support is available on dev 3 (NVLS_NCHANNELS 16)
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO comm 0x55cf8b37c200 rank 3 nRanks 4 nNodes 1 localRanks 4 localRank 3 MNNVL 0
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Trees [0] -1/-1/-1->3->2 [1] -1/-1/-1->3->2 [2] -1/-1/-1->3->2 [3] -1/-1/-1->3->2 [4] -1/-1/-1->3->2 [5] -1/-1/-1->3->2 [6] -1/-1/-1->3->2 [7] -1/-1/-1->3->2 [8] -1/-1/-1->3->2 [9] -1/-1/-1->3->2 [10] -1/-1/-1->3->2 [11] -1/-1/-1->3->2 [12] -1/-1/-1->3->2 [13] -1/-1/-1->3->2 [14] -1/-1/-1->3->2 [15] -1/-1/-1->3->2 [16] -1/-1/-1->3->2 [17] -1/-1/-1->3->2 [18] -1/-1/-1->3->2 [19] -1/-1/-1->3->2 [20] -1/-1/-1->3->2 [21] -1/-1/-1->3->2 [22] -1/-1/-1->3->2 [23] -1/-1/-1->3->2
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO P2P Chunksize set to 524288
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+AIC-C01-H20-n05:210470:210873 [0] NCCL INFO [Proxy Service] Device 3 CPU core 5
+AIC-C01-H20-n05:210470:210874 [0] NCCL INFO [Proxy Service UDS] Device 3 CPU core 11
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO 24 coll channels, 24 collnet channels, 16 nvls channels, 32 p2p channels, 32 p2p channels per peer
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Symmetric VA size=96GB
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO ncclCommInitRankConfig comm 0x55cf8b37c200 rank 3 nranks 4 cudaDev 3 nvmlDev 3 busId 67030 commId 0x54f54d29cb12af00 - Init COMPLETE
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Init timings - ncclCommInitRankConfig: rank 3 nranks 4 total 1.09 (kernels 0.15, alloc 0.55, bootstrap 0.00, allgathers 0.00, topo 0.27, graphs 0.03, connections 0.09, rest 0.01)
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Symmetric VA size=96GB
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 00/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 01/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 02/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [AIC-C01-H20-n05:210468:210468 [1] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO cudaDriverVersion 12090
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Bootstrap: Using eth0:172.31.3.226<0>
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO NCCL version 2.29.7+cuda12.9
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO NCCL git version stable b81d6a5a3
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Comm config Blocking set to 1
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO NET/Plugin: Could not find: libnccl-net.so
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO NET/IB : Using [0]mlx5_0:1/RoCE [1]mlx5_1:1/RoCE [2]mlx5_2:1/RoCE [3]mlx5_3:1/RoCE [4]mlx5_4:1/RoCE [RO]; OOB eth0:172.31.3.226<0>
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Initialized NET plugin IB
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Assigned NET plugin IB to comm
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO GIN/Plugin: Could not find: libnccl-gin.so
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Assigned GIN plugin GIN_IB_GDAKI to comm
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Assigned RMA plugin GIN_IB_PROXY to comm
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Using network IB
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO [Rank 1] ncclCommInitRankConfig comm 0x562260f38500 rank 1 nranks 4 cudaDev 1 nvmlDev 1 busId 65030 commId 0x54f54d29cb12af00 - Init START
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO RAS client listening socket at 127.0.0.1<28028>
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Bootstrap timings total 0.140272 (create 0.000022, send 0.000073, recv 0.121931, ring 0.017568, delay 0.000000)
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 1 is 0-89. (GPU affinity = 0-89 ; CPU affinity = 0-179).
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO NVLS multicast support is available on dev 1 (NVLS_NCHANNELS 16)
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO comm 0x562260f38500 rank 1 nRanks 4 nNodes 1 localRanks 4 localRank 1 MNNVL 0
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Trees [0] 2/-1/-1->1->0 [1] 2/-1/-1->1->0 [2] 2/-1/-1->1->0 [3] 2/-1/-1->1->0 [4] 2/-1/-1->1->0 [5] 2/-1/-1->1->0 [6] 2/-1/-1->1->0 [7] 2/-1/-1->1->0 [8] 2/-1/-1->1->0 [9] 2/-1/-1->1->0 [10] 2/-1/-1->1->0 [11] 2/-1/-1->1->0 [12] 2/-1/-1->1->0 [13] 2/-1/-1->1->0 [14] 2/-1/-1->1->0 [15] 2/-1/-1->1->0 [16] 2/-1/-1->1->0 [17] 2/-1/-1->1->0 [18] 2/-1/-1->1->0 [19] 2/-1/-1->1->0 [20] 2/-1/-1->1->0 [21] 2/-1/-1->1->0 [22] 2/-1/-1->1->0 [23] 2/-1/-1->1->0
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO P2P Chunksize set to 524288
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+AIC-C01-H20-n05:210468:210877 [0] NCCL INFO [Proxy Service] Device 1 CPU core 16
+AIC-C01-H20-n05:210468:210878 [0] NCCL INFO [Proxy Service UDS] Device 1 CPU core 19
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO 24 coll channels, 24 collnet channels, 16 nvls channels, 32 p2p channels, 32 p2p channels per peer
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Symmetric VA size=96GB
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO ncclCommInitRankConfig comm 0x562260f38500 rank 1 nranks 4 cudaDev 1 nvmlDev 1 busId 65030 commId 0x54f54d29cb12af00 - Init COMPLETE
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Init timings - ncclCommInitRankConfig: rank 1 nranks 4 total 1.11 (kernels 0.15, alloc 0.43, bootstrap 0.14, allgathers 0.00, topo 0.27, graphs 0.02, connections 0.09, rest 0.01)
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Symmetric VA size=96GB
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 00/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 01/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 02/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 03AIC-C01-H20-n05:210469:210469 [2] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO cudaDriverVersion 12090
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Bootstrap: Using eth0:172.31.3.226<0>
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO NCCL version 2.29.7+cuda12.9
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO NCCL git version stable b81d6a5a3
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Comm config Blocking set to 1
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO NET/Plugin: Could not find: libnccl-net.so
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO NET/IB : Using [0]mlx5_0:1/RoCE [1]mlx5_1:1/RoCE [2]mlx5_2:1/RoCE [3]mlx5_3:1/RoCE [4]mlx5_4:1/RoCE [RO]; OOB eth0:172.31.3.226<0>
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Initialized NET plugin IB
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Assigned NET plugin IB to comm
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO GIN/Plugin: Could not find: libnccl-gin.so
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Assigned GIN plugin GIN_IB_GDAKI to comm
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Assigned RMA plugin GIN_IB_PROXY to comm
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Using network IB
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO [Rank 2] ncclCommInitRankConfig comm 0x5585fc7a5c20 rank 2 nranks 4 cudaDev 2 nvmlDev 2 busId 67020 commId 0x54f54d29cb12af00 - Init START
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO RAS client listening socket at 127.0.0.1<28028>
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Bootstrap timings total 0.018400 (create 0.000021, send 0.000072, recv 0.016860, ring 0.000044, delay 0.000001)
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 2 is 0-89. (GPU affinity = 0-89 ; CPU affinity = 0-179).
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO NVLS multicast support is available on dev 2 (NVLS_NCHANNELS 16)
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO comm 0x5585fc7a5c20 rank 2 nRanks 4 nNodes 1 localRanks 4 localRank 2 MNNVL 0
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Trees [0] 3/-1/-1->2->1 [1] 3/-1/-1->2->1 [2] 3/-1/-1->2->1 [3] 3/-1/-1->2->1 [4] 3/-1/-1->2->1 [5] 3/-1/-1->2->1 [6] 3/-1/-1->2->1 [7] 3/-1/-1->2->1 [8] 3/-1/-1->2->1 [9] 3/-1/-1->2->1 [10] 3/-1/-1->2->1 [11] 3/-1/-1->2->1 [12] 3/-1/-1->2->1 [13] 3/-1/-1->2->1 [14] 3/-1/-1->2->1 [15] 3/-1/-1->2->1 [16] 3/-1/-1->2->1 [17] 3/-1/-1->2->1 [18] 3/-1/-1->2->1 [19] 3/-1/-1->2->1 [20] 3/-1/-1->2->1 [21] 3/-1/-1->2->1 [22] 3/-1/-1->2->1 [23] 3/-1/-1->2->1
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO P2P Chunksize set to 524288
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+AIC-C01-H20-n05:210469:210875 [0] NCCL INFO [Proxy Service] Device 2 CPU core 12
+AIC-C01-H20-n05:210469:210876 [0] NCCL INFO [Proxy Service UDS] Device 2 CPU core 15
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO 24 coll channels, 24 collnet channels, 16 nvls channels, 32 p2p channels, 32 p2p channels per peer
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Symmetric VA size=96GB
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO ncclCommInitRankConfig comm 0x5585fc7a5c20 rank 2 nranks 4 cudaDev 2 nvmlDev 2 busId 67020 commId 0x54f54d29cb12af00 - Init COMPLETE
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Init timings - ncclCommInitRankConfig: rank 2 nranks 4 total 1.10 (kernels 0.15, alloc 0.54, bootstrap 0.02, allgathers 0.01, topo 0.27, graphs 0.02, connections 0.09, rest 0.02)
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Symmetric VA size=96GB
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 00/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 01/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 02/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 03/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:532: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:532: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:532: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:532: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:532: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:532: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:532: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:532: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:532: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:532: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:532: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:532: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+3] NCCL INFO Channel 03/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 04/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 05/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 06/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 07/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 08/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 09/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 10/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 11/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 12/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 13/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 14/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 15/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 16/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 17/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 18/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 19/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 20/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 21/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 22/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 23/0 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 00/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 01/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 02/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 03/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 04/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 05/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 06/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 07/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 08/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 09/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 10/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 11/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 12/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 13/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 14/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 15/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 16/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 17/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 18/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 19/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 20/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 21/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 22/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 23/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 24/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 25/1 : 3[3] -> 0[0] via P2P/CUMEM/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 04/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 05/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 06/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 07/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 08/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 09/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 10/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 11/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 12/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 13/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 14/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 15/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 16/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 17/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 18/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 19/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 20/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 21/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 22/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 23/0 : 1[1] -> 2[2] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 00/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 01/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 02/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 03/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 04/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 05/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 06/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 07/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 08/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 09/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 10/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 11/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 12/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 13/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 14/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 15/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 16/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 17/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 18/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 19/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 20/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 21/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 22/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 23/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 24/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 25/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 04/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 05/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 06/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 07/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 08/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 09/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 10/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 11/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 12/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 13/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 14/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 15/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 16/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 17/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 18/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 19/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 20/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 21/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 22/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 23/0 : 2[2] -> 3[3] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 00/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 01/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 02/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 03/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 04/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 05/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 06/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 07/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 08/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 09/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 10/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 11/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 12/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 13/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 14/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 15/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 16/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 17/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 18/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 19/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 20/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 21/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 22/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 23/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 24/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 25/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+{"id": "semantic-1024", "max_tokens": 16, "ignore_eos": false, "expected": "42", "text": "42", "tp1_token_equal": true, "first_tp1_difference": null, "kv_released": true, "semantic_match": true}
+{"id": "semantic-4096", "max_tokens": 16, "ignore_eos": false, "expected": "Paris", "text": "Paris", "tp1_token_equal": true, "first_tp1_difference": null, "kv_released": true, "semantic_match": true}
+{"id": "semantic-8192", "max_tokens": 16, "ignore_eos": false, "expected": "56", "text": "56", "tp1_token_equal": true, "first_tp1_difference": null, "kv_released": true, "semantic_match": true}
+{"id": "semantic-16384", "max_tokens": 16, "ignore_eos": false, "expected": "apple", "text": "apple", "tp1_token_equal": true, "first_tp1_difference": null, "kv_released": true, "semantic_match": true}
+{"id": "chinese", "max_tokens": 64, "ignore_eos": true, "text": "北京，作为中国的首都，拥有超过三千年的建城历史和近八百年的建都历史，是中国历史文化名城之一，也是世界著名的历史文化名城。北京的历史文化丰富多彩，不仅体现在其悠久的历史上，还体现在其独特的建筑风格、丰富的文化遗产、深厚的人文底蕴等方面。\n\n", "tp1_token_equal": false, "first_tp1_difference": 39, "kv_released": true}
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+:210468 [1] NCCL INFO Channel 26/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 27/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 28/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 29/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 30/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO Channel 31/1 : 1[1] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO comm 0x562260f38500 rank 1 nranks 4 cudaDev 1 busId 65030 - Destroy COMPLETE
+
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 26/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 27/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 28/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 29/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 30/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO Channel 31/1 : 3[3] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO comm 0x55cf8b37c200 rank 3 nranks 4 cudaDev 3 busId 67030 - Destroy COMPLETE
+:210469 [2] NCCL INFO Channel 26/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 27/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 28/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 29/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 30/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO Channel 31/1 : 2[2] -> 0[0] via P2P/CUMEM
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO comm 0x5585fc7a5c20 rank 2 nranks 4 cudaDev 2 busId 67020 - Destroy COMPLETE
+AIC-C01-H20-n05:210468:210468 [1] NCCL INFO ENV/Plugin: Closing env plugin ncclEnvDefault
+AIC-C01-H20-n05:210469:210469 [2] NCCL INFO ENV/Plugin: Closing env plugin ncclEnvDefault
+AIC-C01-H20-n05:210470:210470 [3] NCCL INFO ENV/Plugin: Closing env plugin ncclEnvDefault
+>0->-1 [22] 1/-1/-1->0->-1 [23] 1/-1/-1->0->-1
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO P2P Chunksize set to 524288
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+AIC-C01-H20-n05:210142:210879 [0] NCCL INFO [Proxy Service] Device 0 CPU core 33
+AIC-C01-H20-n05:210142:210880 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 35
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO threadThresholds 8/8/64 | 32/8/64 | 512 | 512
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO 24 coll channels, 24 collnet channels, 16 nvls channels, 32 p2p channels, 32 p2p channels per peer
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Symmetric VA size=96GB
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO CC Off, workFifoBytes 1048576
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO ncclCommInitRankConfig comm 0x5583f81fe5f0 rank 0 nranks 4 cudaDev 0 nvmlDev 0 busId 65020 commId 0x54f54d29cb12af00 - Init COMPLETE
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Init timings - ncclCommInitRankConfig: rank 0 nranks 4 total 4.83 (kernels 0.14, alloc 0.28, bootstrap 4.01, allgathers 0.01, topo 0.27, graphs 0.01, connections 0.09, rest 0.01)
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Symmetric VA size=96GB
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 00/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 01/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 02/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 03/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 04/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 05/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 06/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 07/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 08/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 09/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 10/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 11/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 12/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 13/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 14/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 15/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 16/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 17/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 18/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 19/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 20/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 21/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 22/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Channel 23/0 : 0[0] -> 1[1] via P2P/CUMEM
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO Connected all rings, use ring PXN 0 GDR 1
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO comm 0x5583f81fe5f0 rank 0 nranks 4 cudaDev 0 busId 65020 - Destroy COMPLETE
+AIC-C01-H20-n05:210142:210142 [0] NCCL INFO ENV/Plugin: Closing env plugin ncclEnvDefault

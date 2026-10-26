@@ -1,0 +1,32 @@
+INFO:     Started server process [313224]
+INFO:     Waiting for application startup.
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:38650 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38666 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38666 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38674 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38684 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38690 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38692 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38698 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38712 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38728 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38666 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38674 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38684 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38690 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38692 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38698 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38712 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38728 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38666 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38674 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38684 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50448 - "GET /health HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [313224]

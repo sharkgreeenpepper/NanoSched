@@ -1,0 +1,235 @@
+{
+  "baseline": "head-baseline",
+  "optimized": "greedy-fastpath",
+  "all_8192_tokens_equal": true,
+  "changed_requests": [],
+  "before": {
+    "requests": 32,
+    "output_tokens": 8192,
+    "elapsed_s": 2.980820870026946,
+    "ttft_s": {
+      "p50": 0.7087615220807493,
+      "p95": 1.2806453692726791,
+      "p99": 1.3177642480423675
+    },
+    "tpot_s": {
+      "p50": 0.008424565138514428,
+      "p95": 0.01004349892666819,
+      "p99": 0.010275539878372323
+    },
+    "inter_token_gap_s": {
+      "p50": 0.006578490370884538,
+      "p95": 0.007129786210134625,
+      "p99": 0.06961923553142696
+    },
+    "e2e_s": {
+      "p50": 2.8570653963834047,
+      "p95": 2.9678350399713964,
+      "p99": 2.9767327088396995
+    },
+    "output_tokens_per_s": 2748.236260143316,
+    "requests_per_s": 10.735297891184828,
+    "slo_goodput_requests_per_s": 10.735297891184828,
+    "slo_met_requests": 32,
+    "slo_ttft_s": 5,
+    "slo_tpot_s": 0.1,
+    "tpot_slo_met_fraction": 1.0,
+    "itl_slo_met_fraction": 1.0,
+    "request_mean_tpot_s": {
+      "p50": 0.008424565138514428,
+      "p95": 0.01004349892666819,
+      "p99": 0.010275539878372323
+    },
+    "token_itl_s": {
+      "p50": 0.006578490370884538,
+      "p95": 0.007129786210134625,
+      "p99": 0.06961923553142696
+    }
+  },
+  "after": {
+    "requests": 32,
+    "output_tokens": 8192,
+    "elapsed_s": 2.957823202945292,
+    "ttft_s": {
+      "p50": 0.7079902843106538,
+      "p95": 1.2775963397230954,
+      "p99": 1.3145355545263737
+    },
+    "tpot_s": {
+      "p50": 0.008348654628749572,
+      "p95": 0.009957615903797833,
+      "p99": 0.010197169639626701
+    },
+    "inter_token_gap_s": {
+      "p50": 0.006481910357251763,
+      "p95": 0.007144299754872918,
+      "p99": 0.06944176161196083
+    },
+    "e2e_s": {
+      "p50": 2.8369340987410396,
+      "p95": 2.9452326798578725,
+      "p99": 2.953844010112807
+    },
+    "output_tokens_per_s": 2769.60434681921,
+    "requests_per_s": 10.81876697976254,
+    "slo_goodput_requests_per_s": 10.81876697976254,
+    "slo_met_requests": 32,
+    "slo_ttft_s": 5,
+    "slo_tpot_s": 0.1,
+    "tpot_slo_met_fraction": 1.0,
+    "itl_slo_met_fraction": 1.0,
+    "request_mean_tpot_s": {
+      "p50": 0.008348654628749572,
+      "p95": 0.009957615903797833,
+      "p99": 0.010197169639626701
+    },
+    "token_itl_s": {
+      "p50": 0.006481910357251763,
+      "p95": 0.007144299754872918,
+      "p99": 0.06944176161196083
+    }
+  },
+  "throughput_change_pct": 0.7775200038580232,
+  "note": "One fresh-process measured replay each after a distinct-prefix warmup; 0.8% throughput change alone is too small to establish service benefit.",
+  "profiling": {
+    "before": {
+      "sampler_kernel_count": {
+        "mean": 9.0,
+        "median": 9,
+        "p95": 9
+      },
+      "sampler_kernel_us": {
+        "mean": 165.91026582278482,
+        "median": 170.878,
+        "p95": 176.38400000000001
+      },
+      "sampler_span_us": {
+        "mean": 185.17060485067248,
+        "median": 184.51220703125,
+        "p95": 188.7041015625
+      },
+      "kernel_internal_gap_us": {
+        "mean": 19.26033902788765,
+        "median": 11.391953124999986,
+        "p95": 12.639833984375002
+      },
+      "logits_ready_to_sample_gpu_us": {
+        "mean": 19.476670663568036,
+        "median": 7.39208984375,
+        "p95": 8.448974609375
+      },
+      "sampling_metadata_copy_us": {
+        "mean": 0.8777594936708861,
+        "median": 0.896,
+        "p95": 0.928
+      },
+      "sampling_metadata_host_us": {
+        "mean": 62.52046835443037,
+        "median": 61.326,
+        "p95": 65.721
+      },
+      "sample_to_d2h_gap_us": {
+        "mean": 10.55958576443829,
+        "median": 9.343994140625,
+        "p95": 13.183837890625
+      },
+      "d2h_us": {
+        "mean": 2.398822784810126,
+        "median": 2.368,
+        "p95": 2.496
+      },
+      "stochastic_fused_kernel_us": {
+        "mean": 95.24374683544306,
+        "median": 95.04,
+        "p95": 96.736
+      },
+      "softmax_only_kernel_us": {
+        "mean": 5.297810126582281,
+        "median": 5.696,
+        "p95": 6.5280000000000005
+      },
+      "rng_kernel_us": {
+        "mean": 1.9001645569620254,
+        "median": 1.856,
+        "p95": 2.08
+      },
+      "step_wall_us": {
+        "mean": 6471.8647088607595,
+        "median": 6788.534,
+        "p95": 7032.53
+      },
+      "steps": 79,
+      "kernel_fraction_of_decode_wall": 0.02563562022482234
+    },
+    "after": {
+      "sampler_kernel_count": {
+        "mean": 1.0,
+        "median": 1,
+        "p95": 1
+      },
+      "sampler_kernel_us": {
+        "mean": 16.244202531645563,
+        "median": 18.08,
+        "p95": 20.064
+      },
+      "sampler_span_us": {
+        "mean": 16.244196251977847,
+        "median": 18.080078125,
+        "p95": 20.06396484375
+      },
+      "kernel_internal_gap_us": {
+        "mean": -6.27966772135925e-06,
+        "median": -2.929687499886313e-05,
+        "p95": 0.00011132812500136424
+      },
+      "logits_ready_to_sample_gpu_us": {
+        "mean": 16.287202086629748,
+        "median": 10.43212890625,
+        "p95": 11.488037109375
+      },
+      "sampling_metadata_copy_us": {
+        "mean": 0.0,
+        "median": 0,
+        "p95": 0
+      },
+      "sampling_metadata_host_us": {
+        "mean": 0.0,
+        "median": 0,
+        "p95": 0
+      },
+      "sample_to_d2h_gap_us": {
+        "mean": 12.618550360957279,
+        "median": 10.27197265625,
+        "p95": 12.9599609375
+      },
+      "d2h_us": {
+        "mean": 2.4554683544303813,
+        "median": 2.4,
+        "p95": 2.655
+      },
+      "stochastic_fused_kernel_us": {
+        "mean": 0.0,
+        "median": 0,
+        "p95": 0
+      },
+      "softmax_only_kernel_us": {
+        "mean": 0.0,
+        "median": 0,
+        "p95": 0
+      },
+      "rng_kernel_us": {
+        "mean": 0.0,
+        "median": 0,
+        "p95": 0
+      },
+      "step_wall_us": {
+        "mean": 6164.354379746836,
+        "median": 6540.047,
+        "p95": 6804.022
+      },
+      "steps": 79,
+      "kernel_fraction_of_decode_wall": 0.0026351831077422085
+    },
+    "scope": "Matched 96-step online profile windows; GPU kernel durations exclude GPU annotations. Profiling is diagnostic, not the unprofiled throughput comparison."
+  }
+}

@@ -1,5 +1,8 @@
 import atexit
 from dataclasses import fields
+from pathlib import Path
+from tempfile import TemporaryDirectory
+from uuid import uuid4
 from time import perf_counter
 from tqdm.auto import tqdm
 from transformers import AutoTokenizer
@@ -19,6 +22,11 @@ class LLMEngine:
         config_kwargs = {k: v for k, v in kwargs.items() if k in config_fields}
         config = Config(model, **config_kwargs)
         self.config = config
+        self._rendezvous_dir = None
+        if config.init_method is None:
+            self._rendezvous_dir = TemporaryDirectory(prefix="nanovllm-")
+            config.init_method = (Path(self._rendezvous_dir.name) / "store").as_uri()
+        shared_memory_name = f"nanovllm-{uuid4().hex}"
         self._closed = False
         Sequence.block_size = config.kvcache_block_size
         self.ps = []
@@ -26,11 +34,11 @@ class LLMEngine:
         ctx = mp.get_context("spawn")
         for i in range(1, config.tensor_parallel_size):
             event = ctx.Event()
-            process = ctx.Process(target=ModelRunner, args=(config, i, event))
+            process = ctx.Process(target=ModelRunner, args=(config, i, event, shared_memory_name))
             process.start()
             self.ps.append(process)
             self.events.append(event)
-        self.model_runner = ModelRunner(config, 0, self.events)
+        self.model_runner = ModelRunner(config, 0, self.events, shared_memory_name)
         self.tokenizer = AutoTokenizer.from_pretrained(config.model, use_fast=True)
         config.eos = self.tokenizer.eos_token_id
         self.scheduler = Scheduler(config)
@@ -45,6 +53,8 @@ class LLMEngine:
         del self.model_runner
         for p in self.ps:
             p.join()
+        if self._rendezvous_dir is not None:
+            self._rendezvous_dir.cleanup()
 
     def add_request(self, prompt: str | list[int], sampling_params: SamplingParams):
         if isinstance(prompt, str):

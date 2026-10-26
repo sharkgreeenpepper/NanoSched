@@ -1,0 +1,78 @@
+{
+  "http://127.0.0.1:8000": {
+    "status": "ok",
+    "active": 0,
+    "waiting": 0,
+    "running": 0,
+    "kv_used": 0,
+    "kv_free": 2033,
+    "kv_total": 2033,
+    "steps": 544,
+    "generated_tokens": 4096,
+    "timings": {
+      "scheduler_s": 0.009115863125771284,
+      "model_runner_s": 6.306811996269971,
+      "postprocess_s": 0.008617104031145573,
+      "text_s": 0.0167854237370193,
+      "event_s": 0.005244467407464981
+    },
+    "timing_scope": "Cumulative worker CPU wall time; model_runner includes GPU synchronization; event is enqueue time"
+  },
+  "http://127.0.0.1:8001": {
+    "status": "ok",
+    "active": 0,
+    "waiting": 0,
+    "running": 0,
+    "kv_used": 0,
+    "kv_free": 2033,
+    "kv_total": 2033,
+    "steps": 544,
+    "generated_tokens": 4096,
+    "timings": {
+      "scheduler_s": 0.009093703236430883,
+      "model_runner_s": 6.3439510255120695,
+      "postprocess_s": 0.008930340874940157,
+      "text_s": 0.01568248774856329,
+      "event_s": 0.005167853552848101
+    },
+    "timing_scope": "Cumulative worker CPU wall time; model_runner includes GPU synchronization; event is enqueue time"
+  },
+  "http://127.0.0.1:8002": {
+    "status": "ok",
+    "active": 0,
+    "waiting": 0,
+    "running": 0,
+    "kv_used": 0,
+    "kv_free": 2033,
+    "kv_total": 2033,
+    "steps": 544,
+    "generated_tokens": 4096,
+    "timings": {
+      "scheduler_s": 0.0093082832172513,
+      "model_runner_s": 6.324111575260758,
+      "postprocess_s": 0.009099879302084446,
+      "text_s": 0.017427407670766115,
+      "event_s": 0.005243457853794098
+    },
+    "timing_scope": "Cumulative worker CPU wall time; model_runner includes GPU synchronization; event is enqueue time"
+  },
+  "http://127.0.0.1:8003": {
+    "status": "ok",
+    "active": 0,
+    "waiting": 0,
+    "running": 0,
+    "kv_used": 0,
+    "kv_free": 2033,
+    "kv_total": 2033,
+    "steps": 544,
+    "generated_tokens": 4096,
+    "timings": {
+      "scheduler_s": 0.009644018020480871,
+      "model_runner_s": 6.349771274253726,
+      "postprocess_s": 0.009452082216739655,
+      "text_s": 0.017019964288920164,
+      "event_s": 0.005486093461513519
+    },
+    "timing_scope": "Cumulative worker CPU wall time; model_runner includes GPU synchronization; event is enqueue time"
+  }
+}

@@ -1,0 +1,52 @@
+INFO:     Started server process [239775]
+INFO:     Waiting for application startup.
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:532: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:532: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:50384 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50392 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50392 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50394 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50396 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50410 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50420 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50424 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50440 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50456 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50460 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50472 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50474 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50486 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50488 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50496 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50500 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50502 - "POST /generate HTTP/1.1" 200 OK
+ERROR: External init callback must run in same thread as registerClient (2013050432 != -813935488)
+USDT:2026-10-23 16:53:17 239775:239959 SyncActivityProfilerHandler.cpp:52] profiler_start
+INFO:     127.0.0.1:50506 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50510 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50512 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50524 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50538 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50550 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50562 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50566 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50568 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50574 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50576 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50584 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50592 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50602 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50612 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50628 - "POST /generate HTTP/1.1" 200 OK
+USDT:2026-10-23 16:53:20 239775:239959 SyncActivityProfilerHandler.cpp:59] profiler_stop
+INFO:     127.0.0.1:50394 - "GET /health HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [239775]

@@ -1,0 +1,30 @@
+INFO:     Started server process [160821]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:54176 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54180 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54180 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54182 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54194 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54210 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54180 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54210 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54194 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54182 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54180 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54210 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54194 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54182 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54180 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54210 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54180 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54210 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54194 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54182 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54180 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52516 - "GET /health HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [160821]

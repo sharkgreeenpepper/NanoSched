@@ -59,6 +59,21 @@ class Scheduler:
         seq.prefill_queued_at = self.clock()
         self.waiting.append(seq)
 
+    def cancel(self, seq_id: int) -> bool:
+        """Remove a request between model steps and release its owned KV blocks."""
+        for queue in (self.waiting, self.running):
+            seq = next((s for s in queue if s.seq_id == seq_id), None)
+            if seq is None:
+                continue
+            queue.remove(seq)
+            self.block_manager.deallocate(seq)
+            seq.status = SequenceStatus.FINISHED
+            self.last_token_at.pop(seq_id, None)
+            self.first_token_at.pop(seq_id, None)
+            self.stats["cancellations"] += 1
+            return True
+        return False
+
     def schedule(self) -> tuple[list[Sequence], bool]:
         self.step_started_at = self.clock()
         if self.is_finished():

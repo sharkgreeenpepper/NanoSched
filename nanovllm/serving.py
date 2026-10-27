@@ -356,6 +356,7 @@ def main():
     parser.add_argument("--port", type=int, default=8000)
     parser.add_argument("--policy", choices=("original", "decode_aware", "adaptive_v2"), default="decode_aware")
     parser.add_argument("--tp", type=int, default=1)
+    parser.add_argument("--init-method", help="Distributed rendezvous URL; defaults to a unique local file store")
     parser.add_argument("--eager", action="store_true")
     parser.add_argument("--max-seqs", type=int, default=16)
     parser.add_argument("--budget", type=int, default=2048)
@@ -369,7 +370,8 @@ def main():
     parser.add_argument("--profile-steps", type=int, default=32)
     args = parser.parse_args()
     engine_kwargs = {"scheduler_policy": "prefill_first" if args.policy == "original" else args.policy,
-                     "tensor_parallel_size": args.tp, "enforce_eager": args.eager,
+                     "tensor_parallel_size": args.tp, "init_method": args.init_method,
+                     "enforce_eager": args.eager,
                      "max_num_seqs": args.max_seqs, "max_num_batched_tokens": args.budget,
                      "max_consecutive_decodes": args.decode_limit,
                      "decode_prefill_token_budget": args.decode_prefill_budget,

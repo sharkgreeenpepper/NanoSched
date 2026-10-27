@@ -15,17 +15,18 @@ from nanovllm.utils.loader import load_model
 
 class ModelRunner:
 
-    def __init__(self, config: Config, rank: int, event: Event | list[Event]):
+    def __init__(self, config: Config, rank: int, event: Event | list[Event], shared_memory_name: str):
         self.config = config
         hf_config = config.hf_config
         self.block_size = config.kvcache_block_size
+        Sequence.block_size = self.block_size
         self.enforce_eager = config.enforce_eager
         self.world_size = config.tensor_parallel_size
         self.rank = rank
         self.event = event
 
-        dist.init_process_group("nccl", "tcp://localhost:2333", world_size=self.world_size, rank=rank)
         torch.cuda.set_device(rank)
+        dist.init_process_group("nccl", config.init_method, world_size=self.world_size, rank=rank)
         default_dtype = torch.get_default_dtype()
         torch.set_default_dtype(hf_config.dtype)
         torch.set_default_device("cuda")
@@ -42,11 +43,11 @@ class ModelRunner:
 
         if self.world_size > 1:
             if rank == 0:
-                self.shm = SharedMemory(name="nanovllm", create=True, size=2**20)
+                self.shm = SharedMemory(name=shared_memory_name, create=True, size=2**20)
                 dist.barrier()
             else:
                 dist.barrier()
-                self.shm = SharedMemory(name="nanovllm")
+                self.shm = SharedMemory(name=shared_memory_name)
                 self.loop()
 
     def exit(self):
@@ -113,11 +114,16 @@ class ModelRunner:
         head_dim = getattr(hf_config, "head_dim", hf_config.hidden_size // hf_config.num_attention_heads)
         block_bytes = 2 * hf_config.num_hidden_layers * self.block_size * num_kv_heads * head_dim * hf_config.dtype.itemsize
         available_blocks = int(total * config.gpu_memory_utilization - used - peak + current) // block_bytes
+        if self.world_size > 1:
+            capacity = torch.tensor(available_blocks, dtype=torch.int64, device=f"cuda:{self.rank}")
+            dist.all_reduce(capacity, op=dist.ReduceOp.MIN)
+            available_blocks = capacity.item()
         if config.num_kvcache_blocks == -1:
             config.num_kvcache_blocks = available_blocks
         elif config.num_kvcache_blocks > available_blocks:
             raise ValueError("Requested KV block cap exceeds the available memory budget")
-        assert config.num_kvcache_blocks > 0
+        if config.num_kvcache_blocks <= 0:
+            raise ValueError("No KV blocks fit in the available memory budget")
         self.kv_cache = torch.empty(2, hf_config.num_hidden_layers, config.num_kvcache_blocks, self.block_size, num_kv_heads, head_dim)
         layer_id = 0
         for module in self.model.modules():
@@ -219,9 +225,13 @@ class ModelRunner:
 
     def run(self, seqs: list[Sequence], is_prefill: bool) -> list[int]:
         input_ids, positions = self.prepare_prefill(seqs) if is_prefill else self.prepare_decode(seqs)
-        temperatures = self.prepare_sample(seqs) if self.rank == 0 else None
+        greedy = self.rank == 0 and all(seq.temperature == 0 for seq in seqs)
+        temperatures = self.prepare_sample(seqs) if self.rank == 0 and not greedy else None
         logits = self.run_model(input_ids, positions, is_prefill)
-        token_ids = self.sampler(logits, temperatures).tolist() if self.rank == 0 else None
+        token_ids = None
+        if self.rank == 0:
+            sampled = logits.argmax(dim=-1) if greedy else self.sampler(logits, temperatures)
+            token_ids = sampled.tolist()
         reset_context()
         return token_ids
 

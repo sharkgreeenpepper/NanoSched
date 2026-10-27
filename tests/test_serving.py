@@ -66,6 +66,7 @@ def engine_factory(config, *, tokens=(20, 21, 22, 23, 99), delay=0):
         engine = LLMEngine.__new__(LLMEngine)
         engine.config = config
         engine._closed = False
+        engine._rendezvous_dir = None
         engine.ps = []
         engine.scheduler = Scheduler(config)
         engine.model_runner = FakeRunner()

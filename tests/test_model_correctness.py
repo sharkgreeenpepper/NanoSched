@@ -36,6 +36,33 @@ def test_greedy_and_mixed_sampling():
         SamplingParams(max_tokens=0)
 
 
+@pytest.mark.parametrize("rank,temperatures", [(0, [0., 0., 0.]), (0, [0., 1., 0.]), (1, None)])
+def test_runner_sampling_path(rank, temperatures):
+    from nanovllm.engine.model_runner import ModelRunner
+    runner = ModelRunner.__new__(ModelRunner)
+    runner.rank = rank
+    logits = torch.tensor([[1., 4., 4.], [100., -100., -100.], [2., 3., 1.]])
+    original = logits.clone()
+    calls = []
+    runner.prepare_decode = lambda seqs: (None, None)
+    runner.run_model = lambda *args: logits if rank == 0 else None
+    def prepare(seqs):
+        calls.append("prepare")
+        return torch.tensor([seq.temperature for seq in seqs])
+    def sample(values, scales):
+        calls.append("sample")
+        return Sampler.forward.__wrapped__(Sampler(), values, scales)
+    runner.prepare_sample = prepare
+    runner.sampler = sample
+    # TP workers receive serialized Sequence state without a temperature field.
+    seqs = [SimpleNamespace() for _ in range(3)] if temperatures is None else [
+        SimpleNamespace(temperature=value) for value in temperatures]
+    tokens = runner.run(seqs, is_prefill=False)
+    assert tokens == ([1, 0, 1] if rank == 0 else None)
+    assert calls == (["prepare", "sample"] if temperatures == [0., 1., 0.] else [])
+    assert torch.equal(logits, original)
+
+
 class PackedModel(nn.Module):
     packed_modules_mapping = {"q_proj": ("qkv_proj", "q"), "k_proj": ("qkv_proj", "k"), "v_proj": ("qkv_proj", "v")}
 

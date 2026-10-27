@@ -1,0 +1,1707 @@
+{
+  "online-profile-tp1": {
+    "tp": 1,
+    "cuda_graph": true,
+    "gpu_busy_us": 3908422.1938476562,
+    "gpu_span_us": 4694453.2099609375,
+    "busy_ratio": 0.8325617529970393,
+    "kernel_count": 34000,
+    "kernel_sum_us": 3906052.155999996,
+    "nccl_sum_us": 0,
+    "nccl_count": 0,
+    "outside_step_kernel_count": 0,
+    "phases": {
+      "prefill": {
+        "steps": 16,
+        "measurements": {
+          "wall_us": {
+            "mean": 246742.85293749996,
+            "median": 210913.764,
+            "p95": 211291.816
+          },
+          "gpu_busy_us": {
+            "mean": 208092.8219909668,
+            "median": 208161.71533203125,
+            "p95": 208410.56323242188
+          },
+          "kernel_sum_us": {
+            "mean": 207968.74356250002,
+            "median": 208038.499,
+            "p95": 208284.89499999984
+          },
+          "nccl_count": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0
+          },
+          "nccl_sum_us": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0
+          },
+          "all_reduce_count": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0
+          },
+          "all_reduce_sum_us": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0
+          },
+          "gather_count": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0
+          },
+          "gather_sum_us": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0
+          },
+          "metadata_host_us": {
+            "mean": 817.2098125000001,
+            "median": 604.0554999999999,
+            "p95": 1011.325
+          },
+          "sampling_metadata_host_us": {
+            "mean": 102.77974999999999,
+            "median": 61.418499999999995,
+            "p95": 65.274
+          },
+          "model_host_us": {
+            "mean": 67675.81768749999,
+            "median": 34637.135500000004,
+            "p95": 35806.709
+          },
+          "sample_host_us": {
+            "mean": 13780.6405,
+            "median": 492.9075,
+            "p95": 540.861
+          },
+          "token_sync_host_us": {
+            "mean": 163089.0676875,
+            "median": 174064.82049999997,
+            "p95": 174593.493
+          },
+          "tp.serialize_notify_host_us": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0
+          },
+          "collective.gather_host_us": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0
+          },
+          "collective.all_reduce_host_us": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0
+          },
+          "scheduler.schedule_host_us": {
+            "mean": 163.07362500000005,
+            "median": 114.75200000000001,
+            "p95": 134.427
+          },
+          "scheduler.postprocess_host_us": {
+            "mean": 174.46637499999997,
+            "median": 170.06400000000002,
+            "p95": 202.003
+          }
+        }
+      },
+      "decode": {
+        "steps": 80,
+        "measurements": {
+          "wall_us": {
+            "mean": 8928.366025000003,
+            "median": 8972.204,
+            "p95": 9278.64
+          },
+          "gpu_busy_us": {
+            "mean": 7236.713024902344,
+            "median": 7302.3011474609375,
+            "p95": 7314.658447265625
+          },
+          "kernel_sum_us": {
+            "mean": 7231.9032375,
+            "median": 7298.529999999993,
+            "p95": 7310.149999999996
+          },
+          "nccl_count": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0
+          },
+          "nccl_sum_us": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0
+          },
+          "all_reduce_count": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0
+          },
+          "all_reduce_sum_us": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0
+          },
+          "gather_count": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0
+          },
+          "gather_sum_us": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0
+          },
+          "metadata_host_us": {
+            "mean": 282.33017499999994,
+            "median": 281.586,
+            "p95": 317.02
+          },
+          "sampling_metadata_host_us": {
+            "mean": 65.06149999999998,
+            "median": 63.081,
+            "p95": 76.992
+          },
+          "model_host_us": {
+            "mean": 825.8208999999995,
+            "median": 624.133,
+            "p95": 1467.924
+          },
+          "sample_host_us": {
+            "mean": 562.8374999999999,
+            "median": 545.9594999999999,
+            "p95": 613.486
+          },
+          "token_sync_host_us": {
+            "mean": 6347.520249999998,
+            "median": 6532.5095,
+            "p95": 6587.262
+          },
+          "tp.serialize_notify_host_us": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0
+          },
+          "collective.gather_host_us": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0
+          },
+          "collective.all_reduce_host_us": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0
+          },
+          "scheduler.schedule_host_us": {
+            "mean": 75.75057500000001,
+            "median": 54.897000000000006,
+            "p95": 220.023
+          },
+          "scheduler.postprocess_host_us": {
+            "mean": 53.75087500000001,
+            "median": 58.522499999999994,
+            "p95": 67.339
+          },
+          "linear_host_us": {
+            "mean": 199.16767500000003,
+            "median": 78.47,
+            "p95": 282.108
+          },
+          "linear_count": {
+            "mean": 1.0,
+            "median": 1.0,
+            "p95": 1
+          },
+          "cat_host_us": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0
+          },
+          "graph_launch_host_us": {
+            "mean": 376.31661249999996,
+            "median": 297.105,
+            "p95": 801.324
+          },
+          "head_kernel_us": {
+            "mean": 318.5827625,
+            "median": 321.552,
+            "p95": 324.8
+          },
+          "head_kernel_count": {
+            "mean": 1.0,
+            "median": 1.0,
+            "p95": 1
+          },
+          "body_to_head_gap_us": {
+            "mean": 6.2028350830078125,
+            "median": 5.248046875,
+            "p95": 5.568115234375
+          },
+          "head_to_gather_gap_us": null
+        }
+      }
+    }
+  },
+  "online-profile-tp2": {
+    "tp": 2,
+    "cuda_graph": true,
+    "gpu_busy_us": 2256990.2856445312,
+    "gpu_span_us": 3116681.1369628906,
+    "busy_ratio": 0.7241646438826587,
+    "kernel_count": 44048,
+    "kernel_sum_us": 2253940.456000043,
+    "nccl_sum_us": 154909.55499999996,
+    "nccl_count": 5568,
+    "outside_step_kernel_count": 0,
+    "phases": {
+      "prefill": {
+        "steps": 16,
+        "measurements": {
+          "wall_us": {
+            "mean": 154672.054375,
+            "median": 113895.25450000001,
+            "p95": 114488.075
+          },
+          "gpu_busy_us": {
+            "mean": 112249.04402160645,
+            "median": 109919.87829589844,
+            "p95": 110554.57763671875
+          },
+          "kernel_sum_us": {
+            "mean": 112118.20631250001,
+            "median": 109788.77200000007,
+            "p95": 110421.234
+          },
+          "nccl_count": {
+            "mean": 58.0,
+            "median": 58.0,
+            "p95": 58
+          },
+          "nccl_sum_us": {
+            "mean": 6861.021375,
+            "median": 4736.129499999999,
+            "p95": 5014.974000000001
+          },
+          "all_reduce_count": {
+            "mean": 57.0,
+            "median": 57.0,
+            "p95": 57
+          },
+          "all_reduce_sum_us": {
+            "mean": 6849.895375,
+            "median": 4724.433499999999,
+            "p95": 5003.102000000001
+          },
+          "gather_count": {
+            "mean": 1.0,
+            "median": 1.0,
+            "p95": 1
+          },
+          "gather_sum_us": {
+            "mean": 11.126,
+            "median": 10.592,
+            "p95": 13.344
+          },
+          "metadata_host_us": {
+            "mean": 631.0915625,
+            "median": 605.842,
+            "p95": 696.601
+          },
+          "sampling_metadata_host_us": {
+            "mean": 64.03031250000001,
+            "median": 60.5035,
+            "p95": 86.536
+          },
+          "model_host_us": {
+            "mean": 85257.63618750001,
+            "median": 52222.728,
+            "p95": 53589.29
+          },
+          "sample_host_us": {
+            "mean": 11842.06725,
+            "median": 504.825,
+            "p95": 557.35
+          },
+          "token_sync_host_us": {
+            "mean": 55604.630125,
+            "median": 59379.316,
+            "p95": 60066.075
+          },
+          "tp.serialize_notify_host_us": {
+            "mean": 379.141125,
+            "median": 375.4995,
+            "p95": 579.233
+          },
+          "collective.gather_host_us": {
+            "mean": 215.51700000000002,
+            "median": 208.649,
+            "p95": 237.91
+          },
+          "collective.all_reduce_host_us": {
+            "mean": 10501.4188125,
+            "median": 10378.547000000002,
+            "p95": 11414.053000000002
+          },
+          "scheduler.schedule_host_us": {
+            "mean": 139.622,
+            "median": 134.74200000000002,
+            "p95": 164.554
+          },
+          "scheduler.postprocess_host_us": {
+            "mean": 208.007375,
+            "median": 200.945,
+            "p95": 300.995
+          }
+        }
+      },
+      "decode": {
+        "steps": 80,
+        "measurements": {
+          "wall_us": {
+            "mean": 7561.537112500002,
+            "median": 7740.360000000001,
+            "p95": 8188.995
+          },
+          "gpu_busy_us": {
+            "mean": 5762.569766235351,
+            "median": 5889.6976318359375,
+            "p95": 5916.14111328125
+          },
+          "kernel_sum_us": {
+            "mean": 5750.614437500001,
+            "median": 5876.893500000006,
+            "p95": 5906.278000000006
+          },
+          "nccl_count": {
+            "mean": 58.0,
+            "median": 58.0,
+            "p95": 58
+          },
+          "nccl_sum_us": {
+            "mean": 564.1651625000002,
+            "median": 512.7985000000001,
+            "p95": 636.768
+          },
+          "all_reduce_count": {
+            "mean": 57.0,
+            "median": 57.0,
+            "p95": 57
+          },
+          "all_reduce_sum_us": {
+            "mean": 524.4911875,
+            "median": 486.2405,
+            "p95": 622.368
+          },
+          "gather_count": {
+            "mean": 1.0,
+            "median": 1.0,
+            "p95": 1
+          },
+          "gather_sum_us": {
+            "mean": 39.673975,
+            "median": 23.3435,
+            "p95": 29.888
+          },
+          "metadata_host_us": {
+            "mean": 299.78930000000014,
+            "median": 306.145,
+            "p95": 359.042
+          },
+          "sampling_metadata_host_us": {
+            "mean": 64.64022499999997,
+            "median": 61.756,
+            "p95": 83.741
+          },
+          "model_host_us": {
+            "mean": 1458.5261500000004,
+            "median": 1123.4360000000001,
+            "p95": 2550.12
+          },
+          "sample_host_us": {
+            "mean": 561.9432125000002,
+            "median": 545.74,
+            "p95": 652.349
+          },
+          "token_sync_host_us": {
+            "mean": 4133.4565875,
+            "median": 4489.102,
+            "p95": 4601.226
+          },
+          "tp.serialize_notify_host_us": {
+            "mean": 437.79839999999984,
+            "median": 466.746,
+            "p95": 685.214
+          },
+          "collective.gather_host_us": {
+            "mean": 233.8245375,
+            "median": 229.712,
+            "p95": 258.508
+          },
+          "collective.all_reduce_host_us": {
+            "mean": 0.0,
+            "median": 0.0,
+            "p95": 0
+          },
+          "scheduler.schedule_host_us": {
+            "mean": 60.619524999999996,
+            "median": 55.586,
+            "p95": 71.278
+          },
+          "scheduler.postprocess_host_us": {
+            "mean": 55.93991250000001,
+            "median": 62.278499999999994,
+            "p95": 71.728
+          },
+          "linear_host_us": {
+            "mean": 290.8664,
+            "median": 71.9085,
+            "p95": 278.59
+          },
+          "linear_count": {
+            "mean": 1.0,
+            "median": 1.0,
+            "p95": 1
+          },
+          "cat_host_us": {
+            "mean": 24.088125000000005,
+            "median": 23.697499999999998,
+            "p95": 26.827
+          },
+          "graph_launch_host_us": {
+            "mean": 588.300475,
+            "median": 473.67949999999996,
+            "p95": 1651.074
+          },
+          "head_kernel_us": {
+            "mean": 164.15891250000004,
+            "median": 165.69650000000001,
+            "p95": 168.416
+          },
+          "head_kernel_count": {
+            "mean": 1.0,
+            "median": 1.0,
+            "p95": 1
+          },
+          "body_to_head_gap_us": {
+            "mean": 9.316397094726563,
+            "median": 6.752197265625,
+            "p95": 7.8720703125
+          },
+          "head_to_gather_gap_us": {
+            "mean": 10.994781494140625,
+            "median": 5.9844970703125,
+            "p95": 8.223876953125
+          }
+        }
+      }
+    }
+  },
+  "online-profile-tp4": {
+    "tp": 4,
+    "cuda_graph": true,
+    "gpu_busy_us": 1356574.474609375,
+    "gpu_span_us": 2469756.3129882812,
+    "busy_ratio": 0.5492746257900999,
+    "kernel_count": 41748,
+    "kernel_sum_us": 1353824.9639999676,
+    "nccl_sum_us": 162754.35199999966,
+    "nccl_count": 5568,
+    "outside_step_kernel_count": 0,
+    "phases": {
+      "prefill": {
+        "steps": 17,
+        "measurements": {
+          "wall_us": {
+            "mean": 112226.49329411767,
+            "median": 64631.29,
+            "p95": 243053.103
+          },
+          "gpu_busy_us": {
+            "mean": 58701.28466796875,
+            "median": 60696.71875,
+            "p95": 60850.4453125
+          },
+          "kernel_sum_us": {
+            "mean": 58610.14741176468,
+            "median": 60600.111000000026,
+            "p95": 60751.44400000002
+          },
+          "nccl_count": {
+            "mean": 58.0,
+            "median": 58,
+            "p95": 58
+          },
+          "nccl_sum_us": {
+            "mean": 6321.787588235295,
+            "median": 5076.482999999999,
+            "p95": 12049.920999999998
+          },
+          "all_reduce_count": {
+            "mean": 57.0,
+            "median": 57,
+            "p95": 57
+          },
+          "all_reduce_sum_us": {
+            "mean": 6311.39517647059,
+            "median": 5066.178999999999,
+            "p95": 12039.073999999999
+          },
+          "gather_count": {
+            "mean": 1.0,
+            "median": 1,
+            "p95": 1
+          },
+          "gather_sum_us": {
+            "mean": 10.392411764705884,
+            "median": 10.208,
+            "p95": 10.976
+          },
+          "metadata_host_us": {
+            "mean": 615.1626470588234,
+            "median": 614.446,
+            "p95": 664.035
+          },
+          "sampling_metadata_host_us": {
+            "mean": 102.83535294117647,
+            "median": 59.313,
+            "p95": 88.222
+          },
+          "model_host_us": {
+            "mean": 83204.89811764707,
+            "median": 51106.464,
+            "p95": 56063.406
+          },
+          "sample_host_us": {
+            "mean": 17602.05894117647,
+            "median": 522.402,
+            "p95": 105252.483
+          },
+          "token_sync_host_us": {
+            "mean": 9404.216352941176,
+            "median": 11088.684,
+            "p95": 12313.529
+          },
+          "tp.serialize_notify_host_us": {
+            "mean": 420.67911764705883,
+            "median": 420.698,
+            "p95": 630.665
+          },
+          "collective.gather_host_us": {
+            "mean": 221.0921176470588,
+            "median": 214.094,
+            "p95": 238.291
+          },
+          "collective.all_reduce_host_us": {
+            "mean": 10317.772588235293,
+            "median": 10294.644999999997,
+            "p95": 10665.444
+          },
+          "scheduler.schedule_host_us": {
+            "mean": 120.37847058823529,
+            "median": 111.491,
+            "p95": 126.53
+          },
+          "scheduler.postprocess_host_us": {
+            "mean": 171.4444117647059,
+            "median": 170.839,
+            "p95": 207.375
+          }
+        }
+      },
+      "decode": {
+        "steps": 79,
+        "measurements": {
+          "wall_us": {
+            "mean": 6471.8647088607595,
+            "median": 6788.534,
+            "p95": 7032.53
+          },
+          "gpu_busy_us": {
+            "mean": 4539.906775365902,
+            "median": 4860.170654296875,
+            "p95": 4906.17626953125
+          },
+          "kernel_sum_us": {
+            "mean": 4524.714658227846,
+            "median": 4843.150999999999,
+            "p95": 4892.1680000000015
+          },
+          "nccl_count": {
+            "mean": 58.0,
+            "median": 58,
+            "p95": 58
+          },
+          "nccl_sum_us": {
+            "mean": 699.7969999999999,
+            "median": 689.4410000000001,
+            "p95": 882.5250000000002
+          },
+          "all_reduce_count": {
+            "mean": 57.0,
+            "median": 57,
+            "p95": 57
+          },
+          "all_reduce_sum_us": {
+            "mean": 675.4000126582279,
+            "median": 657.0860000000001,
+            "p95": 862.4589999999998
+          },
+          "gather_count": {
+            "mean": 1.0,
+            "median": 1,
+            "p95": 1
+          },
+          "gather_sum_us": {
+            "mean": 24.39698734177215,
+            "median": 25.024,
+            "p95": 33.248
+          },
+          "metadata_host_us": {
+            "mean": 298.6578227848102,
+            "median": 307.267,
+            "p95": 347.909
+          },
+          "sampling_metadata_host_us": {
+            "mean": 62.52046835443037,
+            "median": 61.326,
+            "p95": 65.721
+          },
+          "model_host_us": {
+            "mean": 1353.5178860759495,
+            "median": 1102.264,
+            "p95": 2443.555
+          },
+          "sample_host_us": {
+            "mean": 555.2165443037976,
+            "median": 534.788,
+            "p95": 576.32
+          },
+          "token_sync_host_us": {
+            "mean": 3150.1410886075946,
+            "median": 3578.614,
+            "p95": 3754.881
+          },
+          "tp.serialize_notify_host_us": {
+            "mean": 514.2204556962026,
+            "median": 567.093,
+            "p95": 741.921
+          },
+          "collective.gather_host_us": {
+            "mean": 235.11686075949376,
+            "median": 231.726,
+            "p95": 263.601
+          },
+          "collective.all_reduce_host_us": {
+            "mean": 0.0,
+            "median": 0,
+            "p95": 0
+          },
+          "scheduler.schedule_host_us": {
+            "mean": 65.57434177215191,
+            "median": 55.153,
+            "p95": 65.8
+          },
+          "scheduler.postprocess_host_us": {
+            "mean": 54.97673417721521,
+            "median": 61.641,
+            "p95": 69.994
+          },
+          "linear_host_us": {
+            "mean": 223.58200000000002,
+            "median": 71.207,
+            "p95": 282.502
+          },
+          "linear_count": {
+            "mean": 1.0,
+            "median": 1,
+            "p95": 1
+          },
+          "cat_host_us": {
+            "mean": 25.086582278481018,
+            "median": 24.909,
+            "p95": 27.456
+          },
+          "graph_launch_host_us": {
+            "mean": 530.1629620253165,
+            "median": 442.148,
+            "p95": 1323.634
+          },
+          "head_kernel_us": {
+            "mean": 83.20440506329112,
+            "median": 84.224,
+            "p95": 85.728
+          },
+          "head_kernel_count": {
+            "mean": 1.0,
+            "median": 1,
+            "p95": 1
+          },
+          "body_to_head_gap_us": {
+            "mean": 22.38902108880538,
+            "median": 6.783935546875,
+            "p95": 7.840087890625
+          },
+          "head_to_gather_gap_us": {
+            "mean": 18.07075133504747,
+            "median": 5.696044921875,
+            "p95": 8.60791015625
+          }
+        }
+      }
+    }
+  },
+  "online-profile-tp4-eager": {
+    "tp": 4,
+    "cuda_graph": false,
+    "gpu_busy_us": 1311498.5476074219,
+    "gpu_span_us": 7279551.822998047,
+    "busy_ratio": 0.18016199066871783,
+    "kernel_count": 41771,
+    "kernel_sum_us": 1308996.5740000093,
+    "nccl_sum_us": 199944.46200000067,
+    "nccl_count": 5568,
+    "outside_step_kernel_count": 0,
+    "phases": {
+      "prefill": {
+        "steps": 17,
+        "measurements": {
+          "wall_us": {
+            "mean": 122559.0984117647,
+            "median": 64975.611,
+            "p95": 237362.572
+          },
+          "gpu_busy_us": {
+            "mean": 60092.17321059283,
+            "median": 60807.619384765625,
+            "p95": 60936.236083984375
+          },
+          "kernel_sum_us": {
+            "mean": 60000.69694117645,
+            "median": 60710.27799999998,
+            "p95": 60836.51999999999
+          },
+          "nccl_count": {
+            "mean": 58.0,
+            "median": 58,
+            "p95": 58
+          },
+          "nccl_sum_us": {
+            "mean": 7550.790941176473,
+            "median": 5082.406000000003,
+            "p95": 5332.734
+          },
+          "all_reduce_count": {
+            "mean": 57.0,
+            "median": 57,
+            "p95": 57
+          },
+          "all_reduce_sum_us": {
+            "mean": 7540.383470588236,
+            "median": 5071.358,
+            "p95": 5322.43
+          },
+          "gather_count": {
+            "mean": 1.0,
+            "median": 1,
+            "p95": 1
+          },
+          "gather_sum_us": {
+            "mean": 10.407470588235293,
+            "median": 10.144,
+            "p95": 10.912
+          },
+          "metadata_host_us": {
+            "mean": 627.2793529411764,
+            "median": 624.84,
+            "p95": 722.503
+          },
+          "sampling_metadata_host_us": {
+            "mean": 62.037705882352945,
+            "median": 60.556,
+            "p95": 68.645
+          },
+          "model_host_us": {
+            "mean": 93783.08017647058,
+            "median": 51198.05,
+            "p95": 54469.142
+          },
+          "sample_host_us": {
+            "mean": 17356.94470588235,
+            "median": 522.459,
+            "p95": 103281.172
+          },
+          "token_sync_host_us": {
+            "mean": 9280.467235294118,
+            "median": 11186.024,
+            "p95": 12116.408
+          },
+          "tp.serialize_notify_host_us": {
+            "mean": 524.3376470588236,
+            "median": 507.471,
+            "p95": 719.457
+          },
+          "collective.gather_host_us": {
+            "mean": 212.05417647058823,
+            "median": 212.491,
+            "p95": 230.033
+          },
+          "collective.all_reduce_host_us": {
+            "mean": 10205.464588235296,
+            "median": 10208.079999999998,
+            "p95": 10489.073
+          },
+          "scheduler.schedule_host_us": {
+            "mean": 157.46017647058824,
+            "median": 156.1,
+            "p95": 178.628
+          },
+          "scheduler.postprocess_host_us": {
+            "mean": 206.89770588235294,
+            "median": 177.431,
+            "p95": 253.262
+          }
+        }
+      },
+      "decode": {
+        "steps": 79,
+        "measurements": {
+          "wall_us": {
+            "mean": 65103.015696202536,
+            "median": 49044.119,
+            "p95": 51812.823
+          },
+          "gpu_busy_us": {
+            "mean": 3670.020291485364,
+            "median": 3642.274658203125,
+            "p95": 3720.815673828125
+          },
+          "kernel_sum_us": {
+            "mean": 3658.0345063291143,
+            "median": 3627.076000000003,
+            "p95": 3711.185000000001
+          },
+          "nccl_count": {
+            "mean": 58.0,
+            "median": 58,
+            "p95": 58
+          },
+          "nccl_sum_us": {
+            "mean": 906.088810126582,
+            "median": 747.736,
+            "p95": 802.0800000000003
+          },
+          "all_reduce_count": {
+            "mean": 57.0,
+            "median": 57,
+            "p95": 57
+          },
+          "all_reduce_sum_us": {
+            "mean": 891.6827594936708,
+            "median": 736.376,
+            "p95": 785.8880000000003
+          },
+          "gather_count": {
+            "mean": 1.0,
+            "median": 1,
+            "p95": 1
+          },
+          "gather_sum_us": {
+            "mean": 14.406050632911391,
+            "median": 15.392,
+            "p95": 16.384
+          },
+          "metadata_host_us": {
+            "mean": 298.0254303797469,
+            "median": 304.131,
+            "p95": 343.744
+          },
+          "sampling_metadata_host_us": {
+            "mean": 64.09458227848103,
+            "median": 62.851,
+            "p95": 73.503
+          },
+          "model_host_us": {
+            "mean": 63028.04234177215,
+            "median": 47050.086,
+            "p95": 50018.926
+          },
+          "sample_host_us": {
+            "mean": 515.8548860759495,
+            "median": 508.477,
+            "p95": 583.138
+          },
+          "token_sync_host_us": {
+            "mean": 95.59707594936708,
+            "median": 74.134,
+            "p95": 128.321
+          },
+          "tp.serialize_notify_host_us": {
+            "mean": 537.7899367088608,
+            "median": 642.521,
+            "p95": 770.537
+          },
+          "collective.gather_host_us": {
+            "mean": 222.66789873417716,
+            "median": 204.337,
+            "p95": 244.931
+          },
+          "collective.all_reduce_host_us": {
+            "mean": 9693.121316455694,
+            "median": 9571.801999999998,
+            "p95": 10250.893000000004
+          },
+          "scheduler.schedule_host_us": {
+            "mean": 53.93140506329113,
+            "median": 55.584,
+            "p95": 69.803
+          },
+          "scheduler.postprocess_host_us": {
+            "mean": 59.06111392405062,
+            "median": 65.94,
+            "p95": 78.111
+          },
+          "linear_host_us": {
+            "mean": 6220.072316455697,
+            "median": 5541.829000000001,
+            "p95": 7827.432000000002
+          },
+          "linear_count": {
+            "mean": 113.0,
+            "median": 113,
+            "p95": 113
+          },
+          "cat_host_us": {
+            "mean": 117.05286075949378,
+            "median": 25.025,
+            "p95": 45.386
+          },
+          "graph_launch_host_us": {
+            "mean": 0.0,
+            "median": 0,
+            "p95": 0
+          }
+        }
+      }
+    }
+  },
+  "greedy_sampling": {
+    "1": {
+      "sampler_kernel_count": {
+        "mean": 9.0,
+        "median": 9.0,
+        "p95": 9
+      },
+      "sampler_kernel_us": {
+        "mean": 171.23003749999998,
+        "median": 175.3755,
+        "p95": 179.328
+      },
+      "sampler_span_us": {
+        "mean": 183.17279052734375,
+        "median": 185.552490234375,
+        "p95": 189.31201171875
+      },
+      "kernel_internal_gap_us": {
+        "mean": 11.942753027343752,
+        "median": 9.536050781249983,
+        "p95": 10.527794921875
+      },
+      "logits_ready_to_sample_gpu_us": {
+        "mean": 8.707992553710938,
+        "median": 6.944091796875,
+        "p95": 7.9677734375
+      },
+      "sampling_metadata_copy_us": {
+        "mean": 0.8720000000000004,
+        "median": 0.896,
+        "p95": 0.928
+      },
+      "sampling_metadata_host_us": {
+        "mean": 65.06149999999998,
+        "median": 63.081,
+        "p95": 76.992
+      },
+      "sample_to_d2h_gap_us": {
+        "mean": 9.248468017578125,
+        "median": 8.8955078125,
+        "p95": 12.480224609375
+      },
+      "d2h_us": {
+        "mean": 2.417975,
+        "median": 2.368,
+        "p95": 2.529
+      },
+      "stochastic_fused_kernel_us": {
+        "mean": 94.91240000000003,
+        "median": 94.9285,
+        "p95": 95.456
+      },
+      "softmax_only_kernel_us": {
+        "mean": 5.483587499999999,
+        "median": 6.048,
+        "p95": 6.688000000000001
+      },
+      "rng_kernel_us": {
+        "mean": 1.9379874999999998,
+        "median": 1.952,
+        "p95": 2.176
+      },
+      "step_wall_us": {
+        "mean": 8928.366025000003,
+        "median": 8972.204,
+        "p95": 9278.64
+      },
+      "steps": 80,
+      "kernel_fraction_of_decode_wall": 0.019178205398450825
+    },
+    "2": {
+      "sampler_kernel_count": {
+        "mean": 9.0,
+        "median": 9.0,
+        "p95": 9
+      },
+      "sampler_kernel_us": {
+        "mean": 165.40516249999996,
+        "median": 170.3845,
+        "p95": 175.264
+      },
+      "sampler_span_us": {
+        "mean": 180.55924072265626,
+        "median": 180.592041015625,
+        "p95": 184.639892578125
+      },
+      "kernel_internal_gap_us": {
+        "mean": 15.154078222656247,
+        "median": 8.945445312499999,
+        "p95": 10.942125000000004
+      },
+      "logits_ready_to_sample_gpu_us": {
+        "mean": 16.253140258789063,
+        "median": 6.944091796875,
+        "p95": 8.2890625
+      },
+      "sampling_metadata_copy_us": {
+        "mean": 0.8716125000000001,
+        "median": 0.896,
+        "p95": 0.897
+      },
+      "sampling_metadata_host_us": {
+        "mean": 64.64022499999997,
+        "median": 61.756,
+        "p95": 83.741
+      },
+      "sample_to_d2h_gap_us": {
+        "mean": 10.603167724609374,
+        "median": 9.024169921875,
+        "p95": 12.672119140625
+      },
+      "d2h_us": {
+        "mean": 2.3892375000000006,
+        "median": 2.368,
+        "p95": 2.432
+      },
+      "stochastic_fused_kernel_us": {
+        "mean": 94.98441249999998,
+        "median": 95.008,
+        "p95": 95.712
+      },
+      "softmax_only_kernel_us": {
+        "mean": 5.3075375000000005,
+        "median": 5.952,
+        "p95": 6.432
+      },
+      "rng_kernel_us": {
+        "mean": 1.9840375000000006,
+        "median": 2.016,
+        "p95": 2.112
+      },
+      "step_wall_us": {
+        "mean": 7561.537112500002,
+        "median": 7740.360000000001,
+        "p95": 8188.995
+      },
+      "steps": 80,
+      "kernel_fraction_of_decode_wall": 0.02187454217827856
+    },
+    "4": {
+      "sampler_kernel_count": {
+        "mean": 9.0,
+        "median": 9,
+        "p95": 9
+      },
+      "sampler_kernel_us": {
+        "mean": 165.91026582278482,
+        "median": 170.878,
+        "p95": 176.38400000000001
+      },
+      "sampler_span_us": {
+        "mean": 185.17060485067248,
+        "median": 184.51220703125,
+        "p95": 188.7041015625
+      },
+      "kernel_internal_gap_us": {
+        "mean": 19.26033902788765,
+        "median": 11.391953124999986,
+        "p95": 12.639833984375002
+      },
+      "logits_ready_to_sample_gpu_us": {
+        "mean": 19.476670663568036,
+        "median": 7.39208984375,
+        "p95": 8.448974609375
+      },
+      "sampling_metadata_copy_us": {
+        "mean": 0.8777594936708861,
+        "median": 0.896,
+        "p95": 0.928
+      },
+      "sampling_metadata_host_us": {
+        "mean": 62.52046835443037,
+        "median": 61.326,
+        "p95": 65.721
+      },
+      "sample_to_d2h_gap_us": {
+        "mean": 10.55958576443829,
+        "median": 9.343994140625,
+        "p95": 13.183837890625
+      },
+      "d2h_us": {
+        "mean": 2.398822784810126,
+        "median": 2.368,
+        "p95": 2.496
+      },
+      "stochastic_fused_kernel_us": {
+        "mean": 95.24374683544306,
+        "median": 95.04,
+        "p95": 96.736
+      },
+      "softmax_only_kernel_us": {
+        "mean": 5.297810126582281,
+        "median": 5.696,
+        "p95": 6.5280000000000005
+      },
+      "rng_kernel_us": {
+        "mean": 1.9001645569620254,
+        "median": 1.856,
+        "p95": 2.08
+      },
+      "step_wall_us": {
+        "mean": 6471.8647088607595,
+        "median": 6788.534,
+        "p95": 7032.53
+      },
+      "steps": 79,
+      "kernel_fraction_of_decode_wall": 0.02563562022482234
+    },
+    "4-eager": {
+      "sampler_kernel_count": {
+        "mean": 9.0,
+        "median": 9,
+        "p95": 9
+      },
+      "sampler_kernel_us": {
+        "mean": 165.18331645569626,
+        "median": 169.12,
+        "p95": 175.425
+      },
+      "sampler_span_us": {
+        "mean": 371.1369412579114,
+        "median": 365.05615234375,
+        "p95": 405.280029296875
+      },
+      "kernel_internal_gap_us": {
+        "mean": 205.95362480221513,
+        "median": 204.1921171875,
+        "p95": 251.04009374999998
+      },
+      "logits_ready_to_sample_gpu_us": {
+        "mean": 306.62360623516616,
+        "median": 294.495849609375,
+        "p95": 355.07177734375
+      },
+      "sampling_metadata_copy_us": {
+        "mean": 0.8765063291139245,
+        "median": 0.896,
+        "p95": 0.897
+      },
+      "sampling_metadata_host_us": {
+        "mean": 64.09458227848103,
+        "median": 62.851,
+        "p95": 73.503
+      },
+      "sample_to_d2h_gap_us": {
+        "mean": 62.53529531744462,
+        "median": 43.712158203125,
+        "p95": 90.59228515625
+      },
+      "d2h_us": {
+        "mean": 2.3967721518987344,
+        "median": 2.369,
+        "p95": 2.528
+      },
+      "stochastic_fused_kernel_us": {
+        "mean": 95.40498734177214,
+        "median": 95.328,
+        "p95": 96.288
+      },
+      "softmax_only_kernel_us": {
+        "mean": 5.347202531645569,
+        "median": 5.888,
+        "p95": 6.5920000000000005
+      },
+      "rng_kernel_us": {
+        "mean": 1.9224683544303804,
+        "median": 1.92,
+        "p95": 2.08
+      },
+      "step_wall_us": {
+        "mean": 65103.015696202536,
+        "median": 49044.119,
+        "p95": 51812.823
+      },
+      "steps": 79,
+      "kernel_fraction_of_decode_wall": 0.002537260596751917
+    },
+    "4-greedy": {
+      "sampler_kernel_count": {
+        "mean": 1.0,
+        "median": 1,
+        "p95": 1
+      },
+      "sampler_kernel_us": {
+        "mean": 16.244202531645563,
+        "median": 18.08,
+        "p95": 20.064
+      },
+      "sampler_span_us": {
+        "mean": 16.244196251977847,
+        "median": 18.080078125,
+        "p95": 20.06396484375
+      },
+      "kernel_internal_gap_us": {
+        "mean": -6.27966772135925e-06,
+        "median": -2.929687499886313e-05,
+        "p95": 0.00011132812500136424
+      },
+      "logits_ready_to_sample_gpu_us": {
+        "mean": 16.287202086629748,
+        "median": 10.43212890625,
+        "p95": 11.488037109375
+      },
+      "sampling_metadata_copy_us": {
+        "mean": 0.0,
+        "median": 0,
+        "p95": 0
+      },
+      "sampling_metadata_host_us": {
+        "mean": 0.0,
+        "median": 0,
+        "p95": 0
+      },
+      "sample_to_d2h_gap_us": {
+        "mean": 12.618550360957279,
+        "median": 10.27197265625,
+        "p95": 12.9599609375
+      },
+      "d2h_us": {
+        "mean": 2.4554683544303813,
+        "median": 2.4,
+        "p95": 2.655
+      },
+      "stochastic_fused_kernel_us": {
+        "mean": 0.0,
+        "median": 0,
+        "p95": 0
+      },
+      "softmax_only_kernel_us": {
+        "mean": 0.0,
+        "median": 0,
+        "p95": 0
+      },
+      "rng_kernel_us": {
+        "mean": 0.0,
+        "median": 0,
+        "p95": 0
+      },
+      "step_wall_us": {
+        "mean": 6164.354379746836,
+        "median": 6540.047,
+        "p95": 6804.022
+      },
+      "steps": 79,
+      "kernel_fraction_of_decode_wall": 0.0026351831077422085
+    }
+  },
+  "shard_validation": {
+    "1": {
+      "ranks": [
+        0
+      ],
+      "parameter_bytes_per_rank": [
+        15231233024
+      ],
+      "kv_blocks_per_rank": [
+        2038
+      ],
+      "weight_load_reports": [
+        {
+          "loaded_tensors": 339,
+          "expected_tensors": 339,
+          "missing": []
+        }
+      ],
+      "semantic_match": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "reference_inputs_match": null,
+      "reference_tokens_match": null
+    },
+    "2": {
+      "ranks": [
+        0,
+        1
+      ],
+      "parameter_bytes_per_rank": [
+        7615820800,
+        7615820800
+      ],
+      "kv_blocks_per_rank": [
+        4959,
+        4959
+      ],
+      "weight_load_reports": [
+        {
+          "loaded_tensors": 339,
+          "expected_tensors": 339,
+          "missing": []
+        },
+        {
+          "loaded_tensors": 339,
+          "expected_tensors": 339,
+          "missing": []
+        }
+      ],
+      "semantic_match": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "reference_inputs_match": true,
+      "reference_tokens_match": true
+    },
+    "4": {
+      "ranks": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "parameter_bytes_per_rank": [
+        3808114688,
+        3808114688,
+        3808114688,
+        3808114688
+      ],
+      "kv_blocks_per_rank": [
+        10742,
+        10742,
+        10742,
+        10742
+      ],
+      "weight_load_reports": [
+        {
+          "loaded_tensors": 339,
+          "expected_tensors": 339,
+          "missing": []
+        },
+        {
+          "loaded_tensors": 339,
+          "expected_tensors": 339,
+          "missing": []
+        },
+        {
+          "loaded_tensors": 339,
+          "expected_tensors": 339,
+          "missing": []
+        },
+        {
+          "loaded_tensors": 339,
+          "expected_tensors": 339,
+          "missing": []
+        }
+      ],
+      "semantic_match": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "reference_inputs_match": true,
+      "reference_tokens_match": true
+    }
+  },
+  "online-profile-tp4-greedy": {
+    "tp": 4,
+    "cuda_graph": true,
+    "gpu_busy_us": 1326752.8884277344,
+    "gpu_span_us": 2152005.6040039062,
+    "busy_ratio": 0.6165192534625603,
+    "kernel_count": 40980,
+    "kernel_sum_us": 1323990.635999948,
+    "nccl_sum_us": 143548.3979999999,
+    "nccl_count": 5568,
+    "outside_step_kernel_count": 0,
+    "phases": {
+      "prefill": {
+        "steps": 17,
+        "measurements": {
+          "wall_us": {
+            "mean": 94932.05188235294,
+            "median": 64452.636,
+            "p95": 65264.833
+          },
+          "gpu_busy_us": {
+            "mean": 57532.96357996324,
+            "median": 60617.678466796875,
+            "p95": 60747.87060546875
+          },
+          "kernel_sum_us": {
+            "mean": 57443.18594117643,
+            "median": 60520.783999999934,
+            "p95": 60650.97599999993
+          },
+          "nccl_count": {
+            "mean": 58.0,
+            "median": 58,
+            "p95": 58
+          },
+          "nccl_sum_us": {
+            "mean": 5152.982294117646,
+            "median": 5085.278999999998,
+            "p95": 5430.908999999999
+          },
+          "all_reduce_count": {
+            "mean": 57.0,
+            "median": 57,
+            "p95": 57
+          },
+          "all_reduce_sum_us": {
+            "mean": 5142.098588235293,
+            "median": 5075.070999999998,
+            "p95": 5417.435999999999
+          },
+          "gather_count": {
+            "mean": 1.0,
+            "median": 1,
+            "p95": 1
+          },
+          "gather_sum_us": {
+            "mean": 10.883705882352942,
+            "median": 10.336,
+            "p95": 13.473
+          },
+          "metadata_host_us": {
+            "mean": 603.5562352941176,
+            "median": 597.798,
+            "p95": 689.509
+          },
+          "sampling_metadata_host_us": {
+            "mean": 0.0,
+            "median": 0,
+            "p95": 0
+          },
+          "model_host_us": {
+            "mean": 82453.62758823528,
+            "median": 51018.971,
+            "p95": 52644.166
+          },
+          "sample_host_us": {
+            "mean": 281.3304705882352,
+            "median": 64.613,
+            "p95": 74.203
+          },
+          "token_sync_host_us": {
+            "mean": 10420.75970588235,
+            "median": 11611.045,
+            "p95": 13267.052
+          },
+          "tp.serialize_notify_host_us": {
+            "mean": 435.5515294117647,
+            "median": 406.827,
+            "p95": 636.762
+          },
+          "collective.gather_host_us": {
+            "mean": 221.16158823529412,
+            "median": 209.988,
+            "p95": 264.806
+          },
+          "collective.all_reduce_host_us": {
+            "mean": 10081.511588235293,
+            "median": 10103.533999999998,
+            "p95": 10309.455999999998
+          },
+          "scheduler.schedule_host_us": {
+            "mean": 117.6515882352941,
+            "median": 106.81,
+            "p95": 143.548
+          },
+          "scheduler.postprocess_host_us": {
+            "mean": 193.0898235294118,
+            "median": 167.384,
+            "p95": 252.232
+          }
+        }
+      },
+      "decode": {
+        "steps": 79,
+        "measurements": {
+          "wall_us": {
+            "mean": 6164.354379746836,
+            "median": 6540.047,
+            "p95": 6804.022
+          },
+          "gpu_busy_us": {
+            "mean": 4413.829209726068,
+            "median": 4743.033447265625,
+            "p95": 4768.533447265625
+          },
+          "kernel_sum_us": {
+            "mean": 4398.183227848101,
+            "median": 4724.856,
+            "p95": 4754.326999999992
+          },
+          "nccl_count": {
+            "mean": 58.0,
+            "median": 58,
+            "p95": 58
+          },
+          "nccl_sum_us": {
+            "mean": 708.1987215189874,
+            "median": 687.453,
+            "p95": 938.271
+          },
+          "all_reduce_count": {
+            "mean": 57.0,
+            "median": 57,
+            "p95": 57
+          },
+          "all_reduce_sum_us": {
+            "mean": 682.856746835443,
+            "median": 654.717,
+            "p95": 917.183
+          },
+          "gather_count": {
+            "mean": 1.0,
+            "median": 1,
+            "p95": 1
+          },
+          "gather_sum_us": {
+            "mean": 25.341974683544315,
+            "median": 26.815,
+            "p95": 34.304
+          },
+          "metadata_host_us": {
+            "mean": 291.5147215189872,
+            "median": 299.725,
+            "p95": 345.53
+          },
+          "sampling_metadata_host_us": {
+            "mean": 0.0,
+            "median": 0,
+            "p95": 0
+          },
+          "model_host_us": {
+            "mean": 1351.3120379746836,
+            "median": 1101.962,
+            "p95": 2336.614
+          },
+          "sample_host_us": {
+            "mean": 68.15824050632911,
+            "median": 66.157,
+            "p95": 88.512
+          },
+          "token_sync_host_us": {
+            "mean": 3474.834987341773,
+            "median": 3880.918,
+            "p95": 4091.735
+          },
+          "tp.serialize_notify_host_us": {
+            "mean": 492.91550632911395,
+            "median": 521.075,
+            "p95": 734.944
+          },
+          "collective.gather_host_us": {
+            "mean": 235.0967721518987,
+            "median": 230.441,
+            "p95": 257.374
+          },
+          "collective.all_reduce_host_us": {
+            "mean": 0.0,
+            "median": 0,
+            "p95": 0
+          },
+          "scheduler.schedule_host_us": {
+            "mean": 50.58856962025315,
+            "median": 53.227,
+            "p95": 68.428
+          },
+          "scheduler.postprocess_host_us": {
+            "mean": 57.61730379746835,
+            "median": 63.694,
+            "p95": 76.225
+          },
+          "linear_host_us": {
+            "mean": 229.24115189873422,
+            "median": 70.694,
+            "p95": 269.876
+          },
+          "linear_count": {
+            "mean": 1.0,
+            "median": 1,
+            "p95": 1
+          },
+          "cat_host_us": {
+            "mean": 24.545696202531637,
+            "median": 24.281,
+            "p95": 26.915
+          },
+          "graph_launch_host_us": {
+            "mean": 529.504658227848,
+            "median": 446.855,
+            "p95": 1304.402
+          },
+          "head_kernel_us": {
+            "mean": 83.22835443037971,
+            "median": 84.288,
+            "p95": 85.856
+          },
+          "head_kernel_count": {
+            "mean": 1.0,
+            "median": 1,
+            "p95": 1
+          },
+          "body_to_head_gap_us": {
+            "mean": 12.549236056170885,
+            "median": 6.68798828125,
+            "p95": 6.975830078125
+          },
+          "head_to_gather_gap_us": {
+            "mean": 18.028168883504748,
+            "median": 5.087890625,
+            "p95": 8.159912109375
+          }
+        }
+      }
+    }
+  }
+}

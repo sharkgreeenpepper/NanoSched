@@ -1,0 +1,54 @@
+INFO:     Started server process [244482]
+INFO:     Waiting for application startup.
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:48256 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48272 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48272 - "POST /generate HTTP/1.1" 200 OK
+ERROR: External init callback must run in same thread as registerClient (1933358656 != -893262720)
+USDT:2026-10-23 16:54:22 244482:244554 SyncActivityProfilerHandler.cpp:52] profiler_start
+INFO:     127.0.0.1:48278 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48294 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48310 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48316 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48320 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48330 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48340 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48354 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48364 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48380 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48396 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48406 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48408 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48420 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48436 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48440 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48452 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48464 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48472 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48486 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48488 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48492 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48506 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48520 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48528 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48540 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48546 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48558 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48562 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48564 - "POST /generate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48580 - "POST /generate HTTP/1.1" 200 OK
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/_inductor/async_compile.py:455: UserWarning: CUDA_HOME not set; using Triton's bundled libdevice which may cause minor precision differences in pow operations. To fix: set TRITON_LIBDEVICE_PATH to your CUDA toolkit's libdevice, e.g., export TRITON_LIBDEVICE_PATH=/usr/local/cuda/nvvm/libdevice/libdevice.10.bc
+  _set_triton_libdevice_path()
+USDT:2026-10-23 16:54:29 244482:244554 SyncActivityProfilerHandler.cpp:59] profiler_stop
+INFO:     127.0.0.1:48272 - "GET /health HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+/data1/fangdongqing/infra/runtime/nonprefix-kv-20261008/lib/python3.10/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+INFO:     Application shutdown complete.
+INFO:     Finished server process [244482]
